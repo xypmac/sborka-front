@@ -1,8 +1,6 @@
-import Main from '@/app/containers/main';
-import Wellcome from '@/app/containers/wellcome';
+import Main from '@/app/components/main';
+import Auth from '@/app/components/auth';
 
-export default function Home() {
-  const isLogin = false;
-
-  return isLogin ? <Main /> : <Wellcome />;
+export default function Users() {
+  return <Auth component={<Main />} />;
 }

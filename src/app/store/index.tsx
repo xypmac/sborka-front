@@ -3,7 +3,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import sessionSlice from './session';
 
 export const store = configureStore({
-  reducer: { sessionSlice },
+  reducer: { session: sessionSlice },
 });
 
 export type RootState = ReturnType<typeof store.getState>;

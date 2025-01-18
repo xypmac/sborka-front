@@ -1,23 +1,27 @@
 'use client';
 
 import { useState } from 'react';
+import { useSelector } from 'react-redux';
 
+import Loader from '@/app/components/loader';
+import { RootState } from '@/app/store';
 import { AUTHORIZATION_MODE } from '@/app/constants';
-import WellcomeForm from '@/app/containers/wellcome-form';
 
+import Login from './login';
+import Registration from './registration';
 import styles from './styles.module.scss';
 
 export default function Wellcome() {
+  const { wait } = useSelector((state: RootState) => ({
+    wait: state.session.wait,
+  }));
+
   const [mode, setMode] = useState(AUTHORIZATION_MODE.LOGIN);
 
   const isLoginMode = mode === AUTHORIZATION_MODE.LOGIN;
-  const heading = isLoginMode ? 'С возвращением!' : 'Добро пожаловать!';
-  const subheading = isLoginMode
-    ? 'Укажите вашу почту и пароль'
-    : 'Создайте аккаунт';
   const action = isLoginMode ? 'Нет аккаунта' : 'Есть аккаунт';
 
-  const onClickHandler = () => {
+  const onChangeModeHandler = () => {
     if (isLoginMode) {
       setMode(AUTHORIZATION_MODE.REGISTRATION);
     } else {
@@ -28,10 +32,9 @@ export default function Wellcome() {
   return (
     <div className={styles.wellcome}>
       <div className={styles.block}>
-        <p className={styles.heading}>{heading}</p>
-        <p className={styles.subheading}>{subheading}</p>
-        <WellcomeForm isLoginMode={isLoginMode} />
-        <span className={styles.action} onClick={onClickHandler}>
+        {wait && <Loader />}
+        {isLoginMode ? <Login /> : <Registration />}
+        <span className={styles.action} onClick={onChangeModeHandler}>
           {action}
         </span>
       </div>

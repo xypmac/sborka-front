@@ -4,6 +4,7 @@
   background-color: #514fe4;
   color: #ffffff;
   width: max-content;
+  height: max-content;
   padding: 10px 20px;
   border-radius: 5px;
   cursor: pointer;
@@ -12,5 +13,14 @@
 
   &:hover {
     background-color: #4b49d8;
+  }
+
+  &.disabled {
+    cursor: default;
+    background-color: #b4b4b4;
+
+    &:hover {
+      background-color: #b4b4b4;
+    }
   }
 }

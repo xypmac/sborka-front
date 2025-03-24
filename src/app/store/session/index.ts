@@ -30,7 +30,7 @@ const sessionSlice = createSlice({
       state.user = null;
       state.isAdmin = false;
       state.isTaskmaster = false;
-      nookies.destroy(null, 'token', { path: '/', domain: 'localhost' });
+      nookies.destroy(null, 'token', { path: '/' });
     },
     clearError(state) {
       state.error = null;

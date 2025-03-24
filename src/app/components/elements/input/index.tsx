@@ -13,6 +13,7 @@ export default function Input({
   placeholder,
   error,
   onChange,
+  type = 'text',
   isDisable = false,
 }: InputProps) {
   return (
@@ -22,7 +23,7 @@ export default function Input({
         className={cn(styles.input, error && styles.inputError)}
         name={name}
         id={name}
-        type='text'
+        type={type}
         placeholder={placeholder}
         onChange={(e) => onChange(e.target.value, name)}
         disabled={isDisable}

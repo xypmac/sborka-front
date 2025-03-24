@@ -65,6 +65,7 @@ export default function Login({ serverError }: LoginProps) {
         />
         <Input
           name='password'
+          type='password'
           placeholder='Пароль'
           register={register}
           error={errors.password?.message || null}

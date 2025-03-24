@@ -7,4 +7,5 @@ export type InputProps = {
   error: string | null;
   onChange: (value: string, field: any) => void;
   isDisable?: boolean;
+  type?: string;
 };

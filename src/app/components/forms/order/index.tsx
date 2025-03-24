@@ -5,7 +5,7 @@ import { useForm, SubmitHandler, Controller } from 'react-hook-form';
 import cn from 'classnames';
 import DatePicker from 'react-datepicker';
 import { yupResolver } from '@hookform/resolvers/yup';
-import ru from 'date-fns/locale/ru';
+import { ru } from 'date-fns/locale';
 
 import Select from '@/app/components/elements/select';
 import Button from '@/app/components/elements/button';

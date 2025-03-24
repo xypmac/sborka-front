@@ -5,7 +5,7 @@ import DatePicker from 'react-datepicker';
 import { useDispatch } from 'react-redux';
 import { format } from 'date-fns';
 import Link from 'next/link';
-import ru from 'date-fns/locale/ru';
+import { ru } from 'date-fns/locale';
 
 import Button from '@/app/components/elements/button';
 import Select from '@/app/components/elements/select';

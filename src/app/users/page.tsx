@@ -1,6 +1,6 @@
-import UsersComponent from '@/app/components/users';
-import Auth from '@/app/components/auth';
+import UsersList from '@/app/containers/users';
+import General from '@/app/containers/general';
 
 export default function Users() {
-  return <Auth component={<UsersComponent />} />;
+  return <General component={<UsersList />} />;
 }

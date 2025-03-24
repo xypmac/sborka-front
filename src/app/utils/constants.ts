@@ -1,0 +1,51 @@
+export const WELCOME_MODE = {
+  LOGIN: 'login',
+  REGISTRATION: 'registration',
+};
+
+export const REG_EXP = {
+  PASSWORD: /^[a-zA-Z\d#?!@$%^&*-]+$/,
+  LOGIN: /^[a-zA-Z0-9]*$/,
+  PHONE: /^[0-9]*$/,
+  EMAIL: /^[-\w.]+@([A-z0-9][-A-z0-9]+\D)+[A-z]{2,4}$/,
+};
+
+export const PAGES = {
+  MAIN: '/',
+  USERS: '/users',
+  USER: '/user/[id]',
+};
+
+export const API = 'https://sborkatestqwety.ru/api/v1';
+
+export const SERVER_ERRORS = [400, 404, 500];
+
+export const EXPIRED_TOKEN_ERROR = 'Срoк токена истек. Пройдите авторизацию';
+
+export const USERS_GROUP = [
+  {
+    id: 7,
+    title: 'Сборщик',
+  },
+  {
+    id: 9,
+    title: 'Замерщик',
+  },
+  {
+    id: 8,
+    title: 'Салон',
+  },
+];
+
+export const ACTIVITY_GROUP = [
+  { id: 1, title: 'Активен' },
+  { id: 2, title: 'Не активен' },
+];
+
+export const ORDER_STATUS_GROUP = [
+  { id: 5, title: 'Новая' },
+  { id: 6, title: 'В работе' },
+  { id: 7, title: 'Выполнено' },
+  { id: 8, title: 'Приостановлено' },
+  { id: 9, title: 'Отменненая сборка' },
+];

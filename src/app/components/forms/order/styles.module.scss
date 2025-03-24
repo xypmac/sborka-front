@@ -1,0 +1,72 @@
+.content {
+  max-width: 468px;
+  display: flex;
+  gap: 20px;
+  flex-direction: column;
+
+  &.wait {
+    opacity: 0.5;
+  }
+}
+
+.header {
+  font-size: 20px;
+}
+
+.id {
+  font-weight: 700;
+  color: #5c3bfe;
+}
+
+.item {
+  display: flex;
+  gap: 4px;
+  flex-direction: column;
+}
+
+.label {
+  font-size: 14px;
+  color: #adaabc;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  gap: 10px;
+}
+
+.active {
+  color: #e13b3b;
+  display: flex;
+  gap: 8px;
+  flex-direction: column;
+}
+
+.datepicker {
+  outline: none;
+  border: 1px solid #514fe4;
+  color: #514fe4;
+  background-color: #fff;
+  width: max-content;
+  height: 40px;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  width: 100%;
+  transition: all 200ms ease;
+
+  &.disabled {
+    background-color: #eaeaea;
+    border: 1px solid #a8a8a8;
+    color: #747281;
+    cursor: default;
+  }
+}
+
+.dates {
+  display: flex;
+  height: 60px;
+  gap: 24px;
+}

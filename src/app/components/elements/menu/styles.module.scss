@@ -1,0 +1,39 @@
+.menu {
+  width: 100%;
+  max-width: 200px;
+  border-right: 2px solid #e7e7e7;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.elem {
+  a {
+    cursor: pointer;
+    transition: all 200ms ease;
+
+    &:hover {
+      color: #5c3bfe;
+    }
+  }
+
+  &.active {
+    a {
+      color: #5c3bfe;
+    }
+  }
+}
+
+.action {
+  margin-top: 20px;
+  cursor: pointer;
+  color: #adaabc;
+  transition: all 200ms ease;
+
+  &:hover {
+    color: #140c40;
+  }
+}

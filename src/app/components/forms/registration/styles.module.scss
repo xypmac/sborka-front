@@ -1,0 +1,22 @@
+.heading {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 5px;
+}
+
+.subheading {
+  font-size: 18px;
+  color: #7f7f7f;
+}
+
+.form {
+  display: flex;
+  gap: 20px;
+  flex-direction: column;
+  margin: 20px 0 10px 0;
+}
+
+.error {
+  font-size: 14px;
+  color: #e13b3b;
+}

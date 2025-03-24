@@ -1,0 +1,46 @@
+.filter {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.select {
+  width: 200px;
+}
+
+.action {
+  cursor: pointer;
+}
+
+.input {
+  width: 200px;
+  outline: none;
+  border-radius: 5px;
+  padding: 5px 10px;
+  color: #140c40;
+  font-size: 16px;
+  background-color: #fff;
+  border: 1px solid #a8a8a8;
+
+  &::placeholder {
+    color: #adaabc;
+  }
+}
+
+.datepicker {
+  outline: none;
+  border: 1px solid #514fe4;
+  color: #514fe4;
+  background-color: #fff;
+  width: max-content;
+  height: 40px;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: all 200ms ease;
+}
+
+.link {
+  color: #514fe4;
+}

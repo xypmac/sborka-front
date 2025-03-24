@@ -1,0 +1,25 @@
+.comments {
+  display: flex;
+  gap: 20px;
+  max-width: 468px;
+  flex-direction: column;
+}
+
+.item {
+  display: flex;
+  gap: 4px;
+  flex-direction: column;
+}
+
+.label {
+  font-size: 14px;
+  color: #adaabc;
+}
+
+.comment {
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  background-color: #eaeaea;
+  border: 1px solid #a8a8a8;
+}

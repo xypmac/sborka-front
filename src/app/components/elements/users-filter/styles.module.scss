@@ -1,0 +1,27 @@
+.filter {
+  display: flex;
+  gap: 12px;
+}
+
+.select {
+  width: 200px;
+}
+
+.action {
+  cursor: pointer;
+}
+
+.input {
+  width: 200px;
+  outline: none;
+  border-radius: 5px;
+  padding: 5px 10px;
+  color: #140c40;
+  font-size: 16px;
+  background-color: #fff;
+  border: 1px solid #a8a8a8;
+
+  &::placeholder {
+    color: #adaabc;
+  }
+}

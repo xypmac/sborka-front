@@ -1,72 +1,88 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import nookies from 'nookies';
-import axios from 'axios';
 
-type SessionType = {
-  wait: boolean;
-  token: string | null;
-  error: string | null;
-};
+import nookies from 'nookies';
+
+import getUserGroupText from '@/app/utils/get-user-group-text';
+
+import { remind, login, registration, update } from './thunks';
+import { SessionType } from './type';
 
 export const initialState: SessionType = {
+  user: null,
   token: null,
   error: null,
+  errorSave: null,
+  isAdmin: false,
+  isTaskmaster: false,
+  isBuilder: false,
+  isMasurer: false,
+  isSalon: false,
+  isWaitSave: false,
   wait: false,
 };
-
-const saveToken = (token: string) => {
-  const cookieMaxAge = 365 * 24 * 60 * 60;
-
-  nookies.set(null, 'token', token, {
-    maxAge: cookieMaxAge,
-    path: '/',
-    domain: 'localhost',
-  });
-};
-
-export const login = createAsyncThunk(
-  'session/login',
-  async (data: any, { getState }) => {
-    console.log(data);
-
-    const res = await axios({
-      method: 'get',
-      url: 'https://fakerapi.it/api/v2/persons',
-      data: {
-        firstName: 'Fred',
-        lastName: 'Flintstone',
-      },
-    });
-    console.log(res);
-    if (res.data.code === 200) {
-      saveToken('s');
-    }
-  }
-);
-
-export const registration = createAsyncThunk(
-  'session/registration',
-  async (data: any) => {
-    console.log(data);
-  }
-);
 
 const sessionSlice = createSlice({
   name: 'session',
   initialState,
-  reducers: {},
+  reducers: {
+    exit: (state) => {
+      state.token = null;
+      state.user = null;
+      state.isAdmin = false;
+      state.isTaskmaster = false;
+      nookies.destroy(null, 'token', { path: '/', domain: 'localhost' });
+    },
+    clearError(state) {
+      state.error = null;
+    },
+  },
   extraReducers: (builder) => {
+    builder.addCase(remind.pending, (state) => {
+      state.wait = true;
+    });
+    builder.addCase(remind.fulfilled, (state, action) => {
+      state.wait = false;
+      state.error = null;
+
+      if (action.payload) {
+        const group = getUserGroupText(action.payload.user.GROUP_ID);
+        if (group === 'Aдминистратор') state.isAdmin = true;
+        if (group === 'Бригадир') state.isTaskmaster = true;
+        if (group === 'Сборщик') state.isBuilder = true;
+        if (group === 'Замерщик') state.isMasurer = true;
+        if (group === 'Салон') state.isSalon = true;
+
+        state.token = action.payload.token;
+        state.user = action.payload.user;
+      }
+    });
+    builder.addCase(remind.rejected, (state, action) => {
+      state.wait = false;
+      state.error = action.payload as string;
+    });
+
     builder.addCase(login.pending, (state) => {
       state.wait = true;
     });
     builder.addCase(login.fulfilled, (state, action) => {
       state.wait = false;
       state.error = null;
-      state.token = 'sdf';
+
+      if (action.payload) {
+        const group = getUserGroupText(action.payload.user.GROUP_ID);
+        if (group === 'Aдминистратор') state.isAdmin = true;
+        if (group === 'Бригадир') state.isTaskmaster = true;
+        if (group === 'Сборщик') state.isBuilder = true;
+        if (group === 'Замерщик') state.isMasurer = true;
+        if (group === 'Салон') state.isSalon = true;
+
+        state.token = action.payload.token;
+        state.user = action.payload.user;
+      }
     });
-    builder.addCase(login.rejected, (state) => {
+    builder.addCase(login.rejected, (state, action) => {
       state.wait = false;
-      state.error = 'Что-то пошло не так! Попробуйте еще раз!';
+      state.error = action.payload as string;
     });
 
     builder.addCase(registration.pending, (state) => {
@@ -76,11 +92,25 @@ const sessionSlice = createSlice({
       state.wait = false;
       state.error = null;
     });
-    builder.addCase(registration.rejected, (state) => {
+    builder.addCase(registration.rejected, (state, action) => {
       state.wait = false;
-      state.error = 'Что-то пошло не так! Попробуйте еще раз!';
+      state.error = action.payload as string;
+    });
+
+    builder.addCase(update.pending, (state) => {
+      state.isWaitSave = true;
+    });
+    builder.addCase(update.fulfilled, (state, action) => {
+      state.isWaitSave = false;
+      state.errorSave = null;
+    });
+    builder.addCase(update.rejected, (state, action) => {
+      state.isWaitSave = false;
+      state.errorSave = action.payload as string;
     });
   },
 });
 
 export default sessionSlice.reducer;
+
+export const { exit, clearError } = sessionSlice.actions;

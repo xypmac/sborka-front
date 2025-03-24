@@ -1,0 +1,47 @@
+'use client';
+
+import { useState } from 'react';
+import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+
+import Loader from '@/app/components/elements/loader';
+import Login from '@/app/components/forms/login';
+import Registration from '@/app/components/forms/registration';
+import { AppDispatch, RootState } from '@/app/store';
+import { WELCOME_MODE } from '@/app/utils/constants';
+import { clearError } from '@/app/store/session';
+
+import styles from './styles.module.scss';
+
+export default function Wellcome() {
+  const { wait, serverError } = useSelector((state: RootState) => ({
+    wait: state.session.wait,
+    serverError: state.session.error,
+  }));
+
+  const [mode, setMode] = useState(WELCOME_MODE.LOGIN);
+  const dispatch: AppDispatch = useDispatch();
+
+  const isLoginMode = mode === WELCOME_MODE.LOGIN;
+
+  const onChangeModeHandler = () => {
+    setMode(isLoginMode ? WELCOME_MODE.REGISTRATION : WELCOME_MODE.LOGIN);
+    dispatch(clearError());
+  };
+
+  return (
+    <div className={styles.wellcome}>
+      <div className={styles.block}>
+        {wait && <Loader />}
+        {isLoginMode ? (
+          <Login serverError={serverError} />
+        ) : (
+          <Registration serverError={serverError} />
+        )}
+        <span className={styles.action} onClick={onChangeModeHandler}>
+          {isLoginMode ? 'Регистрация' : 'Есть аккаунт'}
+        </span>
+      </div>
+    </div>
+  );
+}

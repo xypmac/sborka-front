@@ -1,6 +1,6 @@
-import Main from '@/app/components/main';
-import Auth from '@/app/components/auth';
+import OrdersList from '@/app/containers/orders';
+import General from '@/app/containers/general';
 
-export default function Users() {
-  return <Auth component={<Main />} />;
+export default function Home() {
+  return <General component={<OrdersList />} />;
 }

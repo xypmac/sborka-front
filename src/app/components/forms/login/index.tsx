@@ -4,7 +4,6 @@ import { useEffect } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useDispatch } from 'react-redux';
-import { redirect, usePathname } from 'next/navigation';
 
 import Error from '@/app/components/elements/error';
 import Button from '@/app/components/elements/button';

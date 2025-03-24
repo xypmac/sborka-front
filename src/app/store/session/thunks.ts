@@ -10,7 +10,7 @@ const setToken = (token: string) => {
   nookies.set(null, 'token', token, {
     maxAge: cookieMaxAge,
     path: '/',
-    domain: 'localhost',
+    domain: '.vercel.app',
   });
 };
 

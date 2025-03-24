@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { Roboto } from 'next/font/google';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 
 import ReduxProvider from './redux-provider';
 
@@ -25,6 +26,7 @@ export default function RootLayout({
     <html lang='en'>
       <body className={roboto.className}>
         <ReduxProvider>{children}</ReduxProvider>
+        <SpeedInsights />
       </body>
     </html>
   );

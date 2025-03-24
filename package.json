@@ -12,6 +12,7 @@
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",
     "@reduxjs/toolkit": "^2.5.0",
+    "@vercel/speed-insights": "^1.2.0",
     "axios": "^1.7.9",
     "classnames": "^2.5.1",
     "lodash.debounce": "^4.0.8",

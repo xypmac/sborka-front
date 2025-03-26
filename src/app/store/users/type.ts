@@ -11,7 +11,6 @@ export type User = {
 };
 
 export type UsersType = {
-  currentUser: User | null;
   users: User[] | [];
   usersTotal: number;
   wait: boolean;

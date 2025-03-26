@@ -15,7 +15,6 @@ import { AppDispatch } from '@/app/store';
 import { clearError } from '@/app/store/users';
 import getPhoneFormat from '@/app/utils/get-phone-number';
 import { update } from '@/app/store/session/thunks';
-import { activeUserById } from '@/app/store/users/thunks';
 
 import schema from './schema';
 import { ProfileProps, Fields } from './types';
@@ -24,8 +23,11 @@ import styles from './styles.module.scss';
 export default function User({
   user,
   serverError = null,
+  isWide = false,
   isWait = false,
-  isJustWatchMode = false,
+  isAllowEdit = false,
+  onActiveUser,
+  onUpdateUser,
 }: ProfileProps) {
   const dispatch: AppDispatch = useDispatch();
 
@@ -62,16 +64,22 @@ export default function User({
   };
 
   const onSubmitHandler: SubmitHandler<Fields> = (data) => {
-    dispatch(update({ ...data, id: user.ID }));
-  };
-
-  const onActiveUserHandler = () => {
-    dispatch(activeUserById(user.ID));
+    if (onUpdateUser)
+      onUpdateUser({
+        phone: data.phone,
+        address: data.address || '',
+        id: user.ID,
+      });
+    else dispatch(update({ ...data, id: user.ID }));
   };
 
   return (
     <form
-      className={cn(styles.content, isWait && styles.wait)}
+      className={cn(
+        styles.content,
+        isWait && styles.wait,
+        isWide && styles.wide
+      )}
       onSubmit={handleSubmit(onSubmitHandler)}
     >
       <input {...register('type')} hidden />
@@ -95,7 +103,6 @@ export default function User({
         <p className={styles.label}>Телефон</p>
         <Input
           name='phone'
-          isDisable={isJustWatchMode}
           placeholder='Номер телефона'
           register={register}
           error={errors.phone?.message || null}
@@ -130,26 +137,22 @@ export default function User({
       )}
       {serverError && <Error error={serverError} />}
 
-      {!isJustWatchMode ? (
-        user.ACTIVE === 'N' && (
-          <>
-            <span className={styles.active}>
-              Пользователь еще не активирован
+      {isAllowEdit && user.ACTIVE === 'N' && (
+        <>
+          <p>
+            Пользователь еще не активирован!{' '}
+            <span className={styles.action} onClick={onActiveUser}>
+              Активировать
             </span>
-            <Button
-              text='Активировать'
-              type='button'
-              onClick={onActiveUserHandler}
-            />
-          </>
-        )
-      ) : (
-        <Button
-          text='Сохранить'
-          type='submit'
-          isDisabled={Object.keys(errors).length !== 0}
-        />
+          </p>
+        </>
       )}
+
+      <Button
+        text='Сохранить'
+        type='submit'
+        isDisabled={Object.keys(errors).length !== 0}
+      />
     </form>
   );
 }

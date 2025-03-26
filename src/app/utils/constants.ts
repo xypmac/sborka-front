@@ -19,6 +19,7 @@ export const PAGES = {
 export const API = 'https://sborkatestqwety.ru/api/v1';
 
 export const SERVER_ERRORS = [400, 404, 500];
+export const SERVER_OK = [200];
 
 export const EXPIRED_TOKEN_ERROR = 'Срoк токена истек. Пройдите авторизацию';
 

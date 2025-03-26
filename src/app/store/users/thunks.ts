@@ -3,63 +3,6 @@ import nookies from 'nookies';
 
 import { API, SERVER_ERRORS } from '@/app/utils/constants';
 
-export const getUserById = createAsyncThunk(
-  'session/getUserById',
-  async (id: string, { rejectWithValue }) => {
-    try {
-      let formData = new FormData();
-      formData.append('ID', id);
-
-      const response = await fetch(`${API}/users/getById`, {
-        method: 'post',
-        body: formData,
-        headers: {
-          Authorization: `Bearer ${nookies.get().token}`,
-        },
-      });
-
-      if (response.status === 200) {
-        const data = await response.json();
-        return { ...data.message };
-      }
-
-      if (SERVER_ERRORS.includes(response.status)) {
-        const data = await response.json();
-        console.error(data.message);
-        return rejectWithValue('Не удалось получить данные пользователя.');
-      }
-    } catch (e) {
-      return rejectWithValue('Не удалось получить данные пользователя.');
-    }
-  }
-);
-
-export const activeUserById = createAsyncThunk(
-  'session/activeUserById',
-  async (id: string, { rejectWithValue }) => {
-    try {
-      let formData = new FormData();
-      formData.append('ID', id);
-
-      const response = await fetch(`${API}/users/setActive`, {
-        method: 'post',
-        body: formData,
-        headers: {
-          Authorization: `Bearer ${nookies.get().token}`,
-        },
-      });
-
-      if (SERVER_ERRORS.includes(response.status)) {
-        const data = await response.json();
-        console.error(data.message);
-        return rejectWithValue('Не удалось активировать пользователя');
-      }
-    } catch (e) {
-      return rejectWithValue('Не удалось активировать пользователя');
-    }
-  }
-);
-
 export const getUsers = createAsyncThunk(
   '/users/getList',
   async (

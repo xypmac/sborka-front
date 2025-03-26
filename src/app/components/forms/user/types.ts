@@ -4,7 +4,18 @@ export type ProfileProps = {
   user: User;
   serverError?: string | null;
   isWait?: boolean;
-  isJustWatchMode?: boolean;
+  isWide?: boolean;
+  isAllowEdit?: boolean;
+  onActiveUser?: () => void;
+  onUpdateUser?: ({
+    phone,
+    address,
+    id,
+  }: {
+    phone: string;
+    address: string;
+    id: string;
+  }) => void;
 };
 
 export type Fields = {

@@ -152,7 +152,6 @@ export const update = createAsyncThunk(
     let formData = new FormData();
 
     formData.append(`PROPS[PHONE_NUMBER]`, getStringNumber(phone));
-
     address && formData.append(`PROPS[WORK_STREET]`, address);
 
     try {

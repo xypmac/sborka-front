@@ -7,6 +7,11 @@
   &.wait {
     opacity: 0.5;
   }
+
+  &.wide {
+    width: 100%;
+    max-width: 100%;
+  }
 }
 
 .header {
@@ -40,9 +45,7 @@
   gap: 10px;
 }
 
-.active {
-  color: #e13b3b;
-  display: flex;
-  gap: 8px;
-  flex-direction: column;
+.action {
+  cursor: pointer;
+  color: #5c3bfe;
 }

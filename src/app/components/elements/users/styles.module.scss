@@ -53,13 +53,7 @@
 }
 
 .status {
-  &.yes {
-    color: green;
-  }
-
-  &.no {
-    color: red;
-  }
+  max-width: 80px;
 }
 
 .select {

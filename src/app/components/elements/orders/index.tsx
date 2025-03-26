@@ -28,9 +28,9 @@ export default function Orders({
       ) : (
         <>
           <div className={styles.header}>
-            <p>Номер заказа</p>
+            <p style={{ maxWidth: '120px' }}>Номер заказа</p>
             <p>ФИО клиента</p>
-            <p>Номер телефона клиента</p>
+            <p style={{ maxWidth: '130px' }}>Номер клиента</p>
             <p>Адресс</p>
             <p>Статус</p>
             <p />
@@ -39,9 +39,9 @@ export default function Orders({
             {orders.map((order: Order) => {
               return (
                 <div className={styles.elem} key={order.ORDER_ID}>
-                  <p>{order.ORDER_ID}</p>
+                  <p style={{ maxWidth: '120px' }}>{order.ORDER_ID}</p>
                   <p>{order.FIO}</p>
-                  <p>{order.PHONE_CLIENT}</p>
+                  <p style={{ maxWidth: '130px' }}>{order.PHONE_CLIENT}</p>
                   <p>{order.ADDRESS}</p>
                   <p>{getOrderStatusText(order.STATUS)}</p>
                   <p>

@@ -28,6 +28,7 @@
 }
 
 .status {
+  max-width: 80px;
   &.yes {
     color: green;
   }

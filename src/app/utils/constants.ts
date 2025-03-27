@@ -38,9 +38,12 @@ export const USERS_GROUP = [
   },
 ];
 
+export const USERS_GROUP_FILTER = [...USERS_GROUP, { id: 0, title: 'Все' }];
+
 export const ACTIVITY_GROUP = [
   { id: 1, title: 'Активен' },
   { id: 2, title: 'Не активен' },
+  { id: 3, title: 'Все' },
 ];
 
 export const ORDER_STATUS_GROUP = [

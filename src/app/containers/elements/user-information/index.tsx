@@ -76,8 +76,9 @@ export default function UserInformation({ id, onHide }: UserInformationProps) {
     address: string;
   }) => {
     setIsWaitUpdating(true);
-
+    console.log(id);
     let formData = new FormData();
+    formData.append(`ID`, id);
     formData.append(`PROPS[PHONE_NUMBER]`, getStringNumber(phone));
     address && formData.append(`PROPS[WORK_STREET]`, address);
 

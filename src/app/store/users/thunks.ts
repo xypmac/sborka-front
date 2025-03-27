@@ -32,9 +32,18 @@ export const getUsers = createAsyncThunk(
       formData.append('limit', '10');
 
       // фильтр по группе
-      const groupId = data?.group || null;
-      const groupIdFromState =
-        users.filter.group !== '0' ? users.filter.group : null;
+      const groupId = data?.group
+        ? data.group === '0'
+          ? null
+          : data.group
+        : null;
+
+      const groupIdFromState = users.filter.group
+        ? users.filter.group === '0'
+          ? null
+          : users.filter.group
+        : null;
+
       (groupId || groupIdFromState) &&
         formData.append('filter[GROUP_ID]', groupId || groupIdFromState);
 
@@ -44,7 +53,9 @@ export const getUsers = createAsyncThunk(
 
       // фильтр по активности
       const active = data?.active || users.filter.active || null;
-      active && formData.append('filter[ACTIVE]', active === '1' ? 'Y' : 'N');
+      active &&
+        active !== '3' &&
+        formData.append('filter[ACTIVE]', active === '1' ? 'Y' : 'N');
 
       const response = await fetch(`${API}/users/getList`, {
         method: 'post',

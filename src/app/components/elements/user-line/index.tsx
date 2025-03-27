@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import cn from 'classnames';
+import { FaRegUserCircle } from 'react-icons/fa';
 
 import UserInformation from '@/app/containers/elements/user-information';
 
@@ -24,16 +25,15 @@ export default function UserLine({
       {isShowInfo && (
         <UserInformation id={id} onHide={() => setIsShowInfo(false)} />
       )}
-      <p className={styles.email}>{email}</p>
+      <p className={styles.action} onClick={() => setIsShowInfo(true)}>
+        {company}
+      </p>
+      <p>{name}</p>
       <p className={styles.phone}>{phone || '-'}</p>
+      <p className={styles.email}>{email}</p>
+      <p>{street}</p>
       <p className={cn(styles.status, active === 'Y' ? styles.yes : styles.no)}>
         {active === 'Y' ? 'Да' : 'Нет'}
-      </p>
-      <p>{company}</p>
-      <p>{street}</p>
-      <p>{name}</p>
-      <p className={styles.action} onClick={() => setIsShowInfo(true)}>
-        Cмотреть профиль
       </p>
     </div>
   );

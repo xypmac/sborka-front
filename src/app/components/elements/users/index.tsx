@@ -20,13 +20,12 @@ export default function Users({ users, isWait, total, loadMore }: UsersProps) {
       ) : (
         <>
           <div className={styles.header}>
-            <p className={styles.email}>E-mail</p>
-            <p className={styles.phone}>Телефон</p>
-            <p className={styles.status}>Активен</p>
             <p>Название контрагента</p>
-            <p>Адрес</p>
             <p>ФИО</p>
-            <p />
+            <p className={styles.phone}>Телефон</p>
+            <p className={styles.email}>E-mail</p>
+            <p>Адрес</p>
+            <p className={styles.status}>Активен</p>
           </div>
           <div className={styles.list}>
             {users.map((user: User) => {

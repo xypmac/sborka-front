@@ -15,7 +15,12 @@
   font-size: 15px;
 
   & > p {
+    text-align: center;
     width: calc(100% / 6);
+
+    &:first-child {
+      text-align: left;
+    }
   }
 }
 
@@ -50,12 +55,4 @@
       color: #5c3bfe;
     }
   }
-}
-
-.status {
-  max-width: 80px;
-}
-
-.select {
-  max-width: 200px;
 }

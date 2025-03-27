@@ -19,6 +19,7 @@
     -webkit-box-orient: vertical;
     overflow: hidden;
     word-break: break-word;
+    text-align: center;
 
     a {
       font-size: 15px;
@@ -28,7 +29,6 @@
 }
 
 .status {
-  max-width: 80px;
   &.yes {
     color: green;
   }
@@ -38,7 +38,8 @@
   }
 }
 
-.action {
+p.action {
   cursor: pointer;
   color: #5c3bfe;
+  text-align: left;
 }

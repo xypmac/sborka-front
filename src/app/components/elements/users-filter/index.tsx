@@ -10,7 +10,7 @@ import { getUsers } from '@/app/store/users/thunks';
 import { setFilter } from '@/app/store/users';
 import getUserGroupText from '@/app/utils/get-user-group-text';
 import getUserActivityText from '@/app/utils/get-user-activity-text';
-import { USERS_GROUP, ACTIVITY_GROUP } from '@/app/utils/constants';
+import { USERS_GROUP_FILTER, ACTIVITY_GROUP } from '@/app/utils/constants';
 
 import styles from './styles.module.scss';
 
@@ -40,7 +40,7 @@ export default function UsersFilter() {
         <Select
           defaultOption='Тип пользователя'
           onSelect={(value: string) => setGroup(value)}
-          options={USERS_GROUP}
+          options={USERS_GROUP_FILTER}
           error={null}
           value={getUserGroupText(group)}
         />

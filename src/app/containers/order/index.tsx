@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'next/navigation';
 
+import Loader from '@/app/components/elements/loader';
 import UserInformation from '@/app/containers/elements/user-information';
 import MainLayout from '@/app/layouts/main-layout';
 import OrderForm from '@/app/components/forms/order';
@@ -20,7 +21,7 @@ export default function Order() {
   const [userId, setUserId] = useState('');
   const {
     currentOrder,
-    users,
+    isUsersWait,
     isWait,
     isAdmin,
     isTaskmaster,
@@ -29,7 +30,7 @@ export default function Order() {
     isSalon,
   } = useSelector((state: RootState) => ({
     currentOrder: state.orders.currentOrder,
-    users: state.users.users,
+    isUsersWait: state.users.wait,
     isWait: state.orders.isWait,
     isAdmin: state.session.isAdmin,
     isTaskmaster: state.session.isTaskmaster,
@@ -77,27 +78,27 @@ export default function Order() {
     }
   };
 
-  const onShowModalHandler = (id: string) => {
-    return;
-  };
-
   return (
     <MainLayout>
-      {currentOrder && (
+      {isUsersWait || isWait ? (
+        <Loader borderRadius={5} />
+      ) : (
         <>
-          <Heading>
-            <>
-              Заказ
-              <p style={{ fontWeight: '700', color: '#5c3bfe' }}>
-                #{currentOrder.ORDER_ID}
-              </p>
-            </>
-          </Heading>
+          {currentOrder && (
+            <Heading>
+              <>
+                Заказ
+                <p style={{ fontWeight: '700', color: '#5c3bfe' }}>
+                  #{currentOrder.ORDER_ID}
+                </p>
+              </>
+            </Heading>
+          )}
           <OrderTabs onSetTab={(tab: number) => setTab(tab)} active={tab} />
           {userId !== '' && (
             <UserInformation id={userId} onHide={() => setUserId('')} />
           )}
-          {tab === 1 && (
+          {tab === 1 && currentOrder && (
             <OrderForm
               isWait={isWait}
               order={currentOrder}
@@ -110,7 +111,7 @@ export default function Order() {
               onUpdateOrder={onUpdateOrderHandler}
             />
           )}
-          {tab === 2 && (
+          {tab === 2 && currentOrder && (
             <OrderComments
               COMMENT_SALON={currentOrder.COMMENT_SALON || []}
               COMMENT_WORKER={currentOrder.COMMENT_WORKER || []}
@@ -118,7 +119,7 @@ export default function Order() {
               isBuilder={isBuilder}
             />
           )}
-          {tab === 3 && (
+          {tab === 3 && currentOrder && (
             <OrderFiles
               isBuilder={isBuilder}
               isSalon={isSalon}

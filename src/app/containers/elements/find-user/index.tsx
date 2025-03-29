@@ -5,7 +5,6 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import FindUserComponent from '@/app/components/elements/find-user';
 import { AppDispatch, RootState } from '@/app/store';
-import { getUsers } from '@/app/store/users/thunks';
 import { User } from '@/app/store/users/type';
 
 import { FindUserProps } from './types';
@@ -27,12 +26,6 @@ export default function FindUser({
   );
 
   const dispatch: AppDispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(
-      getUsers({ name: '', group: '', active: '', currentPage: 0, isAll: true })
-    );
-  }, []);
 
   const onSetHandler = (id: string) => {
     const user = users.find((user: User) => user.ID === id);

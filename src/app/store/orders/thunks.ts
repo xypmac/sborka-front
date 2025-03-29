@@ -21,6 +21,7 @@ export const getOrderById = createAsyncThunk(
 
       if (response.status === 200) {
         const data = await response.json();
+
         return { ...data.message };
       }
 
@@ -50,6 +51,9 @@ export const updateOrder = createAsyncThunk(
         DATE_END_WORK: string;
         DATE_CANCEL_WORK: string;
         PRICE: string;
+        WORKER: string;
+        SALON: string;
+        MEASURER: string;
       };
     },
     { rejectWithValue }
@@ -59,6 +63,10 @@ export const updateOrder = createAsyncThunk(
       formData.append('ID', ID);
       formData.append(`PROPS[PRICE_APP]`, props.PRICE_APP);
       props.PRICE !== '' && formData.append(`PROPS[PRICE]`, props.PRICE);
+      props.WORKER !== '' && formData.append(`PROPS[WORKER]`, props.WORKER);
+      props.SALON !== '' && formData.append(`PROPS[SALON]`, props.SALON);
+      props.MEASURER !== '' &&
+        formData.append(`PROPS[MEASURER]`, props.MEASURER);
       formData.append(`PROPS[STATUS]`, String(props.STATUS));
       props.DATE_WORK !== '' &&
         formData.append(
@@ -174,7 +182,7 @@ export const getOrders = createAsyncThunk(
 
       // фильтр по статусу
       const status = orders.filter.status || null;
-      status && formData.append('filter[STATUS]', status);
+      status && status !== '10' && formData.append('filter[STATUS]', status);
 
       // фильтр по дaте
       const date = orders.filter.date || null;

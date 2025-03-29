@@ -5,6 +5,9 @@ export type Order = {
   ADDRESS: string;
   STATUS: string;
   PRICE_APP?: string;
+  MEASURER?: string;
+  SALON?: string;
+  WORKER?: string;
   PHOTO_ROOM: {
     id: number;
     path: string;

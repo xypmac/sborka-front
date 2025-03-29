@@ -1,16 +1,16 @@
 'use client';
 
-import { forwardRef } from 'react';
-import { useForm, SubmitHandler, Controller } from 'react-hook-form';
+import { useRef } from 'react';
+import { useForm, Controller } from 'react-hook-form';
 import cn from 'classnames';
 import DatePicker from 'react-datepicker';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { ru } from 'date-fns/locale';
 
 import Select from '@/app/components/elements/select';
+import FindUser from '@/app/containers/elements/find-user';
 import Button from '@/app/components/elements/button';
 import Input from '@/app/components/elements/input';
-import Error from '@/app/components/elements/error';
 import { ORDER_STATUS_GROUP } from '@/app/utils/constants';
 import getOrderStatusText from '@/app/utils/get-order-status-text';
 
@@ -27,16 +27,21 @@ export default function Order({
   isBuilder,
   isSalon,
   onUpdateOrder,
+  onShowModal,
 }: OrderProps) {
+  const worker = useRef('');
+  const salon = useRef('');
+  const measurer = useRef('');
+
   const {
     register,
     handleSubmit,
     control,
     setValue,
-    getValues,
     formState: { errors },
   } = useForm<Fields>({
     defaultValues: {
+      ADDRESS: order.ADDRESS || '',
       PRICE_APP: order.PRICE_APP || '',
       PRICE: order.PRICE || '',
       FIO: order.FIO,
@@ -49,38 +54,135 @@ export default function Order({
     resolver: yupResolver(schema),
   });
 
-  const isShowDates =
-    (isAdmin || isTaskmaster || isBuilder || isSalon) &&
-    (getValues().STATUS === '6' ||
-      getValues().STATUS === '7' ||
-      getValues().STATUS === '9');
+  const isShowDates = isAdmin || isTaskmaster || isBuilder || isSalon;
 
-  const CustomInput = forwardRef(
-    (
-      {
-        value,
-        isDisabled,
-        onClick,
-      }: { value: any; isDisabled: boolean; onClick: any },
-      ref
-    ) => (
-      <button
-        className={cn(styles.datepicker, isDisabled && styles.disabled)}
-        onClick={onClick}
-        type='button'
-      >
-        {value}
-      </button>
-    )
+  const CustomDatepickerInput = ({
+    value,
+    isDisabled,
+    onClick,
+  }: {
+    value: any;
+    isDisabled: boolean;
+    onClick: any;
+  }) => (
+    <button
+      className={cn(styles.datepicker, isDisabled && styles.disabled)}
+      onClick={onClick}
+      type='button'
+    >
+      {value}
+    </button>
   );
 
   return (
     <form
       className={cn(styles.content, isWait && styles.wait)}
       onSubmit={handleSubmit((data) =>
-        onUpdateOrder({ ORDER_ID: order.ORDER_ID, ...data })
+        onUpdateOrder({
+          ORDER_ID: order.ORDER_ID,
+          WORKER: worker.current,
+          SALON: salon.current,
+          MEASURER: measurer.current,
+          ...data,
+        })
       )}
     >
+      <div className={styles.item}>
+        <p className={styles.label}>Статус заказа</p>
+        <Select
+          isDisable={isMasurer || isSalon}
+          defaultOption='Статус заказа'
+          onSelect={(value: string) =>
+            setValue('STATUS', value, { shouldValidate: true })
+          }
+          options={ORDER_STATUS_GROUP}
+          error={errors.STATUS?.message || null}
+          value={getOrderStatusText(order.STATUS)}
+        />
+      </div>
+
+      {isShowDates && (
+        <div className={styles.dates}>
+          <div className={cn(styles.item, styles.date)}>
+            <p className={styles.label}>Дата сборки</p>
+            <Controller
+              name='DATE_WORK'
+              control={control}
+              render={({ field: { value, onChange } }) => (
+                <DatePicker
+                  disabled={isBuilder || isSalon}
+                  locale={ru}
+                  selected={
+                    value === '' ? new Date() : new Date(value as string)
+                  }
+                  dateFormat='dd.MM.yyyy'
+                  onChange={onChange}
+                  customInput={
+                    <CustomDatepickerInput
+                      value={''}
+                      isDisabled={isBuilder || isSalon}
+                      onClick={() => false}
+                    />
+                  }
+                />
+              )}
+            />
+          </div>
+
+          <div className={cn(styles.item, styles.date)}>
+            <p className={styles.label}>Дата окончания</p>
+            <Controller
+              name='DATE_END_WORK'
+              control={control}
+              render={({ field: { value, onChange } }) => (
+                <DatePicker
+                  disabled={isBuilder || isSalon}
+                  locale={ru}
+                  selected={
+                    value === '' ? new Date() : new Date(value as string)
+                  }
+                  dateFormat='dd.MM.yyyy'
+                  onChange={onChange}
+                  customInput={
+                    <CustomDatepickerInput
+                      value={''}
+                      isDisabled={isBuilder || isSalon}
+                      onClick={() => false}
+                    />
+                  }
+                />
+              )}
+            />
+          </div>
+
+          <div className={cn(styles.item, styles.date)}>
+            <p className={styles.label}>Дата отмены</p>
+            <Controller
+              name='DATE_CANCEL_WORK'
+              control={control}
+              render={({ field: { value, onChange } }) => (
+                <DatePicker
+                  disabled={isBuilder || isSalon}
+                  locale={ru}
+                  selected={
+                    value === '' ? new Date() : new Date(value as string)
+                  }
+                  dateFormat='dd.MM.yyyy'
+                  onChange={onChange}
+                  customInput={
+                    <CustomDatepickerInput
+                      value={''}
+                      isDisabled={isBuilder || isSalon}
+                      onClick={() => false}
+                    />
+                  }
+                />
+              )}
+            />
+          </div>
+        </div>
+      )}
+
       {(isAdmin || isTaskmaster || isSalon) && (
         <div className={styles.item}>
           <p className={styles.label}>Cтоимость</p>
@@ -117,6 +219,27 @@ export default function Order({
         </div>
       )}
 
+      <div className={styles.users}>
+        <FindUser
+          onSet={(id: string) => (worker.current = id)}
+          label='Сборщик'
+          userID={order.WORKER}
+          onShowModal={onShowModal}
+        />
+        <FindUser
+          onSet={(id: string) => (measurer.current = id)}
+          label='Замерщик'
+          userID={order.MEASURER}
+          onShowModal={onShowModal}
+        />
+        <FindUser
+          onSet={(id: string) => (salon.current = id)}
+          label='Салон'
+          userID={order.SALON}
+          onShowModal={onShowModal}
+        />
+      </div>
+
       {typeof order.FIO === 'string' && (
         <div className={styles.item}>
           <p className={styles.label}>ФИО клиента</p>
@@ -145,105 +268,17 @@ export default function Order({
         </div>
       )}
 
-      <div className={styles.item}>
-        <p className={styles.label}>Статус заказа</p>
-        <Select
-          isDisable={isMasurer || isSalon}
-          defaultOption='Статус заказа'
-          onSelect={(value: string) =>
-            setValue('STATUS', value, { shouldValidate: true })
-          }
-          options={ORDER_STATUS_GROUP}
-          error={errors.STATUS?.message || null}
-          value={getOrderStatusText(order.STATUS)}
-        />
-      </div>
-
-      {isShowDates && (
-        <div className={styles.dates}>
-          {getValues().STATUS === '6' && (
-            <div className={cn(styles.item, styles.date)}>
-              <p className={styles.label}>Даты начала сборки</p>
-              <Controller
-                name='DATE_WORK'
-                control={control}
-                render={({ field: { value, onChange } }) => (
-                  <DatePicker
-                    disabled={isBuilder || isSalon}
-                    locale={ru}
-                    selected={
-                      value === '' ? new Date() : new Date(value as string)
-                    }
-                    dateFormat='dd.MM.yyyy'
-                    onChange={onChange}
-                    customInput={
-                      <CustomInput
-                        value={''}
-                        isDisabled={isBuilder || isSalon}
-                        onClick={() => false}
-                      />
-                    }
-                  />
-                )}
-              />
-            </div>
-          )}
-
-          {getValues().STATUS === '7' && (
-            <div className={cn(styles.item, styles.date)}>
-              <p className={styles.label}>Дата окончания сборки</p>
-              <Controller
-                name='DATE_END_WORK'
-                control={control}
-                render={({ field: { value, onChange } }) => (
-                  <DatePicker
-                    disabled={isBuilder || isSalon}
-                    locale={ru}
-                    selected={
-                      value === '' ? new Date() : new Date(value as string)
-                    }
-                    dateFormat='dd.MM.yyyy'
-                    onChange={onChange}
-                    customInput={
-                      <CustomInput
-                        value={''}
-                        isDisabled={isBuilder || isSalon}
-                        onClick={() => false}
-                      />
-                    }
-                  />
-                )}
-              />
-            </div>
-          )}
-
-          {getValues().STATUS === '9' && (
-            <div className={cn(styles.item, styles.date)}>
-              <p className={styles.label}>Дата отмены сборки</p>
-              <Controller
-                name='DATE_CANCEL_WORK'
-                control={control}
-                render={({ field: { value, onChange } }) => (
-                  <DatePicker
-                    disabled={isBuilder || isSalon}
-                    locale={ru}
-                    selected={
-                      value === '' ? new Date() : new Date(value as string)
-                    }
-                    dateFormat='dd.MM.yyyy'
-                    onChange={onChange}
-                    customInput={
-                      <CustomInput
-                        value={''}
-                        isDisabled={isBuilder || isSalon}
-                        onClick={() => false}
-                      />
-                    }
-                  />
-                )}
-              />
-            </div>
-          )}
+      {typeof order.ADDRESS === 'string' && (
+        <div className={styles.item}>
+          <p className={styles.label}>Адрес клиента</p>
+          <Input
+            isDisable
+            name='ADDRESS'
+            placeholder='Адрес клиента'
+            register={register}
+            error={null}
+            onChange={() => false}
+          />
         </div>
       )}
 

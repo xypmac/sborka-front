@@ -56,8 +56,6 @@ const usersSlice = createSlice({
         } else return user;
       });
 
-      console.log({ ...state, users: newUsers });
-
       return {
         ...state,
         users: newUsers,

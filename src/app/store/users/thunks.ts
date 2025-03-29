@@ -11,6 +11,7 @@ export const getUsers = createAsyncThunk(
       active?: string;
       name?: string;
       currentPage?: number;
+      isAll?: boolean;
     } | null,
     { getState, rejectWithValue }
   ) => {
@@ -29,7 +30,7 @@ export const getUsers = createAsyncThunk(
       formData.append('select[]', 'WORK_STREET');
       formData.append('select[]', 'PHONE_NUMBER');
       formData.append('offset', currentPage);
-      formData.append('limit', '10');
+      formData.append('limit', data?.isAll ? '100' : '10');
 
       // фильтр по группе
       const groupId = data?.group

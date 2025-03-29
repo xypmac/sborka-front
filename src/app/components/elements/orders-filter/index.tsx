@@ -12,7 +12,7 @@ import Select from '@/app/components/elements/select';
 import { AppDispatch } from '@/app/store';
 import { getOrders } from '@/app/store/orders/thunks';
 import { setFilter } from '@/app/store/orders';
-import { ORDER_STATUS_GROUP } from '@/app/utils/constants';
+import { ORDER_STATUS_GROUP_FILTER } from '@/app/utils/constants';
 import getOrderStatusText from '@/app/utils/get-order-status-text';
 
 import styles from './styles.module.scss';
@@ -25,7 +25,7 @@ export default function UsersFilter({
   const [id, setId] = useState('');
   const [name, setName] = useState('');
   const [status, setStatus] = useState('');
-  const [date, setDate] = useState<Date | null>(new Date());
+  const [date, setDate] = useState<Date | null>(null);
 
   const dispatch: AppDispatch = useDispatch();
 
@@ -33,7 +33,7 @@ export default function UsersFilter({
     setId('');
     setName('');
     setStatus('');
-    setDate(new Date());
+    setDate(null);
     dispatch(setFilter({ id: '', name: '', status: '', date: '' }));
     dispatch(getOrders({ currentPage: 0 }));
   };
@@ -43,7 +43,7 @@ export default function UsersFilter({
   const CustomInput = forwardRef(
     ({ value, onClick }: { value: any; onClick: any }, ref) => (
       <button className={styles.datepicker} onClick={onClick}>
-        {value}
+        {value ? value : 'Выбрать дату'}
       </button>
     )
   );
@@ -61,7 +61,7 @@ export default function UsersFilter({
         <Select
           defaultOption='Статус заказа'
           onSelect={(value: string) => setStatus(value)}
-          options={ORDER_STATUS_GROUP}
+          options={ORDER_STATUS_GROUP_FILTER}
           error={null}
           value={getOrderStatusText(status)}
         />
@@ -90,7 +90,7 @@ export default function UsersFilter({
       <Button onClick={onSearchHandler} text='Искать' type='button' />
       <Button onClick={onResetHandler} text='Сбросить' type='button' />
       {isAllowCreateOrder && (
-        <Link className={styles.link} href='/orders/add'>
+        <Link className={styles.link} href='/orders/create'>
           Создать заказ
         </Link>
       )}

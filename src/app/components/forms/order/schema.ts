@@ -3,6 +3,7 @@ import * as yup from 'yup';
 export default yup.object({
   PRICE_APP: yup.string(),
   PRICE: yup.string(),
+  ADDRESS: yup.string().required('Это обязательное поле'),
   FIO: yup.string().required('Это обязательное поле'),
   PHONE_CLIENT: yup.string().required('Это обязательное поле'),
   STATUS: yup.string().required('Это обязательное поле'),

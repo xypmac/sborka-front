@@ -4,6 +4,7 @@ import { useState, useEffect, ReactNode } from 'react';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 
+import UserInformation from '@/app/containers/elements/user-information';
 import Loader from '@/app/components/elements/loader';
 import Wellcome from '@/app/pages/wellcome';
 import { AppDispatch, RootState } from '@/app/store';
@@ -29,7 +30,7 @@ export default function General({ component }: { component: ReactNode }) {
   }, []);
 
   if (isCheck && !wait) {
-    return token ? component : <Wellcome />;
+    return token ? <>{component}</> : <Wellcome />;
   }
 
   return <Loader />;

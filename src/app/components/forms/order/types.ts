@@ -8,6 +8,7 @@ export type OrderProps = {
     | 'PRICE'
     | 'STATUS'
     | 'FIO'
+    | 'ADDRESS'
     | 'COMMENT_SALON'
     | 'COMMENT_WORKER'
     | 'PHONE_CLIENT'
@@ -16,6 +17,9 @@ export type OrderProps = {
     | 'DATE_END_WORK'
     | 'DATE_CANCEL_WORK'
     | 'PHOTO_ROOM'
+    | 'SALON'
+    | 'MEASURER'
+    | 'WORKER'
   >;
   serverError?: string | null;
   isWait?: boolean;
@@ -24,12 +28,14 @@ export type OrderProps = {
   isMasurer: boolean;
   isBuilder: boolean;
   isSalon: boolean;
+  onShowModal: (id: string) => void;
   onUpdateOrder: (data: any) => void;
 };
 
 export type Fields = Pick<
   Order,
   | 'PRICE_APP'
+  | 'ADDRESS'
   | 'PRICE'
   | 'STATUS'
   | 'FIO'

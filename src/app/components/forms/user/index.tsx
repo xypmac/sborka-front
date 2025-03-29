@@ -44,7 +44,7 @@ export default function User({
     },
     resolver: yupResolver(schema),
   });
-
+  getPhoneFormat;
   useEffect(() => {
     if (serverError) {
       const id = setTimeout(() => {

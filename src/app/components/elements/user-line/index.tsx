@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import cn from 'classnames';
-import { FaRegUserCircle } from 'react-icons/fa';
+import { FaArrowAltCircleRight } from 'react-icons/fa';
 
 import UserInformation from '@/app/containers/elements/user-information';
 
@@ -26,6 +26,7 @@ export default function UserLine({
         <UserInformation id={id} onHide={() => setIsShowInfo(false)} />
       )}
       <p className={styles.action} onClick={() => setIsShowInfo(true)}>
+        <FaArrowAltCircleRight />
         {company}
       </p>
       <p>{name}</p>

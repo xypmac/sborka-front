@@ -1,0 +1,40 @@
+.item {
+  display: flex;
+  gap: 4px;
+  flex-direction: column;
+}
+
+.label {
+  font-size: 14px;
+  color: #adaabc;
+}
+
+.control {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.input {
+  width: 120px;
+  height: 40px;
+  outline: none;
+  border-radius: 5px;
+  padding: 5px 10px;
+  color: #140c40;
+  font-size: 16px;
+  background-color: #fff;
+  border: 1px solid #a8a8a8;
+
+  &::placeholder {
+    color: #b3b3b3;
+  }
+}
+
+.action {
+  color: #5c3bfe;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}

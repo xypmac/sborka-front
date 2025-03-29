@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import { FaArrowAltCircleRight } from 'react-icons/fa';
 
 import Loader from '@/app/components/elements/loader';
 import Empty from '@/app/components/elements/empty';
@@ -28,27 +29,26 @@ export default function Orders({
       ) : (
         <>
           <div className={styles.header}>
-            <p style={{ maxWidth: '120px' }}>Номер заказа</p>
+            <p>Номер заказа</p>
             <p>ФИО клиента</p>
-            <p style={{ maxWidth: '130px' }}>Номер клиента</p>
-            <p>Адресс</p>
+            <p>Номер клиента</p>
+            <p>Адрес</p>
             <p>Статус</p>
-            <p />
           </div>
           <div className={styles.list}>
             {orders.map((order: Order) => {
               return (
                 <div className={styles.elem} key={order.ORDER_ID}>
-                  <p style={{ maxWidth: '120px' }}>{order.ORDER_ID}</p>
-                  <p>{order.FIO}</p>
-                  <p style={{ maxWidth: '130px' }}>{order.PHONE_CLIENT}</p>
-                  <p>{order.ADDRESS}</p>
-                  <p>{getOrderStatusText(order.STATUS)}</p>
-                  <p>
+                  <p className={styles.action}>
                     <Link href={`/orders/${order.ORDER_ID}`} target='_blank'>
-                      Cмотреть заказ
+                      <FaArrowAltCircleRight />
+                      {order.ORDER_ID}
                     </Link>
                   </p>
+                  <p>{order.FIO}</p>
+                  <p>{order.PHONE_CLIENT}</p>
+                  <p>{order.ADDRESS}</p>
+                  <p>{getOrderStatusText(order.STATUS)}</p>
                 </div>
               );
             })}

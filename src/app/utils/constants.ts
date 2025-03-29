@@ -53,3 +53,8 @@ export const ORDER_STATUS_GROUP = [
   { id: 8, title: 'Приостановлено' },
   { id: 9, title: 'Отменненая сборка' },
 ];
+
+export const ORDER_STATUS_GROUP_FILTER = [
+  ...ORDER_STATUS_GROUP,
+  { id: 10, title: 'Все' },
+];

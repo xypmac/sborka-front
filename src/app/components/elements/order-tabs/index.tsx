@@ -2,10 +2,10 @@
 
 import cn from 'classnames';
 
-import { TabsProps } from './types';
+import { OrderTabsProps } from './types';
 import styles from './styles.module.scss';
 
-export default function Tabs({ onSetTab, active }: TabsProps) {
+export default function OrderTabs({ onSetTab, active }: OrderTabsProps) {
   return (
     <div className={styles.tabs}>
       <div

@@ -9,8 +9,10 @@ const getOrderStatusText = (status: string) => {
     return 'Приостановлено';
   } else if (status === '9') {
     return 'Отменненая сборка';
+  } else if (status === '10') {
+    return 'Все';
   } else {
-    return 'Новая';
+    return '';
   }
 };
 

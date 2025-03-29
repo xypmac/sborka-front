@@ -59,6 +59,76 @@ export default function OrderFiles({
           </>
         )}
       </div>
+      <div className={styles.item}>
+        <p className={styles.label}>Замер</p>
+        <div className={styles.images}>
+          {MEASURING.length > 0 ? (
+            MEASURING.map(({ id, path }: { id: number; path: string }) => (
+              <img
+                key={id}
+                src={`https://sborkatestqwety.ru/${path}`}
+                className={styles.image}
+              />
+            ))
+          ) : (
+            <p>Пока ничего нет</p>
+          )}
+        </div>
+        {!isBuilder && (
+          <>
+            <Button
+              type='button'
+              text='Добавить изображение'
+              onClick={() => measuring.current && measuring.current.click()}
+            />
+            <input
+              accept='image/png, image/jpeg'
+              ref={measuring}
+              type='file'
+              onChange={(e: any) => {
+                const file = e.target.files[0];
+                onAddFile({ file, type: 'MEASURING' });
+              }}
+              style={{ display: 'none' }}
+            />
+          </>
+        )}
+      </div>
+      <div className={styles.item}>
+        <p className={styles.label}>Эскиз</p>
+        <div className={styles.images}>
+          {SKETCH.length > 0 ? (
+            SKETCH.map(({ id, path }: { id: number; path: string }) => (
+              <img
+                key={id}
+                src={`https://sborkatestqwety.ru/${path}`}
+                className={styles.image}
+              />
+            ))
+          ) : (
+            <p>Пока ничего нет</p>
+          )}
+        </div>
+        {!isBuilder && !isMasurer && (
+          <>
+            <Button
+              type='button'
+              text='Добавить изображение'
+              onClick={() => sketch.current && sketch.current.click()}
+            />
+            <input
+              accept='image/png, image/jpeg'
+              ref={sketch}
+              type='file'
+              onChange={(e: any) => {
+                const file = e.target.files[0];
+                onAddFile({ file, type: 'SKETCH' });
+              }}
+              style={{ display: 'none' }}
+            />
+          </>
+        )}
+      </div>
       {!isMasurer && (
         <div className={styles.item}>
           <p className={styles.label}>Фотоотчет сборки</p>
@@ -98,76 +168,6 @@ export default function OrderFiles({
           )}
         </div>
       )}
-      <div className={styles.item}>
-        <p className={styles.label}>Эскиз</p>
-        <div className={styles.images}>
-          {SKETCH.length > 0 ? (
-            SKETCH.map(({ id, path }: { id: number; path: string }) => (
-              <img
-                key={id}
-                src={`https://sborkatestqwety.ru/${path}`}
-                className={styles.image}
-              />
-            ))
-          ) : (
-            <p>Пока ничего нет</p>
-          )}
-        </div>
-        {!isBuilder && !isMasurer && (
-          <>
-            <Button
-              type='button'
-              text='Добавить изображение'
-              onClick={() => sketch.current && sketch.current.click()}
-            />
-            <input
-              accept='image/png, image/jpeg'
-              ref={sketch}
-              type='file'
-              onChange={(e: any) => {
-                const file = e.target.files[0];
-                onAddFile({ file, type: 'SKETCH' });
-              }}
-              style={{ display: 'none' }}
-            />
-          </>
-        )}
-      </div>
-      <div className={styles.item}>
-        <p className={styles.label}>Замер</p>
-        <div className={styles.images}>
-          {MEASURING.length > 0 ? (
-            MEASURING.map(({ id, path }: { id: number; path: string }) => (
-              <img
-                key={id}
-                src={`https://sborkatestqwety.ru/${path}`}
-                className={styles.image}
-              />
-            ))
-          ) : (
-            <p>Пока ничего нет</p>
-          )}
-        </div>
-        {!isBuilder && (
-          <>
-            <Button
-              type='button'
-              text='Добавить изображение'
-              onClick={() => measuring.current && measuring.current.click()}
-            />
-            <input
-              accept='image/png, image/jpeg'
-              ref={measuring}
-              type='file'
-              onChange={(e: any) => {
-                const file = e.target.files[0];
-                onAddFile({ file, type: 'MEASURING' });
-              }}
-              style={{ display: 'none' }}
-            />
-          </>
-        )}
-      </div>
     </div>
   );
 }

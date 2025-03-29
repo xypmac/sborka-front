@@ -59,13 +59,16 @@ export const updateOrder = createAsyncThunk(
     { rejectWithValue }
   ) => {
     try {
+      console.log(props);
       let formData = new FormData();
       formData.append('ID', ID);
       formData.append(`PROPS[PRICE_APP]`, props.PRICE_APP);
-      props.PRICE !== '' && formData.append(`PROPS[PRICE]`, props.PRICE);
-      props.WORKER !== '' && formData.append(`PROPS[WORKER]`, props.WORKER);
-      props.SALON !== '' && formData.append(`PROPS[SALON]`, props.SALON);
-      props.MEASURER !== '' &&
+      props.PRICE && formData.append(`PROPS[PRICE]`, props.PRICE);
+      typeof props.WORKER === 'string' &&
+        formData.append(`PROPS[WORKER]`, props.WORKER);
+      typeof props.SALON === 'string' &&
+        formData.append(`PROPS[SALON]`, props.SALON);
+      typeof props.MEASURER === 'string' &&
         formData.append(`PROPS[MEASURER]`, props.MEASURER);
       formData.append(`PROPS[STATUS]`, String(props.STATUS));
       props.DATE_WORK !== '' &&

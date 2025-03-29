@@ -13,6 +13,7 @@ import Button from '@/app/components/elements/button';
 import Input from '@/app/components/elements/input';
 import { ORDER_STATUS_GROUP } from '@/app/utils/constants';
 import getOrderStatusText from '@/app/utils/get-order-status-text';
+import { User } from '@/app/store/users/type';
 
 import schema from './schema';
 import { OrderProps, Fields } from './types';
@@ -20,6 +21,7 @@ import styles from './styles.module.scss';
 
 export default function Order({
   order,
+  users,
   isWait,
   isAdmin,
   isTaskmaster,
@@ -29,9 +31,9 @@ export default function Order({
   onUpdateOrder,
   onShowModal,
 }: OrderProps) {
-  const worker = useRef('');
-  const salon = useRef('');
-  const measurer = useRef('');
+  const worker = useRef<string | null>(null);
+  const salon = useRef<string | null>(null);
+  const measurer = useRef<string | null>(null);
 
   const {
     register,
@@ -221,21 +223,28 @@ export default function Order({
 
       <div className={styles.users}>
         <FindUser
-          onSet={(id: string) => (worker.current = id)}
+          onSet={(id: string | null) => (worker.current = id)}
           label='Сборщик'
+          placeholder='Введите ФИО пользователя'
           userID={order.WORKER}
+          users={users.filter((user: User) => user.GROUP_ID === '7')}
           onShowModal={onShowModal}
         />
         <FindUser
-          onSet={(id: string) => (measurer.current = id)}
+          onSet={(id: string | null) => (measurer.current = id)}
           label='Замерщик'
+          placeholder='Введите ФИО пользователя'
           userID={order.MEASURER}
+          users={users.filter((user: User) => user.GROUP_ID === '9')}
           onShowModal={onShowModal}
         />
         <FindUser
-          onSet={(id: string) => (salon.current = id)}
+          onSet={(id: string | null) => (salon.current = id)}
+          isSalon
           label='Салон'
+          placeholder='Введите название контрагента'
           userID={order.SALON}
+          users={users.filter((user: User) => user.GROUP_ID === '8')}
           onShowModal={onShowModal}
         />
       </div>

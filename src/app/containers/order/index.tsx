@@ -21,6 +21,7 @@ export default function Order() {
   const [userId, setUserId] = useState('');
   const {
     currentOrder,
+    users,
     isUsersWait,
     isWait,
     isWaitUpdate,
@@ -31,6 +32,7 @@ export default function Order() {
     isSalon,
   } = useSelector((state: RootState) => ({
     currentOrder: state.orders.currentOrder,
+    users: state.users.users,
     isUsersWait: state.users.wait,
     isWait: state.orders.isWait,
     isWaitUpdate: state.orders.isWaitUpdate,
@@ -111,6 +113,7 @@ export default function Order() {
               isSalon={isSalon}
               onShowModal={(id: string) => setUserId(id)}
               onUpdateOrder={onUpdateOrderHandler}
+              users={users}
             />
           )}
           {tab === 2 && currentOrder && (

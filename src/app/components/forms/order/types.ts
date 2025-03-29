@@ -1,4 +1,5 @@
 import { Order } from '@/app/store/orders/type';
+import { User } from '@/app/store/users/type';
 
 export type OrderProps = {
   order: Pick<
@@ -21,6 +22,7 @@ export type OrderProps = {
     | 'MEASURER'
     | 'WORKER'
   >;
+  users: User[];
   serverError?: string | null;
   isWait?: boolean;
   isAdmin: boolean;

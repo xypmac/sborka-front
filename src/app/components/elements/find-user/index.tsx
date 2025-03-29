@@ -30,7 +30,6 @@ export default function FindUser({
   const [isShowOptions, setIsOptions] = useState(false);
 
   const optionsRef = useRef(null);
-  const inputRef = useRef(null);
 
   useEffect(() => {
     setValue(isSalon ? user?.WORK_COMPANY || '' : user?.NAME || '');
@@ -91,7 +90,6 @@ export default function FindUser({
           type='text'
           value={value}
           onSelect={(e) => e.preventDefault()}
-          ref={inputRef}
         />
 
         {isShowOptions && (

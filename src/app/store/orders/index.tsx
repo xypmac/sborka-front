@@ -16,6 +16,7 @@ export const initialState: OrdersType = {
   currentPage: 0,
   total: 0,
   isWait: false,
+  isWaitUpdate: false,
   filter: {
     id: '',
     name: '',
@@ -130,14 +131,14 @@ const ordersSlice = createSlice({
     });
 
     builder.addCase(updateOrder.pending, (state) => {
-      state.isWait = true;
+      state.isWaitUpdate = true;
     });
     builder.addCase(updateOrder.fulfilled, (state, action) => {
-      state.isWait = false;
+      state.isWaitUpdate = false;
       state.error = null;
     });
     builder.addCase(updateOrder.rejected, (state, action) => {
-      state.isWait = false;
+      state.isWaitUpdate = false;
       state.error = action.payload as string;
     });
 

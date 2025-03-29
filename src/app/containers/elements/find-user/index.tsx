@@ -34,6 +34,7 @@ export default function FindUser({
       onSet(id);
       userUser(user);
     } else {
+      onSet('');
       userUser(null);
     }
   };

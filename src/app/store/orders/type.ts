@@ -39,6 +39,7 @@ export type OrdersType = {
   currentOrder: Order | null;
   error: string | null;
   isWait: boolean;
+  isWaitUpdate: boolean;
   filter: {
     id: string;
     name: string;

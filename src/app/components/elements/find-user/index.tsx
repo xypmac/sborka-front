@@ -16,8 +16,6 @@ export default function FindUser({
   label,
 }: FindUserProps) {
   const [value, setValue] = useState(initialValue);
-  const [debouncedInputValue, setDebouncedInputValue] = useState('');
-  const [isShowInfo, setIsShowInfo] = useState(false);
 
   useEffect(() => {
     setValue(value);

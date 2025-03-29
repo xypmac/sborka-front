@@ -23,6 +23,7 @@ export default function Order() {
     currentOrder,
     isUsersWait,
     isWait,
+    isWaitUpdate,
     isAdmin,
     isTaskmaster,
     isMasurer,
@@ -32,6 +33,7 @@ export default function Order() {
     currentOrder: state.orders.currentOrder,
     isUsersWait: state.users.wait,
     isWait: state.orders.isWait,
+    isWaitUpdate: state.orders.isWaitUpdate,
     isAdmin: state.session.isAdmin,
     isTaskmaster: state.session.isTaskmaster,
     isBuilder: state.session.isBuilder,
@@ -100,7 +102,7 @@ export default function Order() {
           )}
           {tab === 1 && currentOrder && (
             <OrderForm
-              isWait={isWait}
+              isWait={isWaitUpdate}
               order={currentOrder}
               isAdmin={isAdmin}
               isTaskmaster={isTaskmaster}

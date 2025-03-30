@@ -23,22 +23,18 @@ export default function FindUser({
       : null
   );
 
-  const onChooseHandler = (user: User) => {
-    onSet(user.ID);
-    setUser(user);
-  };
-
-  const onClearHandler = () => {
-    onSet('');
-    setUser(null);
-  };
-
   return (
     <FindUserComponent
       isSalon={isSalon}
       onShowModal={onShowModal}
-      onClear={onClearHandler}
-      onChoose={onChooseHandler}
+      onClear={() => {
+        onSet('');
+        setUser(null);
+      }}
+      onChoose={(user: User) => {
+        onSet(user.ID);
+        setUser(user);
+      }}
       user={user}
       users={users}
       label={label}

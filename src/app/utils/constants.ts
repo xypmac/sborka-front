@@ -16,7 +16,8 @@ export const PAGES = {
   USER: '/user/[id]',
 };
 
-export const API = 'https://sborkatestqwety.ru/api/v1';
+export const HOST = 'https://sborkatestqwety.ru/';
+export const API = `${HOST}api/v1`;
 
 export const SERVER_ERRORS = [400, 404, 500];
 export const SERVER_OK = [200];

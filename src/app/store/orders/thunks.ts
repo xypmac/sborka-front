@@ -268,3 +268,45 @@ export const addFile = createAsyncThunk(
     }
   }
 );
+
+export const removeFile = createAsyncThunk(
+  '/orders/removeFile',
+  async (
+    { ID, fileId, type }: { ID: number; fileId: number; type: string },
+    { rejectWithValue }
+  ) => {
+    try {
+      let formData = new FormData();
+      formData.append('ID', String(ID));
+
+      if (type === 'PHOTO_ROOM')
+        formData.append('PROPS[PHOTO_ROOM][]', String(fileId));
+      if (type === 'SKETCH') formData.append('PROPS[SKETCH][]', String(fileId));
+      if (type === 'PHOTO_REPORT')
+        formData.append('PROPS[PHOTO_REPORT][]', String(fileId));
+      if (type === 'MEASURING')
+        formData.append('PROPS[MEASURING][]', String(fileId));
+
+      const response = await fetch(`${API}/orders/removeFile`, {
+        method: 'post',
+        body: formData,
+        headers: {
+          Authorization: `Bearer ${nookies.get().token}`,
+        },
+      });
+
+      if (response.status === 200) {
+        const data = await response.json();
+        return { ...data.message, type };
+      }
+
+      if (SERVER_ERRORS.includes(response.status)) {
+        const data = await response.json();
+        console.error(data.message);
+        return rejectWithValue('Не удалось удалить файл');
+      }
+    } catch (e) {
+      return rejectWithValue('Не удалось удалить файл');
+    }
+  }
+);

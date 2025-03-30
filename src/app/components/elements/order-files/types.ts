@@ -7,4 +7,5 @@ export type OrderFilesProps = {
   isSalon: boolean;
   isMasurer: boolean;
   onAddFile: ({ file, type }: { file: any; type: string }) => void;
+  onRemoveFile: ({ id, type }: { id: number; type: string }) => void;
 };

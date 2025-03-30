@@ -7,6 +7,7 @@ import {
   getOrders,
   updateOrder,
   addFile,
+  removeFile,
 } from './thunks';
 
 export const initialState: OrdersType = {
@@ -189,6 +190,29 @@ const ordersSlice = createSlice({
       }
     });
     builder.addCase(addFile.rejected, (state, action) => {
+      state.isWait = false;
+      state.error = action.payload as string;
+    });
+
+    builder.addCase(removeFile.pending, (state) => {
+      state.isWait = true;
+    });
+    builder.addCase(removeFile.fulfilled, (state, action) => {
+      state.isWait = false;
+      state.error = null;
+
+      if (action.payload) {
+        const copyState = JSON.parse(JSON.stringify(state));
+
+        state.currentOrder = {
+          ...copyState.currentOrder,
+          [action.payload.type]: action.payload[action.payload.type]
+            ? Object.values(action.payload[action.payload.type])
+            : [],
+        };
+      }
+    });
+    builder.addCase(removeFile.rejected, (state, action) => {
       state.isWait = false;
       state.error = action.payload as string;
     });

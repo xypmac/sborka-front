@@ -3,7 +3,6 @@
 import { useRef, useState } from 'react';
 import { FaPlus } from 'react-icons/fa6';
 
-import Button from '@/app/components/elements/button';
 import { HOST } from '@/app/utils/constants';
 
 import { OrderFilesProps } from './types';
@@ -18,6 +17,7 @@ export default function OrderFiles({
   isMasurer,
   isSalon,
   onAddFile,
+  onRemoveFile,
 }: OrderFilesProps) {
   const [isShowImage, setIsShowImage] = useState(false);
   const [imageFull, setImageFull] = useState('');
@@ -47,15 +47,22 @@ export default function OrderFiles({
         <div className={styles.images}>
           {PHOTO_ROOM.length > 0 &&
             PHOTO_ROOM.map(({ id, path }: { id: number; path: string }) => (
-              <img
-                key={id}
-                src={`${HOST}${path}`}
-                className={styles.image}
-                onClick={() => {
-                  setImageFull(`${HOST}${path}`);
-                  setIsShowImage(true);
-                }}
-              />
+              <div key={id}>
+                <img
+                  src={`${HOST}${path}`}
+                  className={styles.image}
+                  onClick={() => {
+                    setImageFull(`${HOST}${path}`);
+                    setIsShowImage(true);
+                  }}
+                />
+                <p
+                  className={styles.remove}
+                  onClick={() => onRemoveFile({ id, type: 'PHOTO_ROOM' })}
+                >
+                  Удалить
+                </p>
+              </div>
             ))}
           {!isBuilder && (
             <>
@@ -67,6 +74,7 @@ export default function OrderFiles({
               </div>
               <input
                 accept='image/png, image/jpeg'
+                size={10809064}
                 ref={photoRoom}
                 type='file'
                 onChange={(e: any) => {
@@ -84,15 +92,22 @@ export default function OrderFiles({
         <div className={styles.images}>
           {MEASURING.length > 0 &&
             MEASURING.map(({ id, path }: { id: number; path: string }) => (
-              <img
-                key={id}
-                src={`${HOST}${path}`}
-                className={styles.image}
-                onClick={() => {
-                  setImageFull(`${HOST}${path}`);
-                  setIsShowImage(true);
-                }}
-              />
+              <div key={id}>
+                <img
+                  src={`${HOST}${path}`}
+                  className={styles.image}
+                  onClick={() => {
+                    setImageFull(`${HOST}${path}`);
+                    setIsShowImage(true);
+                  }}
+                />
+                <p
+                  className={styles.remove}
+                  onClick={() => onRemoveFile({ id, type: 'MEASURING' })}
+                >
+                  удалить
+                </p>
+              </div>
             ))}
           {!isBuilder && (
             <>
@@ -121,15 +136,22 @@ export default function OrderFiles({
         <div className={styles.images}>
           {SKETCH.length > 0 &&
             SKETCH.map(({ id, path }: { id: number; path: string }) => (
-              <img
-                key={id}
-                src={`${HOST}${path}`}
-                className={styles.image}
-                onClick={() => {
-                  setImageFull(`${HOST}${path}`);
-                  setIsShowImage(true);
-                }}
-              />
+              <div key={id}>
+                <img
+                  src={`${HOST}${path}`}
+                  className={styles.image}
+                  onClick={() => {
+                    setImageFull(`${HOST}${path}`);
+                    setIsShowImage(true);
+                  }}
+                />
+                <p
+                  className={styles.remove}
+                  onClick={() => onRemoveFile({ id, type: 'SKETCH' })}
+                >
+                  Удалить
+                </p>
+              </div>
             ))}
           {!isBuilder && (
             <>
@@ -159,15 +181,22 @@ export default function OrderFiles({
           <div className={styles.images}>
             {PHOTO_REPORT.length > 0 &&
               PHOTO_REPORT.map(({ id, path }: { id: number; path: string }) => (
-                <img
-                  key={id}
-                  src={`${HOST}/${path}`}
-                  className={styles.image}
-                  onClick={() => {
-                    setImageFull(`${HOST}${path}`);
-                    setIsShowImage(true);
-                  }}
-                />
+                <div key={id}>
+                  <img
+                    src={`${HOST}/${path}`}
+                    className={styles.image}
+                    onClick={() => {
+                      setImageFull(`${HOST}${path}`);
+                      setIsShowImage(true);
+                    }}
+                  />
+                  <p
+                    className={styles.remove}
+                    onClick={() => onRemoveFile({ id, type: 'PHOTO_REPORT' })}
+                  >
+                    Удалить
+                  </p>
+                </div>
               ))}
             {!isSalon && (
               <>

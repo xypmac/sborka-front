@@ -13,7 +13,12 @@ import OrderFiles from '@/app/components/elements/order-files';
 import Heading from '@/app/components/elements/heading';
 import OrderTabs from '@/app/components/elements/order-tabs';
 import { AppDispatch, RootState } from '@/app/store';
-import { getOrderById, updateOrder, addFile } from '@/app/store/orders/thunks';
+import {
+  getOrderById,
+  updateOrder,
+  addFile,
+  removeFile,
+} from '@/app/store/orders/thunks';
 import { getUsers } from '@/app/store/users/thunks';
 
 export default function Order() {
@@ -82,6 +87,12 @@ export default function Order() {
     }
   };
 
+  const onRemoveFileHandler = ({ id, type }: { id: number; type: string }) => {
+    if (currentOrder) {
+      dispatch(removeFile({ ID: currentOrder.ORDER_ID, fileId: id, type }));
+    }
+  };
+
   return (
     <MainLayout>
       {isUsersWait || isWait ? (
@@ -134,6 +145,7 @@ export default function Order() {
               SKETCH={currentOrder.SKETCH || []}
               MEASURING={currentOrder.MEASURING || []}
               onAddFile={onAddFileHandler}
+              onRemoveFile={onRemoveFileHandler}
             />
           )}
         </>

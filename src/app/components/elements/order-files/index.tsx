@@ -13,6 +13,8 @@ export default function OrderFiles({
   PHOTO_REPORT,
   SKETCH,
   MEASURING,
+  isAdmin,
+  isTaskmaster,
   isBuilder,
   isMasurer,
   isSalon,
@@ -56,15 +58,17 @@ export default function OrderFiles({
                     setIsShowImage(true);
                   }}
                 />
-                <p
-                  className={styles.remove}
-                  onClick={() => onRemoveFile({ id, type: 'PHOTO_ROOM' })}
-                >
-                  Удалить
-                </p>
+                {(isAdmin || isTaskmaster || isMasurer || isSalon) && (
+                  <p
+                    className={styles.remove}
+                    onClick={() => onRemoveFile({ id, type: 'PHOTO_ROOM' })}
+                  >
+                    Удалить
+                  </p>
+                )}
               </div>
             ))}
-          {!isBuilder && (
+          {(isAdmin || isTaskmaster || isMasurer || isSalon) && (
             <>
               <div
                 className={styles.add}
@@ -74,7 +78,6 @@ export default function OrderFiles({
               </div>
               <input
                 accept='image/png, image/jpeg'
-                size={10809064}
                 ref={photoRoom}
                 type='file'
                 onChange={(e: any) => {
@@ -101,15 +104,17 @@ export default function OrderFiles({
                     setIsShowImage(true);
                   }}
                 />
-                <p
-                  className={styles.remove}
-                  onClick={() => onRemoveFile({ id, type: 'MEASURING' })}
-                >
-                  Удалить
-                </p>
+                {(isAdmin || isTaskmaster || isMasurer || isSalon) && (
+                  <p
+                    className={styles.remove}
+                    onClick={() => onRemoveFile({ id, type: 'MEASURING' })}
+                  >
+                    Удалить
+                  </p>
+                )}
               </div>
             ))}
-          {!isBuilder && (
+          {(isAdmin || isTaskmaster || isMasurer || isSalon) && (
             <>
               <div
                 className={styles.add}
@@ -145,15 +150,17 @@ export default function OrderFiles({
                     setIsShowImage(true);
                   }}
                 />
-                <p
-                  className={styles.remove}
-                  onClick={() => onRemoveFile({ id, type: 'SKETCH' })}
-                >
-                  Удалить
-                </p>
+                {(isAdmin || isTaskmaster || isSalon) && (
+                  <p
+                    className={styles.remove}
+                    onClick={() => onRemoveFile({ id, type: 'SKETCH' })}
+                  >
+                    Удалить
+                  </p>
+                )}
               </div>
             ))}
-          {!isBuilder && (
+          {(isAdmin || isTaskmaster || isSalon) && (
             <>
               <div
                 className={styles.add}
@@ -175,7 +182,7 @@ export default function OrderFiles({
           )}
         </div>
       </div>
-      {!isMasurer && (
+      {(isAdmin || isTaskmaster || isBuilder || isSalon) && (
         <div className={styles.item}>
           <p className={styles.label}>Фотоотчет сборки</p>
           <div className={styles.images}>
@@ -190,15 +197,17 @@ export default function OrderFiles({
                       setIsShowImage(true);
                     }}
                   />
-                  <p
-                    className={styles.remove}
-                    onClick={() => onRemoveFile({ id, type: 'PHOTO_REPORT' })}
-                  >
-                    Удалить
-                  </p>
+                  {(isAdmin || isTaskmaster || isBuilder) && (
+                    <p
+                      className={styles.remove}
+                      onClick={() => onRemoveFile({ id, type: 'PHOTO_REPORT' })}
+                    >
+                      Удалить
+                    </p>
+                  )}
                 </div>
               ))}
-            {!isSalon && (
+            {(isAdmin || isTaskmaster || isBuilder) && (
               <>
                 <div
                   className={styles.add}

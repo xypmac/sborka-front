@@ -222,22 +222,26 @@ export default function Order({
       )}
 
       <div className={styles.users}>
-        <FindUser
-          onSet={(id: string | null) => (worker.current = id)}
-          label='Сборщик'
-          placeholder='Введите ФИО пользователя'
-          userID={order.WORKER}
-          users={users.filter((user: User) => user.GROUP_ID === '7')}
-          onShowModal={onShowModal}
-        />
-        <FindUser
-          onSet={(id: string | null) => (measurer.current = id)}
-          label='Замерщик'
-          placeholder='Введите ФИО пользователя'
-          userID={order.MEASURER}
-          users={users.filter((user: User) => user.GROUP_ID === '9')}
-          onShowModal={onShowModal}
-        />
+        {!isMasurer && (
+          <FindUser
+            onSet={(id: string | null) => (worker.current = id)}
+            label='Сборщик'
+            placeholder='Введите ФИО пользователя'
+            userID={order.WORKER}
+            users={users.filter((user: User) => user.GROUP_ID === '7')}
+            onShowModal={onShowModal}
+          />
+        )}
+        {!isBuilder && (
+          <FindUser
+            onSet={(id: string | null) => (measurer.current = id)}
+            label='Замерщик'
+            placeholder='Введите ФИО пользователя'
+            userID={order.MEASURER}
+            users={users.filter((user: User) => user.GROUP_ID === '9')}
+            onShowModal={onShowModal}
+          />
+        )}
         <FindUser
           onSet={(id: string | null) => (salon.current = id)}
           isSalon

@@ -139,6 +139,8 @@ export default function Order() {
             <OrderFiles
               isBuilder={isBuilder}
               isSalon={isSalon}
+              isAdmin={isAdmin}
+              isTaskmaster={isTaskmaster}
               isMasurer={isMasurer}
               PHOTO_ROOM={currentOrder.PHOTO_ROOM || []}
               PHOTO_REPORT={currentOrder.PHOTO_REPORT || []}

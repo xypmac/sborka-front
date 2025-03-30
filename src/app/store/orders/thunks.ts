@@ -243,8 +243,6 @@ export const addFile = createAsyncThunk(
       if (type === 'PHOTO_REPORT') formData.append('PHOTO_REPORT[]', file);
       if (type === 'MEASURING') formData.append('MEASURING[]', file);
 
-      // formData.append('DOCS[]', file);
-
       const response = await fetch(`${API}/orders/addFile`, {
         method: 'post',
         body: formData,

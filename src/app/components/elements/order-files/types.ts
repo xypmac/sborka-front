@@ -5,6 +5,8 @@ export type OrderFilesProps = {
   SKETCH: { id: number; path: string }[];
   isBuilder: boolean;
   isSalon: boolean;
+  isAdmin: boolean;
+  isTaskmaster: boolean;
   isMasurer: boolean;
   onAddFile: ({ file, type }: { file: any; type: string }) => void;
   onRemoveFile: ({ id, type }: { id: number; type: string }) => void;

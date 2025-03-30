@@ -105,7 +105,7 @@ export default function OrderFiles({
                   className={styles.remove}
                   onClick={() => onRemoveFile({ id, type: 'MEASURING' })}
                 >
-                  удалить
+                  Удалить
                 </p>
               </div>
             ))}

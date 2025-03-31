@@ -74,7 +74,7 @@ export default function Order({
       onClick={onClick}
       type='button'
     >
-      {value}
+      {value ? value : 'Выбрать дату'}
     </button>
   );
 
@@ -116,9 +116,7 @@ export default function Order({
                 <DatePicker
                   disabled={isBuilder || isSalon}
                   locale={ru}
-                  selected={
-                    value === '' ? new Date() : new Date(value as string)
-                  }
+                  selected={value ? new Date(value) : null}
                   dateFormat='dd.MM.yyyy'
                   onChange={onChange}
                   customInput={
@@ -142,9 +140,7 @@ export default function Order({
                 <DatePicker
                   disabled={isBuilder || isSalon}
                   locale={ru}
-                  selected={
-                    value === '' ? new Date() : new Date(value as string)
-                  }
+                  selected={value ? new Date(value) : null}
                   dateFormat='dd.MM.yyyy'
                   onChange={onChange}
                   customInput={
@@ -168,9 +164,7 @@ export default function Order({
                 <DatePicker
                   disabled={isBuilder || isSalon}
                   locale={ru}
-                  selected={
-                    value === '' ? new Date() : new Date(value as string)
-                  }
+                  selected={value ? new Date(value) : null}
                   dateFormat='dd.MM.yyyy'
                   onChange={onChange}
                   customInput={

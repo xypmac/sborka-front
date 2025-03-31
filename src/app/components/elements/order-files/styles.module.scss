@@ -2,17 +2,13 @@
   display: flex;
   gap: 20px;
   flex-direction: column;
-}
+  width: 620px;
+  opacity: 1;
+  transition: 200ms ease all;
 
-.item {
-  display: flex;
-  gap: 8px;
-  flex-direction: column;
-}
-
-.label {
-  font-size: 16px;
-  color: #adaabc;
+  &.wait {
+    opacity: 0.5;
+  }
 }
 
 .images {

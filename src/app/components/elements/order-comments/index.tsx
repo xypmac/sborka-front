@@ -2,6 +2,7 @@
 
 import AddComment from '@/app/containers/elements/add-comment';
 import Label from '@/app/components/elements/label';
+import Flex from '@/app/components/elements/flex';
 
 import { OrderCommentsProps } from './types';
 import styles from './styles.module.scss';
@@ -25,18 +26,18 @@ export default function OrderComments({
   };
 
   return (
-    <div className={styles.comments}>
-      <div className={styles.item}>
+    <Flex gap={20} direction='column' width={468}>
+      <Flex gap={4} direction='column'>
         <Label>Комментарий салона</Label>
         {getCommentsByType(COMMENT_SALON)}
         {isSalon && COMMENT_SALON.length <= 14 && <AddComment />}
-      </div>
+      </Flex>
 
-      <div className={styles.item}>
+      <Flex gap={4} direction='column'>
         <Label>Комментарий сборщика</Label>
         {getCommentsByType(COMMENT_WORKER)}
         {isBuilder && COMMENT_WORKER.length <= 14 && <AddComment />}
-      </div>
-    </div>
+      </Flex>
+    </Flex>
   );
 }

@@ -13,7 +13,7 @@ import getOrderStatusText from '@/app/utils/get-order-status-text';
 import { UsersProps } from './types';
 import styles from './styles.module.scss';
 
-export default function Orders({
+export default function ({
   isAllowCreateOrder,
   orders,
   isWait,

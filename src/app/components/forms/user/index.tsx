@@ -6,6 +6,7 @@ import cn from 'classnames';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useDispatch } from 'react-redux';
 
+import Label from '@/app/components/elements/label';
 import Error from '@/app/components/elements/error';
 import Button from '@/app/components/elements/button';
 import Input from '@/app/components/elements/input';
@@ -90,17 +91,17 @@ export default function User({
       </div>
 
       <div className={styles.item}>
-        <p className={styles.label}>Логин</p>
+        <Label>Логин</Label>
         <Readonly name='LOGIN' value={user.LOGIN} />
       </div>
 
       <div className={styles.item}>
-        <p className={styles.label}>Почта</p>
+        <Label>Почта</Label>
         <Readonly name='EMAIL' value={user.EMAIL} />
       </div>
 
       <div className={styles.item}>
-        <p className={styles.label}>Телефон</p>
+        <Label>Телефон</Label>
         <Input
           name='phone'
           placeholder='Номер телефона'
@@ -112,14 +113,14 @@ export default function User({
 
       {typeof user.WORK_COMPANY === 'string' && (
         <div className={styles.item}>
-          <p className={styles.label}>Название контрагента</p>
+          <Label>Название контрагента</Label>
           <Readonly name='WORK_COMPANY' value={user.WORK_COMPANY} />
         </div>
       )}
 
       {typeof user.WORK_STREET === 'string' && (
         <div className={styles.item}>
-          <p className={styles.label}>Адрес</p>
+          <Label>Адрес</Label>
           <Input
             name='address'
             placeholder='Адрес'
@@ -131,7 +132,7 @@ export default function User({
       )}
       {typeof user.NAME === 'string' && (
         <div className={styles.item}>
-          <p className={styles.label}>ФИО</p>
+          <Label>ФИО</Label>
           <Readonly name='email' value={user.NAME} />
         </div>
       )}

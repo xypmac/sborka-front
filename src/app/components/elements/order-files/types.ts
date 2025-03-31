@@ -3,6 +3,7 @@ export type OrderFilesProps = {
   PHOTO_REPORT: { id: number; path: string }[];
   MEASURING: { id: number; path: string }[];
   SKETCH: { id: number; path: string }[];
+  isWaitFile: boolean;
   isBuilder: boolean;
   isSalon: boolean;
   isAdmin: boolean;

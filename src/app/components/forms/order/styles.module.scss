@@ -28,11 +28,6 @@
   width: calc(100% / 3);
 }
 
-.label {
-  font-size: 14px;
-  color: #adaabc;
-}
-
 .header {
   display: flex;
   align-items: center;
@@ -67,16 +62,4 @@
     color: #747281;
     cursor: default;
   }
-}
-
-.dates {
-  display: flex;
-  height: 60px;
-  gap: 24px;
-}
-
-.users {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
 }

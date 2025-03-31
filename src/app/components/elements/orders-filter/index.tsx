@@ -89,7 +89,11 @@ export default function UsersFilter({
       />
       <Button onClick={onSearchHandler} text='Искать' type='button' />
       <Button onClick={onResetHandler} text='Сбросить' type='button' />
-      {isAllowCreateOrder && <p className={styles.link}>Создать заказ</p>}
+      {isAllowCreateOrder && (
+        <Link href='/orders/create' className={styles.link}>
+          Создать заказ
+        </Link>
+      )}
     </div>
   );
 }

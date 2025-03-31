@@ -17,6 +17,7 @@ export const initialState: OrdersType = {
   currentPage: 0,
   total: 0,
   isWait: false,
+  isWaitFile: false,
   isWaitUpdate: false,
   filter: {
     id: '',
@@ -172,10 +173,10 @@ const ordersSlice = createSlice({
     });
 
     builder.addCase(addFile.pending, (state) => {
-      state.isWait = true;
+      state.isWaitFile = true;
     });
     builder.addCase(addFile.fulfilled, (state, action) => {
-      state.isWait = false;
+      state.isWaitFile = false;
       state.error = null;
 
       if (action.payload) {
@@ -190,15 +191,15 @@ const ordersSlice = createSlice({
       }
     });
     builder.addCase(addFile.rejected, (state, action) => {
-      state.isWait = false;
+      state.isWaitFile = false;
       state.error = action.payload as string;
     });
 
     builder.addCase(removeFile.pending, (state) => {
-      state.isWait = true;
+      state.isWaitFile = true;
     });
     builder.addCase(removeFile.fulfilled, (state, action) => {
-      state.isWait = false;
+      state.isWaitFile = false;
       state.error = null;
 
       if (action.payload) {
@@ -213,7 +214,7 @@ const ordersSlice = createSlice({
       }
     });
     builder.addCase(removeFile.rejected, (state, action) => {
-      state.isWait = false;
+      state.isWaitFile = false;
       state.error = action.payload as string;
     });
   },

@@ -7,6 +7,8 @@ import DatePicker from 'react-datepicker';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { ru } from 'date-fns/locale';
 
+import Flex from '@/app/components/elements/flex';
+import Label from '@/app/components/elements/label';
 import Select from '@/app/components/elements/select';
 import FindUser from '@/app/containers/elements/find-user';
 import Button from '@/app/components/elements/button';
@@ -90,7 +92,7 @@ export default function Order({
       )}
     >
       <div className={styles.item}>
-        <p className={styles.label}>Статус заказа</p>
+        <Label>Статус заказа</Label>
         <Select
           isDisable={isMasurer || isSalon}
           defaultOption='Статус заказа'
@@ -104,9 +106,9 @@ export default function Order({
       </div>
 
       {isShowDates && (
-        <div className={styles.dates}>
+        <Flex gap={24} height={60}>
           <div className={cn(styles.item, styles.date)}>
-            <p className={styles.label}>Дата сборки</p>
+            <Label>Дата сборки</Label>
             <Controller
               name='DATE_WORK'
               control={control}
@@ -132,7 +134,7 @@ export default function Order({
           </div>
 
           <div className={cn(styles.item, styles.date)}>
-            <p className={styles.label}>Дата окончания</p>
+            <Label>Дата окончания</Label>
             <Controller
               name='DATE_END_WORK'
               control={control}
@@ -158,7 +160,7 @@ export default function Order({
           </div>
 
           <div className={cn(styles.item, styles.date)}>
-            <p className={styles.label}>Дата отмены</p>
+            <Label>Дата отмены</Label>
             <Controller
               name='DATE_CANCEL_WORK'
               control={control}
@@ -182,12 +184,12 @@ export default function Order({
               )}
             />
           </div>
-        </div>
+        </Flex>
       )}
 
       {(isAdmin || isTaskmaster || isSalon) && (
         <div className={styles.item}>
-          <p className={styles.label}>Cтоимость</p>
+          <Label>Cтоимость</Label>
           <Input
             isDisable={isSalon}
             name='PRICE_APP'
@@ -205,7 +207,7 @@ export default function Order({
 
       {(isAdmin || isTaskmaster || isBuilder) && (
         <div className={styles.item}>
-          <p className={styles.label}>Финальная цена</p>
+          <Label>Финальная цена</Label>
           <Input
             isDisable={isBuilder}
             name='PRICE'
@@ -221,7 +223,7 @@ export default function Order({
         </div>
       )}
 
-      <div className={styles.users}>
+      <Flex direction='column' gap={6}>
         {!isMasurer && (
           <FindUser
             onSet={(id: string | null) => (worker.current = id)}
@@ -251,11 +253,11 @@ export default function Order({
           users={users.filter((user: User) => user.GROUP_ID === '8')}
           onShowModal={onShowModal}
         />
-      </div>
+      </Flex>
 
       {typeof order.FIO === 'string' && (
         <div className={styles.item}>
-          <p className={styles.label}>ФИО клиента</p>
+          <Label>ФИО клиента</Label>
           <Input
             isDisable
             name='FIO'
@@ -269,7 +271,7 @@ export default function Order({
 
       {typeof order.PHONE_CLIENT === 'string' && (
         <div className={styles.item}>
-          <p className={styles.label}>Номер клиента</p>
+          <Label>Номер клиента</Label>
           <Input
             isDisable
             name='PHONE_CLIENT'
@@ -283,7 +285,7 @@ export default function Order({
 
       {typeof order.ADDRESS === 'string' && (
         <div className={styles.item}>
-          <p className={styles.label}>Адрес клиента</p>
+          <Label>Адрес клиента</Label>
           <Input
             isDisable
             name='ADDRESS'

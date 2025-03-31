@@ -2,7 +2,10 @@
 
 import { useRef, useState } from 'react';
 import { FaPlus } from 'react-icons/fa6';
+import cn from 'classnames';
 
+import Label from '@/app/components/elements/label';
+import Flex from '@/app/components/elements/flex';
 import { HOST } from '@/app/utils/constants';
 
 import { OrderFilesProps } from './types';
@@ -13,6 +16,7 @@ export default function OrderFiles({
   PHOTO_REPORT,
   SKETCH,
   MEASURING,
+  isWaitFile,
   isAdmin,
   isTaskmaster,
   isBuilder,
@@ -34,7 +38,7 @@ export default function OrderFiles({
   };
 
   return (
-    <div className={styles.files}>
+    <div className={cn(styles.files, isWaitFile && styles.wait)}>
       {isShowImage && (
         <div className={styles.full} onClick={onHideImageHandler}>
           <div className={styles.bg} />
@@ -43,9 +47,8 @@ export default function OrderFiles({
           </div>
         </div>
       )}
-
-      <div className={styles.item}>
-        <p className={styles.label}>Фото помещения</p>
+      <Flex gap={8} direction='column'>
+        <Label>Фото помещения</Label>
         <div className={styles.images}>
           {PHOTO_ROOM.length > 0 &&
             PHOTO_ROOM.map(({ id, path }: { id: number; path: string }) => (
@@ -68,30 +71,31 @@ export default function OrderFiles({
                 )}
               </div>
             ))}
-          {(isAdmin || isTaskmaster || isMasurer || isSalon) && (
-            <>
-              <div
-                className={styles.add}
-                onClick={() => photoRoom.current && photoRoom.current.click()}
-              >
-                <FaPlus size={20} />
-              </div>
-              <input
-                accept='image/png, image/jpeg'
-                ref={photoRoom}
-                type='file'
-                onChange={(e: any) => {
-                  const file = e.target.files[0];
-                  onAddFile({ file, type: 'PHOTO_ROOM' });
-                }}
-                style={{ display: 'none' }}
-              />
-            </>
-          )}
+          {(isAdmin || isTaskmaster || isMasurer || isSalon) &&
+            PHOTO_ROOM.length < 20 && (
+              <>
+                <div
+                  className={styles.add}
+                  onClick={() => photoRoom.current && photoRoom.current.click()}
+                >
+                  <FaPlus size={20} />
+                </div>
+                <input
+                  accept='image/png, image/jpeg'
+                  ref={photoRoom}
+                  type='file'
+                  onChange={(e: any) => {
+                    const file = e.target.files[0];
+                    onAddFile({ file, type: 'PHOTO_ROOM' });
+                  }}
+                  style={{ display: 'none' }}
+                />
+              </>
+            )}
         </div>
-      </div>
-      <div className={styles.item}>
-        <p className={styles.label}>Замер</p>
+      </Flex>
+      <Flex gap={8} direction='column'>
+        <Label>Замер</Label>
         <div className={styles.images}>
           {MEASURING.length > 0 &&
             MEASURING.map(({ id, path }: { id: number; path: string }) => (
@@ -135,9 +139,9 @@ export default function OrderFiles({
             </>
           )}
         </div>
-      </div>
-      <div className={styles.item}>
-        <p className={styles.label}>Эскиз</p>
+      </Flex>
+      <Flex gap={8} direction='column'>
+        <Label>Эскиз</Label>
         <div className={styles.images}>
           {SKETCH.length > 0 &&
             SKETCH.map(({ id, path }: { id: number; path: string }) => (
@@ -181,10 +185,10 @@ export default function OrderFiles({
             </>
           )}
         </div>
-      </div>
+      </Flex>
       {(isAdmin || isTaskmaster || isBuilder || isSalon) && (
-        <div className={styles.item}>
-          <p className={styles.label}>Фотоотчет сборки</p>
+        <Flex gap={8} direction='column'>
+          <Label>Фотоотчет сборки</Label>
           <div className={styles.images}>
             {PHOTO_REPORT.length > 0 &&
               PHOTO_REPORT.map(({ id, path }: { id: number; path: string }) => (
@@ -230,7 +234,7 @@ export default function OrderFiles({
               </>
             )}
           </div>
-        </div>
+        </Flex>
       )}
     </div>
   );

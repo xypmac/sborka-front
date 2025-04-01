@@ -4,5 +4,6 @@ export type UsersProps = {
   users: User[];
   total: number;
   isWait: boolean;
+  isAllowCreateUser: boolean;
   loadMore: () => void;
 };

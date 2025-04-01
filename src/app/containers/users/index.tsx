@@ -12,15 +12,16 @@ import { getUsers } from '@/app/store/users/thunks';
 import { setFilter, clearState } from '@/app/store/users';
 
 export default function Profile() {
-  const { users, page, isWait, error, total } = useSelector(
-    (state: RootState) => ({
+  const { isAdmin, isTaskmaster, users, page, isWait, error, total } =
+    useSelector((state: RootState) => ({
+      isAdmin: state.session.isAdmin,
+      isTaskmaster: state.session.isTaskmaster,
       users: state.users.users,
       page: state.users.currentPage,
       isWait: state.users.wait,
       error: state.users.error,
       total: state.users.usersTotal,
-    })
-  );
+    }));
 
   const dispatch: AppDispatch = useDispatch();
 
@@ -41,6 +42,7 @@ export default function Profile() {
         <Error error={error} />
       ) : (
         <Users
+          isAllowCreateUser={isAdmin || isTaskmaster}
           users={users}
           total={total}
           isWait={isWait}

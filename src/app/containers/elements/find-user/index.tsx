@@ -12,6 +12,7 @@ export default function FindUser({
   onSet,
   label,
   isSalon = false,
+  isDisabled = false,
   users,
   placeholder,
   onShowModal,
@@ -26,6 +27,7 @@ export default function FindUser({
   return (
     <FindUserComponent
       isSalon={isSalon}
+      isDisabled={isDisabled}
       onShowModal={onShowModal}
       onClear={() => {
         onSet('');

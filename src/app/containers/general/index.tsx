@@ -1,17 +1,16 @@
 'use client';
 
-import { useState, useEffect, ReactNode } from 'react';
+import { useState, useEffect, ReactElement } from 'react';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 
-import UserInformation from '@/app/containers/elements/user-information';
 import Loader from '@/app/components/elements/loader';
 import Wellcome from '@/app/pages/wellcome';
 import { AppDispatch, RootState } from '@/app/store';
 
 import { remind } from '@/app/store/session/thunks';
 
-export default function General({ component }: { component: ReactNode }) {
+export default function General({ component }: { component: ReactElement }) {
   const { token, user, wait } = useSelector((state: RootState) => ({
     token: state.session.token,
     user: state.session.user,

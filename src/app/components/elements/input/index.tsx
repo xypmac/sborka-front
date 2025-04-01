@@ -20,7 +20,7 @@ export default function Input({
     <div className={styles.elem}>
       <input
         {...register(name)}
-        className={cn(styles.input, error && styles.inputError)}
+        className={cn(styles.input, error && styles.error)}
         name={name}
         id={name}
         type={type}

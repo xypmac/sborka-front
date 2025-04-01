@@ -8,5 +8,6 @@ export type FindUserProps = {
   users: User[];
   userID?: string;
   isSalon?: boolean;
+  isDisabled?: boolean;
   onShowModal: (id: string) => void;
 };

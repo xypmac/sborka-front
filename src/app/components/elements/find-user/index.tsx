@@ -20,6 +20,7 @@ export default function FindUser({
   onClear,
   label,
   isSalon,
+  isDisabled,
   placeholder,
 }: FindUserProps) {
   const initialUsers = users;
@@ -84,6 +85,7 @@ export default function FindUser({
           className={styles.input}
           onClick={() => setIsOptions(true)}
           placeholder={placeholder}
+          disabled={isDisabled}
           id='value'
           name='value'
           onChange={(e) => setValue(e.target.value)}
@@ -110,7 +112,7 @@ export default function FindUser({
           </div>
         )}
 
-        {user && (
+        {!isDisabled && user && (
           <>
             <p className={styles.action} onClick={() => onShowModal(user.ID)}>
               <FaArrowAltCircleRight />

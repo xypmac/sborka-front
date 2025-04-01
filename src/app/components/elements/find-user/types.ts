@@ -6,6 +6,7 @@ export type FindUserProps = {
   user: User | null;
   users: User[];
   isSalon: boolean;
+  isDisabled: boolean;
   placeholder: string;
   onClear: () => void;
   onChoose: (user: User) => void;

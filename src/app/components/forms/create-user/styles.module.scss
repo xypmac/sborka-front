@@ -1,0 +1,40 @@
+.form {
+  max-width: 400px;
+
+  &.wait {
+    opacity: 0.5;
+    pointer-events: none;
+    cursor: default;
+  }
+}
+
+.caption {
+  font-size: 20px;
+}
+
+.icon {
+  cursor: pointer;
+  position: absolute;
+  right: 20px;
+  top: 22px;
+}
+
+.image {
+  width: 80px;
+  height: 80px;
+  border-radius: 10px;
+  object-fit: cover;
+  cursor: pointer;
+}
+
+.add {
+  width: 80px;
+  height: 80px;
+  cursor: pointer;
+  border: 2px solid #514fe4;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #514fe4;
+}

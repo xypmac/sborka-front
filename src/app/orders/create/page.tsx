@@ -1,6 +1,6 @@
 import General from '@/app/containers/general';
-import CreateOrder from '@/app/containers/create-order';
+import CreateOrderContainers from '@/app/containers/create-order';
 
-export default function Order() {
-  return <General component={<CreateOrder />} />;
+export default function CreateOrder() {
+  return <General component={<CreateOrderContainers />} />;
 }

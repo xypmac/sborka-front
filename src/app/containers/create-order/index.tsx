@@ -5,11 +5,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import nookies from 'nookies';
 import { useRouter } from 'next/navigation';
 
-import Loader from '@/app/components/elements/loader';
-import { AppDispatch, RootState } from '@/app/store';
 import MainLayout from '@/app/layouts/main-layout';
+import Form from '@/app/components/forms/create-order';
+import { AppDispatch, RootState } from '@/app/store';
 import { API, SERVER_OK } from '@/app/utils/constants';
-import CreateOrderForm from '@/app/components/forms/create-order';
 
 export default function CreateOrder() {
   const { isSalon } = useSelector((state: RootState) => ({
@@ -83,7 +82,7 @@ export default function CreateOrder() {
 
   return (
     <MainLayout>
-      <CreateOrderForm
+      <Form
         onCreateOrder={onCreateOrderHandler}
         isSalon={isSalon}
         isWait={isWait}

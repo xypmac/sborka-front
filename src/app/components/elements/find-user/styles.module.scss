@@ -22,6 +22,11 @@
   background-color: #fff;
   border: 1px solid #a8a8a8;
 
+  &:disabled {
+    background-color: #eaeaea;
+    color: #747281;
+  }
+
   &::placeholder {
     color: #b3b3b3;
   }

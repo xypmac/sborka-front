@@ -16,6 +16,10 @@
   background-color: #fff;
   border: 1px solid #a8a8a8;
 
+  &.error {
+    border-color: #e13b3b;
+  }
+
   &:disabled {
     background-color: #eaeaea;
     color: #747281;

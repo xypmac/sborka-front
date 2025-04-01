@@ -10,11 +10,17 @@ import UserLine from '@/app/components/elements/user-line';
 import { UsersProps } from './types';
 import styles from './styles.module.scss';
 
-export default function Users({ users, isWait, total, loadMore }: UsersProps) {
+export default function Users({
+  users,
+  isWait,
+  total,
+  loadMore,
+  isAllowCreateUser,
+}: UsersProps) {
   return (
     <div className={styles.list}>
       {isWait && <Loader borderRadius={5} />}
-      <Filter />
+      <Filter isAllowCreateUser={isAllowCreateUser} />
       {users.length === 0 ? (
         <Empty text='Ничего нет' mt={32} />
       ) : (

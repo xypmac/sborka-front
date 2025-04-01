@@ -221,6 +221,7 @@ export default function Order({
         {!isMasurer && (
           <FindUser
             onSet={(id: string | null) => (worker.current = id)}
+            isDisabled={isBuilder || isSalon}
             label='Сборщик'
             placeholder='Введите ФИО пользователя'
             userID={order.WORKER}
@@ -231,6 +232,7 @@ export default function Order({
         {!isBuilder && (
           <FindUser
             onSet={(id: string | null) => (measurer.current = id)}
+            isDisabled={isMasurer || isSalon}
             label='Замерщик'
             placeholder='Введите ФИО пользователя'
             userID={order.MEASURER}
@@ -241,6 +243,7 @@ export default function Order({
         <FindUser
           onSet={(id: string | null) => (salon.current = id)}
           isSalon
+          isDisabled={isBuilder || isMasurer || isSalon}
           label='Салон'
           placeholder='Введите название контрагента'
           userID={order.SALON}

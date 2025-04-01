@@ -55,7 +55,9 @@ export default function Order() {
 
   useEffect(() => {
     dispatch(getOrderById(params.id as string));
-    dispatch(getUsers({ name: '', group: '', active: '', currentPage: 0 }));
+    dispatch(
+      getUsers({ name: '', group: '', active: '', currentPage: 0, isAll: true })
+    );
   }, []);
 
   const onUpdateOrderHandler = (data: any) => {

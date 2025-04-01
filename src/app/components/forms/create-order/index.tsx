@@ -238,7 +238,7 @@ export default function CreateOrder({
         </Flex>
 
         <Flex gap={4} direction='column'>
-          <Label>Эскиз</Label>
+          <Label>Замер</Label>
           <Flex gap={10} justify='flex-start'>
             {getValues().sizePhotos.length > 0 &&
               getValues().sizePhotos.map((photo, index) => {

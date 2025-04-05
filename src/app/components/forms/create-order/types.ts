@@ -1,5 +1,5 @@
 export type CreateOrderProps = {
-  onCreateOrder: (data: any) => void;
+  onCreateOrder: (data: Fields) => void;
   error: string;
   isWait: boolean;
   isSalon: boolean;
@@ -10,8 +10,18 @@ export type Fields = {
   price: string;
   name: string;
   phone: string;
-  roomPhotos: string[];
   sketchPhotos: string[];
-  sizePhotos: string[];
+  roomPhotos?: string[];
+  sizePhotos?: string[];
   comment?: string;
 };
+
+export type FieldsName =
+  | 'price'
+  | 'name'
+  | 'phone'
+  | 'comment'
+  | 'address'
+  | 'roomPhotos'
+  | 'sketchPhotos'
+  | 'sizePhotos';

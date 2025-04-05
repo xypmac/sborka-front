@@ -1,13 +1,13 @@
 'use client';
 
 import { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import nookies from 'nookies';
 import { useRouter } from 'next/navigation';
 
 import MainLayout from '@/app/layouts/main-layout';
 import Form from '@/app/components/forms/create-order';
-import { AppDispatch, RootState } from '@/app/store';
+import { RootState } from '@/app/store';
 import { API, SERVER_OK } from '@/app/utils/constants';
 
 export default function CreateOrder() {
@@ -19,7 +19,6 @@ export default function CreateOrder() {
   const [isWait, setIsWait] = useState(false);
 
   const router = useRouter();
-  const dispatch: AppDispatch = useDispatch();
 
   const onCreateOrderHandler = (data: any) => {
     const {
@@ -32,24 +31,25 @@ export default function CreateOrder() {
       sketchPhotos,
       sizePhotos,
     } = data;
-
     let formData = new FormData();
     formData.append(`PROPS[ADDRESS]`, address);
     formData.append(`PROPS[FIO]`, name);
     formData.append(`PROPS[PHONE_CLIENT]`, phone);
     formData.append(`PROPS[PRICE_APP]`, price);
 
-    roomPhotos.forEach((element: File, index: number) => {
-      formData.append(`PHOTO_ROOM[${index}]`, element);
-    });
-
     sketchPhotos.forEach((element: File, index: number) => {
       formData.append(`SKETCH[${index}]`, element);
     });
 
-    sizePhotos.forEach((element: File, index: number) => {
-      formData.append(`MEASURING[${index}]`, element);
-    });
+    roomPhotos &&
+      roomPhotos.forEach((element: File, index: number) => {
+        formData.append(`PHOTO_ROOM[${index}]`, element);
+      });
+
+    sizePhotos &&
+      sizePhotos.forEach((element: File, index: number) => {
+        formData.append(`MEASURING[${index}]`, element);
+      });
 
     comment && formData.append(`PROPS[COMMENT_SALON]`, comment);
 

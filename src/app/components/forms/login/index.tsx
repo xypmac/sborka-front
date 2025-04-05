@@ -14,10 +14,10 @@ import { clearError } from '@/app/store/session';
 import { EXPIRED_TOKEN_ERROR } from '@/app/utils/constants';
 
 import schema from './schema';
-import { LoginProps, Fields } from './types';
+import { LoginProps, Fields, FieldsName } from './types';
 import styles from './styles.module.scss';
 
-export default function Login({ serverError }: LoginProps) {
+export default function Login({ error }: LoginProps) {
   const dispatch: AppDispatch = useDispatch();
 
   const {
@@ -30,7 +30,7 @@ export default function Login({ serverError }: LoginProps) {
   });
 
   useEffect(() => {
-    if (serverError) {
+    if (error) {
       const id = setTimeout(() => {
         dispatch(clearError());
       }, 10000);
@@ -39,16 +39,16 @@ export default function Login({ serverError }: LoginProps) {
         clearTimeout(id);
       };
     }
-  }, [serverError]);
-
-  const onChangeHandler = (value: string, field: 'login' | 'password') => {
-    setValue(field, value, {
-      shouldValidate: true,
-    });
-  };
+  }, [error]);
 
   const onSubmitHandler: SubmitHandler<Fields> = (data) => {
     dispatch(login({ ...data }));
+  };
+
+  const onChangeHandler = (value: string, field: FieldsName) => {
+    setValue(field, value, {
+      shouldValidate: true,
+    });
   };
 
   return (
@@ -71,13 +71,9 @@ export default function Login({ serverError }: LoginProps) {
           error={errors.password?.message || null}
           onChange={onChangeHandler}
         />
-        {serverError && (
+        {error && (
           <Error
-            error={
-              serverError === 'Expired token'
-                ? EXPIRED_TOKEN_ERROR
-                : serverError
-            }
+            error={error === 'Expired token' ? EXPIRED_TOKEN_ERROR : error}
           />
         )}
         <Button

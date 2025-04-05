@@ -1,5 +1,5 @@
 export type CreateUserProps = {
-  onCreateUser: (data: any) => void;
+  onCreateUser: (data: Fields) => void;
   error: string;
   isWait: boolean;
 };
@@ -16,7 +16,7 @@ export type Fields = {
   address?: string;
 };
 
-export type FieldsNames =
+export type FieldsName =
   | 'login'
   | 'password'
   | 'passwordConfirm'

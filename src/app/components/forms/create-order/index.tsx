@@ -3,20 +3,18 @@
 import { useState, useRef } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useDispatch } from 'react-redux';
-import { FaPlus } from 'react-icons/fa6';
 import cn from 'classnames';
 
 import Error from '@/app/components/elements/error';
+import Images from '@/app/components/elements/images';
 import Flex from '@/app/components/elements/flex';
 import Label from '@/app/components/elements/label';
 import Button from '@/app/components/elements/button';
 import Input from '@/app/components/elements/input';
-import { AppDispatch } from '@/app/store';
 import getPhoneFormat from '@/app/utils/get-phone-number';
 
 import schema from './schema';
-import { CreateOrderProps, Fields } from './types';
+import { CreateOrderProps, Fields, FieldsName } from './types';
 import styles from './styles.module.scss';
 
 export default function CreateOrder({
@@ -25,8 +23,6 @@ export default function CreateOrder({
   isWait,
   error,
 }: CreateOrderProps) {
-  const dispatch: AppDispatch = useDispatch();
-
   const {
     register,
     handleSubmit,
@@ -36,14 +32,11 @@ export default function CreateOrder({
     formState: { errors },
   } = useForm<Fields>({
     defaultValues: {
-      roomPhotos: [],
       sketchPhotos: [],
-      sizePhotos: [],
       address: '',
       price: '',
       name: '',
       phone: '',
-      comment: '',
     },
     resolver: yupResolver(schema),
   });
@@ -64,6 +57,17 @@ export default function CreateOrder({
     onCreateOrder({ ...data, roomPhotos, sketchPhotos, sizePhotos });
   };
 
+  const onChangeHandler = (value: string, field: FieldsName) => {
+    let result = value;
+
+    if (field === 'phone') result = getPhoneFormat(value);
+    if (field === 'price') result = value.replace(/\D/, '');
+
+    setValue(field, result, {
+      shouldValidate: true,
+    });
+  };
+
   return (
     <form
       className={cn(styles.form, isWait && styles.wait)}
@@ -79,11 +83,7 @@ export default function CreateOrder({
             placeholder='Стоимость'
             register={register}
             error={errors.price?.message || null}
-            onChange={(value) => {
-              setValue('price', value.replace(/\D/, ''), {
-                shouldValidate: true,
-              });
-            }}
+            onChange={onChangeHandler}
           />
         </Flex>
 
@@ -94,11 +94,7 @@ export default function CreateOrder({
             placeholder='ФИО клиета'
             register={register}
             error={errors.name?.message || null}
-            onChange={(value) =>
-              setValue('name', value, {
-                shouldValidate: true,
-              })
-            }
+            onChange={onChangeHandler}
           />
         </Flex>
 
@@ -109,11 +105,7 @@ export default function CreateOrder({
             placeholder='Номер клиента'
             register={register}
             error={errors.phone?.message || null}
-            onChange={(value) =>
-              setValue('phone', getPhoneFormat(value), {
-                shouldValidate: true,
-              })
-            }
+            onChange={onChangeHandler}
           />
         </Flex>
 
@@ -124,11 +116,7 @@ export default function CreateOrder({
             placeholder='Адрес клиента'
             register={register}
             error={errors.address?.message || null}
-            onChange={(value) =>
-              setValue('address', value, {
-                shouldValidate: true,
-              })
-            }
+            onChange={onChangeHandler}
           />
         </Flex>
 
@@ -140,71 +128,17 @@ export default function CreateOrder({
               placeholder='Комментарий'
               register={register}
               error={errors.comment?.message || null}
-              onChange={(e) => false}
+              onChange={onChangeHandler}
             />
           </Flex>
         )}
 
         <Flex gap={4} direction='column'>
-          <Label>Фото помещения</Label>
-          <Flex gap={10} justify='flex-start'>
-            {getValues().roomPhotos.length > 0 &&
-              getValues().roomPhotos.map((photo, index) => {
-                return <img className={styles.image} key={index} src={photo} />;
-              })}
-            <div
-              className={styles.add}
-              onClick={() => roomRef.current && roomRef.current.click()}
-            >
-              <FaPlus size={20} />
-            </div>
-          </Flex>
-          {errors.roomPhotos && (
-            <Error error={errors.roomPhotos.message || ''} />
-          )}
-          <input
-            accept='image/png, image/jpeg'
-            ref={roomRef}
-            type='file'
-            onChange={(e: any) => {
-              const file = e.target.files[0];
-              if (file) {
-                setRoomPhotos([...roomPhotos, file]);
-                clearErrors('roomPhotos');
-                const reader = new FileReader();
-
-                reader.onloadend = () => {
-                  setValue('roomPhotos', [
-                    ...getValues().roomPhotos,
-                    reader.result as string,
-                  ]);
-                  setRoomPhotosPreview([
-                    ...roomPhotosPreview,
-                    reader.result as string,
-                  ]);
-                };
-
-                reader.readAsDataURL(file);
-              }
-            }}
-            style={{ display: 'none' }}
-          />
-        </Flex>
-
-        <Flex gap={4} direction='column'>
           <Label>Эскиз</Label>
-          <Flex gap={10} justify='flex-start'>
-            {getValues().sketchPhotos.length > 0 &&
-              getValues().sketchPhotos.map((photo, index) => {
-                return <img className={styles.image} key={index} src={photo} />;
-              })}
-            <div
-              className={styles.add}
-              onClick={() => sketchRef.current && sketchRef.current.click()}
-            >
-              <FaPlus size={20} />
-            </div>
-          </Flex>
+          <Images
+            list={getValues().sketchPhotos || []}
+            onAdd={() => sketchRef.current && sketchRef.current.click()}
+          />
           {errors.sketchPhotos && (
             <Error error={errors.sketchPhotos.message || ''} />
           )}
@@ -238,19 +172,49 @@ export default function CreateOrder({
         </Flex>
 
         <Flex gap={4} direction='column'>
+          <Label>Фото помещения</Label>
+          <Images
+            list={getValues().roomPhotos || []}
+            onAdd={() => roomRef.current && roomRef.current.click()}
+          />
+          {errors.roomPhotos && (
+            <Error error={errors.roomPhotos.message || ''} />
+          )}
+          <input
+            accept='image/png, image/jpeg'
+            ref={roomRef}
+            type='file'
+            onChange={(e: any) => {
+              const file = e.target.files[0];
+              if (file) {
+                setRoomPhotos([...roomPhotos, file]);
+                clearErrors('roomPhotos');
+                const reader = new FileReader();
+
+                reader.onloadend = () => {
+                  setValue('roomPhotos', [
+                    ...(getValues().roomPhotos || []),
+                    reader.result as string,
+                  ]);
+                  setRoomPhotosPreview([
+                    ...roomPhotosPreview,
+                    reader.result as string,
+                  ]);
+                };
+
+                reader.readAsDataURL(file);
+              }
+            }}
+            style={{ display: 'none' }}
+          />
+        </Flex>
+
+        <Flex gap={4} direction='column'>
           <Label>Замер</Label>
-          <Flex gap={10} justify='flex-start'>
-            {getValues().sizePhotos.length > 0 &&
-              getValues().sizePhotos.map((photo, index) => {
-                return <img className={styles.image} key={index} src={photo} />;
-              })}
-            <div
-              className={styles.add}
-              onClick={() => sizeRef.current && sizeRef.current.click()}
-            >
-              <FaPlus size={20} />
-            </div>
-          </Flex>
+          <Images
+            list={getValues().sizePhotos || []}
+            onAdd={() => sizeRef.current && sizeRef.current.click()}
+          />
           {errors.sizePhotos && (
             <Error error={errors.sizePhotos.message || ''} />
           )}
@@ -267,7 +231,7 @@ export default function CreateOrder({
 
                 reader.onloadend = () => {
                   setValue('sizePhotos', [
-                    ...getValues().sizePhotos,
+                    ...(getValues().sizePhotos || []),
                     reader.result as string,
                   ]);
                   setSizePhotosPreview([
@@ -290,7 +254,6 @@ export default function CreateOrder({
           type='submit'
           isDisabled={Object.keys(errors).length !== 0}
         />
-
         {error && <Error error={error} />}
       </Flex>
     </form>

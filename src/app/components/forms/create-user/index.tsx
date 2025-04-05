@@ -14,7 +14,7 @@ import getPhoneFormat from '@/app/utils/get-phone-number';
 import { USERS_GROUP } from '@/app/utils/constants';
 
 import schema from './schema';
-import { CreateUserProps, Fields, FieldsNames } from './types';
+import { CreateUserProps, Fields, FieldsName } from './types';
 import styles from './styles.module.scss';
 
 export default function CreateUser({
@@ -25,7 +25,6 @@ export default function CreateUser({
   const {
     register,
     handleSubmit,
-    clearErrors,
     getValues,
     setValue,
     formState: { errors },
@@ -37,7 +36,7 @@ export default function CreateUser({
     onCreateUser({ ...data });
   };
 
-  const onChangeHandler = (value: string, field: FieldsNames) => {
+  const onChangeHandler = (value: string, field: FieldsName) => {
     setValue(field, field === 'phone' ? getPhoneFormat(value) : value, {
       shouldValidate: true,
     });
@@ -49,6 +48,7 @@ export default function CreateUser({
       onSubmit={handleSubmit(onSubmitHandler)}
     >
       <p className={styles.caption}>Создать пользователя</p>
+
       <Flex gap={20} margin='20px 0' direction='column'>
         <Flex gap={4} direction='column'>
           <Label>Тип пользователя</Label>
@@ -131,22 +131,29 @@ export default function CreateUser({
         )}
 
         {getValues().type === '8' && (
-          <Input
-            name='partner'
-            placeholder='Название контрагента'
-            register={register}
-            error={errors.partner?.message || null}
-            onChange={onChangeHandler}
-          />
+          <Flex gap={4} direction='column'>
+            <Label>Название контрагента</Label>
+            <Input
+              name='partner'
+              placeholder='Название контрагента'
+              register={register}
+              error={errors.partner?.message || null}
+              onChange={onChangeHandler}
+            />
+          </Flex>
         )}
+
         {getValues().type === '8' && (
-          <Input
-            name='address'
-            placeholder='Адрес'
-            register={register}
-            error={errors.address?.message || null}
-            onChange={onChangeHandler}
-          />
+          <Flex gap={4} direction='column'>
+            <Label>Адрес</Label>
+            <Input
+              name='address'
+              placeholder='Адрес'
+              register={register}
+              error={errors.address?.message || null}
+              onChange={onChangeHandler}
+            />
+          </Flex>
         )}
       </Flex>
 

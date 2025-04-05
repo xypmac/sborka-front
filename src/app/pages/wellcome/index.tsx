@@ -34,7 +34,7 @@ export default function Wellcome() {
       <div className={styles.block}>
         {wait && <Loader />}
         {isLoginMode ? (
-          <Login serverError={serverError} />
+          <Login error={serverError} />
         ) : (
           <Registration serverError={serverError} />
         )}

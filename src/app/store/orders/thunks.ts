@@ -2,7 +2,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import nookies from 'nookies';
 import { format } from 'date-fns';
 
-import { API, SERVER_ERRORS } from '@/app/utils/constants';
+import { API, SERVER_ERRORS, SERVER_OK } from '@/app/utils/constants';
 
 export const getOrderById = createAsyncThunk(
   'orders/getOrderById',
@@ -164,7 +164,7 @@ export const getOrders = createAsyncThunk(
     try {
       const state: any = getState();
       const { orders } = state;
-      const currentPage = data ? data.currentPage : orders.currentPage;
+      const offset = data ? data.currentPage : orders.currentPage;
 
       let formData = new FormData();
       formData.append('select[]', 'ORDER_ID');
@@ -172,8 +172,8 @@ export const getOrders = createAsyncThunk(
       formData.append('select[]', 'PHONE_CLIENT');
       formData.append('select[]', 'ADDRESS');
       formData.append('select[]', 'STATUS');
-      formData.append('offset', currentPage);
       formData.append('limit', '10');
+      formData.append('offset', offset);
 
       // фильтр по номеру
       const id = orders.filter.id || null;
@@ -199,7 +199,7 @@ export const getOrders = createAsyncThunk(
         },
       });
 
-      if (response.status === 200) {
+      if (SERVER_OK.includes(response.status)) {
         const data = await response.json();
         const orders = [];
 
@@ -212,8 +212,8 @@ export const getOrders = createAsyncThunk(
         return {
           orders,
           total: data.message.totalCount,
-          page: currentPage + 1,
-          isFirstLoad: currentPage === 0,
+          page: offset + 1,
+          isFirstLoad: offset === 0,
         };
       }
 

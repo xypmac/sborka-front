@@ -1,16 +1,17 @@
 'use client';
 
-import { useState, useEffect, ReactElement } from 'react';
+import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 
 import Loader from '@/app/components/elements/loader';
 import Wellcome from '@/app/pages/wellcome';
 import { AppDispatch, RootState } from '@/app/store';
-
 import { remind } from '@/app/store/session/thunks';
 
-export default function General({ component }: { component: ReactElement }) {
+import { GeneralProps } from './types';
+
+export default function General({ component }: GeneralProps) {
   const { token, user, wait } = useSelector((state: RootState) => ({
     token: state.session.token,
     user: state.session.user,
@@ -18,6 +19,7 @@ export default function General({ component }: { component: ReactElement }) {
   }));
 
   const [isCheck, setIsCheck] = useState(false);
+
   const dispatch: AppDispatch = useDispatch();
 
   useEffect(() => {
@@ -29,7 +31,7 @@ export default function General({ component }: { component: ReactElement }) {
   }, []);
 
   if (isCheck && !wait) {
-    return token ? <>{component}</> : <Wellcome />;
+    return token ? component : <Wellcome />;
   }
 
   return <Loader />;

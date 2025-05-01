@@ -11,9 +11,7 @@ export default function Button({
   isDisabled = false,
   onClick,
 }: ButtonProps) {
-  const onClickHandler = () => {
-    onClick && onClick();
-  };
+  const onClickHandler = () => onClick && onClick();
 
   return (
     <button

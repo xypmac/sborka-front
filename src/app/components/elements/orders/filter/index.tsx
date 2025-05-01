@@ -1,44 +1,38 @@
 'use client';
 
-import { useState, forwardRef, useRef } from 'react';
+import { useState, forwardRef } from 'react';
 import DatePicker from 'react-datepicker';
-import { useDispatch } from 'react-redux';
 import { format } from 'date-fns';
 import Link from 'next/link';
 import { ru } from 'date-fns/locale';
 
+import Flex from '@/app/components/elements/flex';
 import Button from '@/app/components/elements/button';
 import Select from '@/app/components/elements/select';
-import { AppDispatch } from '@/app/store';
-import { getOrders } from '@/app/store/orders/thunks';
-import { setFilter } from '@/app/store/orders';
 import { ORDER_STATUS_GROUP_FILTER } from '@/app/utils/constants';
 import getOrderStatusText from '@/app/utils/get-order-status-text';
 
+import { FilterProps } from './types';
 import styles from './styles.module.scss';
 
-export default function UsersFilter({
-  isAllowCreateOrder,
-}: {
-  isAllowCreateOrder: boolean;
-}) {
+export default function Filter({ isAllowCreateOrder, onSearch }: FilterProps) {
   const [id, setId] = useState('');
   const [name, setName] = useState('');
   const [status, setStatus] = useState('');
   const [date, setDate] = useState<Date | null>(null);
 
-  const dispatch: AppDispatch = useDispatch();
+  const onSearchHandler = () => {
+    const finalDate = date ? format(new Date(date), 'dd.MM.yyyy') : '';
+    onSearch({ id, name, status, date: finalDate });
+  };
 
   const onResetHandler = () => {
     setId('');
     setName('');
     setStatus('');
     setDate(null);
-    dispatch(setFilter({ id: '', name: '', status: '', date: '' }));
-    dispatch(getOrders({ currentPage: 0 }));
+    onSearch({ id: '', name: '', status: '', date: '' });
   };
-
-  const ref = useRef<HTMLButtonElement | null>(null);
 
   const CustomInput = forwardRef(
     ({ value, onClick }: { value: any; onClick: any }, ref) => (
@@ -48,15 +42,8 @@ export default function UsersFilter({
     )
   );
 
-  const onSearchHandler = () => {
-    const result = date ? format(new Date(date), 'dd.MM.yyyy') : '';
-
-    dispatch(setFilter({ id, name, status, date: result }));
-    dispatch(getOrders({ currentPage: 0 }));
-  };
-
   return (
-    <div className={styles.filter}>
+    <Flex gap={12} align='center' justify='flex-start'>
       <div className={styles.select}>
         <Select
           defaultOption='Статус заказа'
@@ -66,15 +53,13 @@ export default function UsersFilter({
           value={getOrderStatusText(status)}
         />
       </div>
-      <div>
-        <DatePicker
-          locale={ru}
-          selected={date}
-          dateFormat='dd.MM.yyyy'
-          onChange={(date) => setDate(date)}
-          customInput={<CustomInput value={date} onClick={() => false} />}
-        />
-      </div>
+      <DatePicker
+        locale={ru}
+        selected={date}
+        dateFormat='dd.MM.yyyy'
+        onChange={(date) => setDate(date)}
+        customInput={<CustomInput value={date} onClick={() => false} />}
+      />
       <input
         className={styles.input}
         onChange={(e) => setName(e.target.value)}
@@ -94,6 +79,6 @@ export default function UsersFilter({
           Создать заказ
         </Link>
       )}
-    </div>
+    </Flex>
   );
 }

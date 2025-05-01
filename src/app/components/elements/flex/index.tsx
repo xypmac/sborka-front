@@ -1,7 +1,5 @@
 'use client';
 
-import { ReactElement } from 'react';
-
 import { FlexProps } from './types';
 
 export default function Flex({

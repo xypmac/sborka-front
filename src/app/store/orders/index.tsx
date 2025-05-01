@@ -16,7 +16,7 @@ export const initialState: OrdersType = {
   currentOrder: null,
   currentPage: 0,
   total: 0,
-  isWait: false,
+  isWait: true,
   isWaitFile: false,
   isWaitUpdate: false,
   filter: {
@@ -35,11 +35,11 @@ const ordersSlice = createSlice({
       state.error = null;
     },
     clearState(state) {
-      state.isWait = initialState.isWait;
-      state.error = initialState.error;
       state.list = initialState.list;
+      state.error = initialState.error;
       state.currentPage = initialState.currentPage;
       state.total = initialState.total;
+      state.isWait = initialState.isWait;
       state.filter = initialState.filter;
     },
     setFilter(state, action) {
@@ -118,10 +118,10 @@ const ordersSlice = createSlice({
         state.list = action.payload?.orders || [];
       } else {
         const copyState = JSON.parse(JSON.stringify(state));
-        const prevOrders = copyState.list;
-        const orders = action.payload?.orders || [];
+        const currentOrders = copyState.list;
+        const newOrders = action.payload?.orders || [];
 
-        state.list = [...prevOrders, ...orders];
+        state.list = [...currentOrders, ...newOrders];
       }
 
       state.currentPage = action.payload?.page || 0;

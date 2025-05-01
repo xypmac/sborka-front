@@ -8,36 +8,27 @@ import Flex from '@/app/components/elements/flex';
 import Button from '@/app/components/elements/button';
 import Select from '@/app/components/elements/select';
 import { AppDispatch } from '@/app/store';
-import { getUsers } from '@/app/store/users/thunks';
-import { setFilter } from '@/app/store/users';
 import getUserGroupText from '@/app/utils/get-user-group-text';
 import getUserActivityText from '@/app/utils/get-user-activity-text';
 import { USERS_GROUP_FILTER, ACTIVITY_GROUP } from '@/app/utils/constants';
 
+import { FilterProps } from './types';
 import styles from './styles.module.scss';
 
-export default function UsersFilter({
-  isAllowCreateUser,
-}: {
-  isAllowCreateUser: boolean;
-}) {
+export default function Filter({ isAllowCreateUser, onSearch }: FilterProps) {
   const [name, setName] = useState('');
-  const [group, setGroup] = useState('');
   const [active, setActive] = useState('');
+  const [group, setGroup] = useState('');
 
   const dispatch: AppDispatch = useDispatch();
 
+  const onSearchHandler = () => onSearch({ name, group, active });
+
   const onResetHandler = () => {
     setGroup('');
-    setName('');
     setActive('');
-    dispatch(setFilter({ name: '', group: '', active: '' }));
-    dispatch(getUsers({ name: '', group: '', active: '', currentPage: 0 }));
-  };
-
-  const onSearchHandler = () => {
-    dispatch(setFilter({ name, group, active }));
-    dispatch(getUsers({ name, group, active, currentPage: 0 }));
+    setName('');
+    onSearch({ name: '', group: '', active: '' });
   };
 
   return (

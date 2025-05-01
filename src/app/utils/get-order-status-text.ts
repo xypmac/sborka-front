@@ -1,4 +1,4 @@
-const getOrderStatusText = (status: string) => {
+export default function getOrderStatusText(status: string) {
   if (status === '5') {
     return 'Новая';
   } else if (status === '6') {
@@ -14,6 +14,4 @@ const getOrderStatusText = (status: string) => {
   } else {
     return '';
   }
-};
-
-export default getOrderStatusText;
+}

@@ -22,8 +22,12 @@ export default function Filter({ isAllowCreateOrder, onSearch }: FilterProps) {
   const [date, setDate] = useState<Date | null>(null);
 
   const onSearchHandler = () => {
-    const finalDate = date ? format(new Date(date), 'dd.MM.yyyy') : '';
-    onSearch({ id, name, status, date: finalDate });
+    onSearch({
+      id,
+      name,
+      status,
+      date: date ? format(new Date(date), 'dd.MM.yyyy') : '',
+    });
   };
 
   const onResetHandler = () => {

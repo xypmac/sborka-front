@@ -1,12 +1,11 @@
+'use client';
+
 import cn from 'classnames';
 
+import { LoaderProps } from './types';
 import styles from './styles.module.scss';
 
-export default function Loader({
-  borderRadius = 10,
-}: {
-  borderRadius?: number;
-}) {
+export default function Loader({ borderRadius = 10 }: LoaderProps) {
   return (
     <div className={styles.content}>
       <div

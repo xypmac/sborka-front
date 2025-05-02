@@ -1,13 +1,11 @@
 'use client';
 
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
 import Link from 'next/link';
 
 import Flex from '@/app/components/elements/flex';
 import Button from '@/app/components/elements/button';
 import Select from '@/app/components/elements/select';
-import { AppDispatch } from '@/app/store';
 import getUserGroupText from '@/app/utils/get-user-group-text';
 import getUserActivityText from '@/app/utils/get-user-activity-text';
 import { USERS_GROUP_FILTER, ACTIVITY_GROUP } from '@/app/utils/constants';
@@ -19,8 +17,6 @@ export default function Filter({ isAllowCreateUser, onSearch }: FilterProps) {
   const [name, setName] = useState('');
   const [active, setActive] = useState('');
   const [group, setGroup] = useState('');
-
-  const dispatch: AppDispatch = useDispatch();
 
   const onSearchHandler = () => onSearch({ name, group, active });
 

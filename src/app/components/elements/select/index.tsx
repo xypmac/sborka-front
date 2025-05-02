@@ -36,23 +36,6 @@ export default function Select({
     onSelect(value, 'type');
   };
 
-  const getOptions = () => {
-    return options.map((type: Option) => {
-      return (
-        <li
-          key={type.id}
-          className={cn(
-            styles.elem,
-            activeElem === type.title && styles.activeElem
-          )}
-          onClick={() => onSelectHandler(type.title, String(type.id))}
-        >
-          {type.title}
-        </li>
-      );
-    });
-  };
-
   return (
     <div className={cn(styles.select, isDisable && styles.disable)}>
       <div
@@ -67,13 +50,24 @@ export default function Select({
       >
         {activeElem === '' ? defaultOption : activeElem}
       </div>
-
       {isShow && (
         <ul className={styles.list} ref={listRef}>
-          {getOptions()}
+          {options.map((type: Option) => {
+            return (
+              <li
+                key={type.id}
+                className={cn(
+                  styles.elem,
+                  activeElem === type.title && styles.activeElem
+                )}
+                onClick={() => onSelectHandler(type.title, String(type.id))}
+              >
+                {type.title}
+              </li>
+            );
+          })}
         </ul>
       )}
-
       {error && <Error error={error} />}
     </div>
   );

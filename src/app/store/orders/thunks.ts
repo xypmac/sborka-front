@@ -59,7 +59,6 @@ export const updateOrder = createAsyncThunk(
     { rejectWithValue }
   ) => {
     try {
-      console.log(props);
       let formData = new FormData();
       formData.append('ID', ID);
       formData.append(`PROPS[PRICE_APP]`, props.PRICE_APP);

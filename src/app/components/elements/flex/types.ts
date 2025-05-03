@@ -1,5 +1,3 @@
-import { ReactElement } from 'react';
-
 export type FlexProps = {
   children: any;
   gap?: number;

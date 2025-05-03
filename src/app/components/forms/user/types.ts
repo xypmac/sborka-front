@@ -2,6 +2,7 @@ import { User } from '@/app/store/users/type';
 
 export type ProfileProps = {
   user: User;
+  isShowCalendar: boolean;
   serverError?: string | null;
   isWait?: boolean;
   isWide?: boolean;

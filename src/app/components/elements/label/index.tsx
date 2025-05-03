@@ -1,13 +1,8 @@
 'use client';
 
-import { ReactElement } from 'react';
-
+import { LabelProps } from './types';
 import styles from './styles.module.scss';
 
-export default function label({
-  children,
-}: {
-  children: ReactElement | string;
-}) {
+export default function label({ children }: LabelProps) {
   return <p className={styles.label}>{children}</p>;
 }

@@ -1,6 +1,6 @@
-import Profile from '@/app/containers/profile';
 import General from '@/app/containers/general';
+import ProfilePage from '@/app/containers/pages/profile';
 
-export default function Home() {
-  return <General component={<Profile />} />;
+export default function Profile() {
+  return <General component={<ProfilePage />} />;
 }

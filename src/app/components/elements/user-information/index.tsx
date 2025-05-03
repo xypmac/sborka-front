@@ -36,6 +36,7 @@ export default function UserInformation({
               serverError={error}
               isWait={isWaitUpdating}
               isWide
+              isShowCalendar={false}
               user={user as UserType}
               isAllowEdit
               onActiveUser={onActiveUser}

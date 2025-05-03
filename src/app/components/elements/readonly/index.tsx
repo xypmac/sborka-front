@@ -1,7 +1,5 @@
 'use client';
 
-import cn from 'classnames';
-
 import { ReadonlyProps } from './types';
 import styles from './styles.module.scss';
 

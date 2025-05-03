@@ -57,13 +57,15 @@ export default function Filter({ isAllowCreateOrder, onSearch }: FilterProps) {
           value={getOrderStatusText(status)}
         />
       </div>
-      <DatePicker
-        locale={ru}
-        selected={date}
-        dateFormat='dd.MM.yyyy'
-        onChange={(date) => setDate(date)}
-        customInput={<CustomInput value={date} onClick={() => false} />}
-      />
+      <div className={styles.datepickerWrap}>
+        <DatePicker
+          locale={ru}
+          selected={date}
+          dateFormat='dd.MM.yyyy'
+          onChange={(date) => setDate(date)}
+          customInput={<CustomInput value={date} onClick={() => false} />}
+        />
+      </div>
       <input
         className={styles.input}
         onChange={(e) => setName(e.target.value)}

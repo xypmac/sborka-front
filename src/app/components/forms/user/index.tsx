@@ -7,15 +7,17 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useDispatch } from 'react-redux';
 
 import Label from '@/app/components/elements/label';
+import Flex from '@/app/components/elements/flex';
 import Error from '@/app/components/elements/error';
 import Button from '@/app/components/elements/button';
 import Input from '@/app/components/elements/input';
 import Readonly from '@/app/components/elements/readonly';
+import Calendar from '@/app/containers/elements/calendar';
 import getUserGroupText from '@/app/utils/get-user-group-text';
 import { AppDispatch } from '@/app/store';
 import { clearError } from '@/app/store/users';
-import getPhoneFormat from '@/app/utils/get-phone-number';
 import { update } from '@/app/store/session/thunks';
+import getPhoneFormat from '@/app/utils/get-phone-number';
 
 import schema from './schema';
 import { ProfileProps, Fields } from './types';
@@ -24,6 +26,7 @@ import styles from './styles.module.scss';
 export default function User({
   user,
   serverError = null,
+  isShowCalendar,
   isWide = false,
   isWait = false,
   isAllowEdit = false,
@@ -45,7 +48,7 @@ export default function User({
     },
     resolver: yupResolver(schema),
   });
-  getPhoneFormat;
+
   useEffect(() => {
     if (serverError) {
       const id = setTimeout(() => {
@@ -71,7 +74,7 @@ export default function User({
         address: data.address || '',
         id: user.ID,
       });
-    else dispatch(update({ ...data, id: user.ID }));
+    else dispatch(update({ ...data }));
   };
 
   return (
@@ -84,23 +87,19 @@ export default function User({
       onSubmit={handleSubmit(onSubmitHandler)}
     >
       <input {...register('type')} hidden />
-
       <div className={styles.header}>
         <p className={styles.type}>{getUserGroupText(user.GROUP_ID)}</p>
         <p className={styles.id}>ID: {user.ID}</p>
       </div>
-
-      <div className={styles.item}>
+      <Flex direction='column' gap={4}>
         <Label>Логин</Label>
         <Readonly name='LOGIN' value={user.LOGIN} />
-      </div>
-
-      <div className={styles.item}>
+      </Flex>
+      <Flex direction='column' gap={4}>
         <Label>Почта</Label>
         <Readonly name='EMAIL' value={user.EMAIL} />
-      </div>
-
-      <div className={styles.item}>
+      </Flex>
+      <Flex direction='column' gap={4}>
         <Label>Телефон</Label>
         <Input
           name='phone'
@@ -109,17 +108,15 @@ export default function User({
           error={errors.phone?.message || null}
           onChange={onChangeHandler}
         />
-      </div>
-
+      </Flex>
       {typeof user.WORK_COMPANY === 'string' && (
-        <div className={styles.item}>
+        <Flex direction='column' gap={4}>
           <Label>Название контрагента</Label>
           <Readonly name='WORK_COMPANY' value={user.WORK_COMPANY} />
-        </div>
+        </Flex>
       )}
-
       {typeof user.WORK_STREET === 'string' && (
-        <div className={styles.item}>
+        <Flex direction='column' gap={4}>
           <Label>Адрес</Label>
           <Input
             name='address'
@@ -128,16 +125,16 @@ export default function User({
             error={errors.address?.message || null}
             onChange={onChangeHandler}
           />
-        </div>
+        </Flex>
       )}
       {typeof user.NAME === 'string' && (
-        <div className={styles.item}>
+        <Flex direction='column' gap={4}>
           <Label>ФИО</Label>
           <Readonly name='email' value={user.NAME} />
-        </div>
+        </Flex>
       )}
+      {isShowCalendar && <Calendar />}
       {serverError && <Error error={serverError} />}
-
       {isAllowEdit && user.ACTIVE === 'N' && (
         <>
           <p>
@@ -148,7 +145,6 @@ export default function User({
           </p>
         </>
       )}
-
       <Button
         text='Сохранить'
         type='submit'

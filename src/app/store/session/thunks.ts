@@ -146,7 +146,7 @@ export const registration = createAsyncThunk(
 export const update = createAsyncThunk(
   'session/update',
   async (
-    { id, phone, address }: { id: string; phone: string; address?: string },
+    { phone, address }: { phone: string; address?: string },
     { rejectWithValue }
   ) => {
     let formData = new FormData();
@@ -156,6 +156,40 @@ export const update = createAsyncThunk(
 
     try {
       const response = await fetch(`${API}/users/update`, {
+        method: 'post',
+        body: formData,
+        headers: {
+          Authorization: `Bearer ${nookies.get().token}`,
+        },
+      });
+
+      if (response.status === 200) {
+        const data = await response.json();
+      }
+
+      if (SERVER_ERRORS.includes(response.status)) {
+        const data = await response.json();
+        return rejectWithValue(data.message);
+      }
+    } catch (e) {
+      return rejectWithValue('Что-то пошло не так! Попробуйте еще раз!');
+    }
+  }
+);
+
+export const getForCurrent = createAsyncThunk(
+  'session/getForCurrent',
+  async (
+    { year, month }: { year: string; month: string },
+    { rejectWithValue }
+  ) => {
+    let formData = new FormData();
+
+    formData.append(`PROPS[YEARS]`, year);
+    formData.append(`PROPS[MONTH]`, month);
+
+    try {
+      const response = await fetch(`${API}/calendar/getForCurrent`, {
         method: 'post',
         body: formData,
         headers: {

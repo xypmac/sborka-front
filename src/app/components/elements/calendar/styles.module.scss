@@ -1,0 +1,7 @@
+.calendar {
+  position: relative;
+
+  &.isLoading {
+    opacity: 0.5;
+  }
+}

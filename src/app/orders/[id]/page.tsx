@@ -1,6 +1,6 @@
 import General from '@/app/containers/general';
-import OrderContainers from '@/app/containers/order';
+import OrderPage from '@/app/containers/pages/order';
 
 export default function Order() {
-  return <General component={<OrderContainers />} />;
+  return <General component={<OrderPage />} />;
 }

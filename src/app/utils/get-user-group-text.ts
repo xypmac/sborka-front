@@ -1,4 +1,4 @@
-const getUserGroupText = (userGroup: object | string) => {
+export default function getUserGroupText(userGroup: object | string) {
   const group =
     typeof userGroup !== 'string' ? Object.keys(userGroup)[0] : userGroup;
 
@@ -15,6 +15,4 @@ const getUserGroupText = (userGroup: object | string) => {
   } else {
     return '';
   }
-};
-
-export default getUserGroupText;
+}

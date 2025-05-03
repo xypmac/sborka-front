@@ -28,7 +28,7 @@ export default function Calendar({
   const [isShowDaySettings, setIsShowSettings] = useState(false);
 
   const calendarRef = useRef<any>(null);
-
+  console.log(initialDays);
   useEffect(() => {
     setDates([
       ...initialDays.map((initialDay) => {
@@ -83,6 +83,13 @@ export default function Calendar({
 
   return (
     <div className={cn(styles.calendar, isLoading && styles.isLoading)}>
+      {isShowDaySettings && (
+        <DayStatus
+          date={currentDay}
+          onHide={() => setIsShowSettings(false)}
+          onSave={onSaveDayHandler}
+        />
+      )}
       <FullCalendar
         locale={ruLocale}
         plugins={[dayGridPlugin, interactionPlugin]}
@@ -118,13 +125,6 @@ export default function Calendar({
           },
         }}
       />
-      {isShowDaySettings && (
-        <DayStatus
-          date={currentDay}
-          onHide={() => setIsShowSettings(false)}
-          onSave={onSaveDayHandler}
-        />
-      )}
     </div>
   );
 }

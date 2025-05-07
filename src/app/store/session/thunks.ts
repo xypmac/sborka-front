@@ -131,10 +131,6 @@ export const registration = createAsyncThunk(
 
       if (SERVER_ERRORS.includes(response.status)) {
         const data = await response.json();
-        return {
-          users: data.message,
-          total: data.totalCount,
-        };
         return rejectWithValue(data.message);
       }
     } catch (e) {

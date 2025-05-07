@@ -12,12 +12,14 @@ export const initialState: SessionType = {
   token: null,
   error: null,
   errorSave: null,
+  registrationError: null,
   isAdmin: false,
   isTaskmaster: false,
   isBuilder: false,
   isMasurer: false,
   isSalon: false,
   isWaitSave: false,
+  isRegistrationWait: false,
   wait: false,
 };
 
@@ -86,15 +88,15 @@ const sessionSlice = createSlice({
     });
 
     builder.addCase(registration.pending, (state) => {
-      state.wait = true;
+      state.isRegistrationWait = true;
     });
     builder.addCase(registration.fulfilled, (state, action) => {
-      state.wait = false;
-      state.error = null;
+      state.isRegistrationWait = false;
+      state.registrationError = null;
     });
     builder.addCase(registration.rejected, (state, action) => {
-      state.wait = false;
-      state.error = action.payload as string;
+      state.isRegistrationWait = false;
+      state.registrationError = action.payload as string;
     });
 
     builder.addCase(update.pending, (state) => {

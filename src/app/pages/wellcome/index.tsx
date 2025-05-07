@@ -14,10 +14,13 @@ import { clearError } from '@/app/store/session';
 import styles from './styles.module.scss';
 
 export default function Wellcome() {
-  const { wait, serverError } = useSelector((state: RootState) => ({
-    wait: state.session.wait,
-    serverError: state.session.error,
-  }));
+  const { wait, registrationError, serverError } = useSelector(
+    (state: RootState) => ({
+      wait: state.session.wait,
+      registrationError: state.session.registrationError,
+      serverError: state.session.error,
+    })
+  );
 
   const [mode, setMode] = useState(WELCOME_MODE.LOGIN);
   const dispatch: AppDispatch = useDispatch();
@@ -36,7 +39,7 @@ export default function Wellcome() {
         {isLoginMode ? (
           <Login error={serverError} />
         ) : (
-          <Registration serverError={serverError} />
+          <Registration serverError={registrationError} />
         )}
         <span className={styles.action} onClick={onChangeModeHandler}>
           {isLoginMode ? 'Регистрация' : 'Есть аккаунт'}

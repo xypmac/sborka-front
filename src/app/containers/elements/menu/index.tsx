@@ -2,7 +2,7 @@
 
 import { useSelector } from 'react-redux';
 
-import MenuComponent from '@/app/components/elements/menu';
+import MenuComponent from '@/app/components/menu';
 import { RootState } from '@/app/store';
 
 export default function Menu() {

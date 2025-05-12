@@ -8,7 +8,7 @@ import Loader from '@/app/components/elements/loader';
 import Error from '@/app/components/elements/error';
 import Button from '@/app/components/elements/button';
 import Flex from '@/app/components/elements/flex';
-import { Filter, List } from '@/app/components/elements/users';
+import { Filter, List } from '@/app/components/users';
 import { AppDispatch, RootState } from '@/app/store';
 import { getUsers } from '@/app/store/users/thunks';
 import { clearState, setFilter } from '@/app/store/users';
@@ -55,7 +55,7 @@ export default function UsersPage() {
       ) : error ? (
         <Error error={error} />
       ) : (
-        <Flex direction='column'>
+        <Flex direction='column' gap={32}>
           <Filter
             isAllowCreateUser={isAdmin || isTaskmaster}
             onSearch={onSearchHandler}

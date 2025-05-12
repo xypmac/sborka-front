@@ -10,7 +10,7 @@ import styles from './styles.module.scss';
 
 export default function List({ users }: ListProps) {
   return users.length === 0 ? (
-    <Empty text='Ничего нет' mt={32} />
+    <Empty text='Ничего нет' />
   ) : (
     <div className={styles.list}>
       <div className={styles.header}>

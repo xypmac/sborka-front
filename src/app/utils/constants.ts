@@ -14,6 +14,7 @@ export const PAGES = {
   MAIN: '/',
   USERS: '/users',
   USER: '/user/[id]',
+  CALENDAR: '/calendar',
 };
 
 export const HOST = 'https://sborkatestqwety.ru/';
@@ -40,6 +41,23 @@ export const USERS_GROUP = [
 ];
 
 export const USERS_GROUP_FILTER = [...USERS_GROUP, { id: 0, title: 'Все' }];
+
+export const CALENDAR_USERS_GROUP_FILTER = [
+  {
+    id: 7,
+    title: 'Сборщик',
+  },
+  {
+    id: 9,
+    title: 'Замерщик',
+  },
+];
+
+export const DAY_STATUS = [
+  { id: 10, title: 'Свободный' },
+  { id: 11, title: 'Выходной' },
+  { id: 12, title: 'В работе' },
+];
 
 export const ACTIVITY_GROUP = [
   { id: 1, title: 'Активен' },

@@ -5,8 +5,8 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import cn from 'classnames';
 
+import Images from '@/app/components/images';
 import Error from '@/app/components/elements/error';
-import Images from '@/app/components/elements/images';
 import Flex from '@/app/components/elements/flex';
 import Label from '@/app/components/elements/label';
 import Button from '@/app/components/elements/button';
@@ -74,7 +74,6 @@ export default function CreateOrder({
       onSubmit={handleSubmit(onSubmitHandler)}
     >
       <p className={styles.caption}>Создать заказ</p>
-
       <Flex gap={20} margin='20px 0' direction='column'>
         <Flex gap={4} direction='column'>
           <Label>Стоимость</Label>
@@ -86,7 +85,6 @@ export default function CreateOrder({
             onChange={onChangeHandler}
           />
         </Flex>
-
         <Flex gap={4} direction='column'>
           <Label>ФИО клиента</Label>
           <Input
@@ -97,7 +95,6 @@ export default function CreateOrder({
             onChange={onChangeHandler}
           />
         </Flex>
-
         <Flex gap={4} direction='column'>
           <Label>Номер клиента</Label>
           <Input
@@ -108,7 +105,6 @@ export default function CreateOrder({
             onChange={onChangeHandler}
           />
         </Flex>
-
         <Flex gap={4} direction='column'>
           <Label>Адрес клиента</Label>
           <Input
@@ -119,7 +115,6 @@ export default function CreateOrder({
             onChange={onChangeHandler}
           />
         </Flex>
-
         {isSalon && (
           <Flex gap={4} direction='column'>
             <Label>Комментарий</Label>
@@ -132,7 +127,6 @@ export default function CreateOrder({
             />
           </Flex>
         )}
-
         <Flex gap={4} direction='column'>
           <Label>Эскиз</Label>
           <Images
@@ -170,7 +164,6 @@ export default function CreateOrder({
             style={{ display: 'none' }}
           />
         </Flex>
-
         <Flex gap={4} direction='column'>
           <Label>Фото помещения</Label>
           <Images
@@ -208,7 +201,6 @@ export default function CreateOrder({
             style={{ display: 'none' }}
           />
         </Flex>
-
         <Flex gap={4} direction='column'>
           <Label>Замер</Label>
           <Images
@@ -247,7 +239,6 @@ export default function CreateOrder({
           />
         </Flex>
       </Flex>
-
       <Flex direction='column' gap={10}>
         <Button
           text='Создать'

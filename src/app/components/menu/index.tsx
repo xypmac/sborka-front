@@ -28,9 +28,11 @@ export default function Menu({ isAdmin, isTaskmaster }: MenuProps) {
         {menu.map((elem) => {
           const isActive = pathname !== '' && pathname === elem.link;
 
-          if (elem.link === PAGES.USERS && !isAdmin && !isTaskmaster) {
+          if (elem.link === PAGES.USERS && !isAdmin && !isTaskmaster)
             return null;
-          }
+
+          if (elem.link === PAGES.CALENDAR && !isAdmin && !isTaskmaster)
+            return null;
 
           return (
             <li
@@ -42,7 +44,6 @@ export default function Menu({ isAdmin, isTaskmaster }: MenuProps) {
           );
         })}
       </ul>
-
       <p className={styles.action} onClick={() => dispatch(exit())}>
         Выйти из профиля
       </p>

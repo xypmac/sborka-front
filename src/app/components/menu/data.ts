@@ -11,6 +11,11 @@ export const menu = [
   },
   {
     id: 3,
+    name: 'Календарь',
+    link: '/calendar',
+  },
+  {
+    id: 4,
     name: 'Мой профиль',
     link: '/profile',
   },

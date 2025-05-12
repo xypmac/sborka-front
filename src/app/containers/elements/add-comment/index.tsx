@@ -2,7 +2,7 @@
 
 import { useDispatch, useSelector } from 'react-redux';
 
-import AddCommentComponent from '@/app/components/elements/add-comment';
+import AddCommentComponent from '@/app/components/add-comment';
 import { AppDispatch, RootState } from '@/app/store';
 import { addComment } from '@/app/store/orders/thunks';
 

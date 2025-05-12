@@ -32,9 +32,7 @@ export default function CreateUser({
     resolver: yupResolver(schema),
   });
 
-  const onSubmitHandler = (data: any) => {
-    onCreateUser({ ...data });
-  };
+  const onSubmitHandler = (data: any) => onCreateUser({ ...data });
 
   const onChangeHandler = (value: string, field: FieldsName) => {
     setValue(field, field === 'phone' ? getPhoneFormat(value) : value, {
@@ -48,7 +46,6 @@ export default function CreateUser({
       onSubmit={handleSubmit(onSubmitHandler)}
     >
       <p className={styles.caption}>Создать пользователя</p>
-
       <Flex gap={20} margin='20px 0' direction='column'>
         <Flex gap={4} direction='column'>
           <Label>Тип пользователя</Label>
@@ -59,7 +56,6 @@ export default function CreateUser({
             error={errors.type?.message || null}
           />
         </Flex>
-
         <Flex gap={4} direction='column'>
           <Label>Логин</Label>
           <Input
@@ -70,7 +66,6 @@ export default function CreateUser({
             onChange={onChangeHandler}
           />
         </Flex>
-
         <Flex gap={4} direction='column'>
           <Label>Пароль</Label>
           <Input
@@ -81,7 +76,6 @@ export default function CreateUser({
             onChange={onChangeHandler}
           />
         </Flex>
-
         <Flex gap={4} direction='column'>
           <Label>Повторите пароль</Label>
           <Input
@@ -92,7 +86,6 @@ export default function CreateUser({
             onChange={onChangeHandler}
           />
         </Flex>
-
         <Flex gap={4} direction='column'>
           <Label>Почта</Label>
           <Input
@@ -103,7 +96,6 @@ export default function CreateUser({
             onChange={onChangeHandler}
           />
         </Flex>
-
         <Flex gap={4} direction='column'>
           <Label>Номер телефона</Label>
           <Input
@@ -114,7 +106,6 @@ export default function CreateUser({
             onChange={onChangeHandler}
           />
         </Flex>
-
         {(getValues().type === '6' ||
           getValues().type === '7' ||
           getValues().type === '9') && (
@@ -129,7 +120,6 @@ export default function CreateUser({
             />
           </Flex>
         )}
-
         {getValues().type === '8' && (
           <Flex gap={4} direction='column'>
             <Label>Название контрагента</Label>
@@ -142,7 +132,6 @@ export default function CreateUser({
             />
           </Flex>
         )}
-
         {getValues().type === '8' && (
           <Flex gap={4} direction='column'>
             <Label>Адрес</Label>
@@ -156,7 +145,6 @@ export default function CreateUser({
           </Flex>
         )}
       </Flex>
-
       <Flex direction='column' gap={10}>
         <Button
           text='Создать'

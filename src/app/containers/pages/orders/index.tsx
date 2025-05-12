@@ -8,7 +8,7 @@ import Loader from '@/app/components/elements/loader';
 import Error from '@/app/components/elements/error';
 import Button from '@/app/components/elements/button';
 import Flex from '@/app/components/elements/flex';
-import { Filter, List } from '@/app/components/elements/orders';
+import { Filter, List } from '@/app/components/orders';
 import { AppDispatch, RootState } from '@/app/store';
 import { getOrders } from '@/app/store/orders/thunks';
 import { setFilter, clearState } from '@/app/store/orders';
@@ -66,7 +66,7 @@ export default function OrdersPage() {
       ) : error ? (
         <Error error={error} />
       ) : (
-        <Flex direction='column'>
+        <Flex direction='column' gap={32}>
           <Filter
             isAllowCreateOrder={isAdmin || isTaskmaster || isSalon}
             onSearch={onSearchHandler}

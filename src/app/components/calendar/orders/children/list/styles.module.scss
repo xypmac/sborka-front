@@ -1,0 +1,46 @@
+.list {
+  width: 100%;
+}
+
+.elem {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border-bottom: 1px solid #d7d7d7;
+  width: 100%;
+  padding: 12px 0;
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  & > p {
+    font-size: 15px;
+    width: calc(100% - 100px / 5);
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    word-break: break-word;
+    text-align: center;
+
+    &.action {
+      cursor: pointer;
+      color: #5c3bfe;
+      text-align: left;
+      max-width: 100px;
+
+      a {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+    }
+
+    a {
+      font-size: 15px;
+      color: #5c3bfe;
+    }
+  }
+}

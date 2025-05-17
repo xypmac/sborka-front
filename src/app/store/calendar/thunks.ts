@@ -2,7 +2,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import nookies from 'nookies';
 import { format } from 'date-fns';
 
-import { API, SERVER_ERRORS } from '@/app/utils/constants';
+import { API, SERVER_ERRORS, SERVER_OK } from '@/app/utils/constants';
 
 export const getCalendarUsers = createAsyncThunk(
   '/users/getCalendarUsers',
@@ -55,7 +55,19 @@ export const getCalendarUsers = createAsyncThunk(
         }
 
         return {
-          users,
+          users: users.map(
+            (user: {
+              ID: number;
+              NAME: string;
+              days: { STATUS_ID: string };
+            }) => {
+              return {
+                id: user.ID,
+                name: user.NAME,
+                day: user.days.STATUS_ID,
+              };
+            }
+          ),
           page: calendar.currentPage + 1,
         };
       }
@@ -68,6 +80,90 @@ export const getCalendarUsers = createAsyncThunk(
     } catch (e) {
       console.log(e);
       return rejectWithValue('Не удалось получить список пользователей');
+    }
+  }
+);
+
+export const getCalendarOrders = createAsyncThunk(
+  '/users/getCalendarOrders',
+  async (
+    data: {
+      currentPage?: number;
+    } | null,
+    { getState, rejectWithValue }
+  ) => {
+    try {
+      const state: any = getState();
+      const { calendar } = state;
+      const offset = data ? data.currentPage : calendar.currentPageOrders;
+
+      let formData = new FormData();
+      formData.append('select[]', 'ORDER_ID');
+      formData.append('select[]', 'FIO');
+      formData.append('select[]', 'PHONE_CLIENT');
+      formData.append('select[]', 'ADDRESS');
+      formData.append('select[]', 'STATUS');
+      formData.append('limit', '10');
+      formData.append('offset', offset);
+
+      // фильтр по номеру
+      if (calendar.filterOrders.searchType && calendar.filterOrders.search) {
+        if (calendar.filterOrders.searchType === '1') {
+          formData.append('filter[ORDER_ID]', calendar.filterOrders.search);
+        }
+        if (calendar.filterOrders.searchType === '2') {
+          formData.append('filter[NAME]', calendar.filterOrders.search);
+        }
+        if (calendar.filterOrders.searchType === '3') {
+          formData.append('filter[ADDRESS]', calendar.filterOrders.search);
+        }
+      }
+
+      calendar.filterOrders.status &&
+        formData.append('filter[STATUS]', calendar.filterOrders.status);
+
+      calendar.filterOrders.dateTo &&
+        formData.append('filter[DATE_WORK][TO]', calendar.filterOrders.dateTo);
+
+      calendar.filterOrders.dateFrom &&
+        formData.append(
+          'filter[DATE_WORK][FROM]',
+          calendar.filterOrders.dateFrom
+        );
+
+      const response = await fetch(`${API}/orders/getList`, {
+        method: 'post',
+        body: formData,
+        headers: {
+          Authorization: `Bearer ${nookies.get().token}`,
+        },
+      });
+
+      if (SERVER_OK.includes(response.status)) {
+        const data = await response.json();
+        const orders = [];
+
+        for (var key in data.message.items) {
+          if (data.message.items.hasOwnProperty(key)) {
+            orders.push(data.message.items[key]);
+          }
+        }
+
+        return {
+          orders,
+          total: data.message.totalCount,
+          page: offset + 1,
+          isFirstLoad: offset === 0,
+        };
+      }
+
+      if (SERVER_ERRORS.includes(response.status)) {
+        const data = await response.json();
+        console.error(data.message);
+        return rejectWithValue('Не удалось получить список заказов');
+      }
+    } catch (e) {
+      return rejectWithValue('Не удалось получить список заказов');
     }
   }
 );

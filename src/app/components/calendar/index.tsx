@@ -1,4 +1,4 @@
-import Filter from './filter';
-import List from './list';
+import Users from './users';
+import Orders from './orders';
 
-export { Filter, List };
+export { Users, Orders };

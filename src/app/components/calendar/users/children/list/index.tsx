@@ -1,6 +1,7 @@
 'use client';
 
 import Empty from '@/app/components/elements/empty';
+import { CalendarUser } from '@/app/store/calendar/type';
 
 import Item from './children/item';
 import { ListProps } from './types';
@@ -11,8 +12,10 @@ export default function List({ users }: ListProps) {
     <Empty text='Ничего нет' />
   ) : (
     <div className={styles.list}>
-      {users.map((user: { ID: number; NAME: string }) => {
-        return <Item key={user.ID} name={user.NAME} id={user.ID} />;
+      {users.map((user: CalendarUser) => {
+        return (
+          <Item key={user.id} name={user.name} id={user.id} day={user.day} />
+        );
       })}
     </div>
   );

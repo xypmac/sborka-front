@@ -11,6 +11,7 @@ export default function Flex({
   align = 'flex-start',
   justify = 'space-between',
   direction = 'row',
+  flexWrap = 'nowrap',
 }: FlexProps) {
   return (
     <div
@@ -20,6 +21,7 @@ export default function Flex({
         alignItems: `${align}`,
         justifyContent: `${justify}`,
         flexDirection: `${direction}`,
+        flexWrap: `${flexWrap}`,
         margin: `${margin}`,
         width: `${width ? `${width}px` : '100%'}`,
         height: `${height ? `${height}px` : 'max-content'}`,

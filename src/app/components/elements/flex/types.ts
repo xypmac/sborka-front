@@ -4,6 +4,7 @@ export type FlexProps = {
   width?: number;
   margin?: string;
   height?: number;
+  flexWrap?: 'wrap' | 'nowrap';
   align?: 'center' | 'flex-start' | 'flex-end';
   justify?:
     | 'space-between'

@@ -53,6 +53,21 @@ export const CALENDAR_USERS_GROUP_FILTER = [
   },
 ];
 
+export const CALENDAR_ORDERS_SEARCH_TYPE = [
+  {
+    id: 1,
+    title: 'Поиск по id',
+  },
+  {
+    id: 2,
+    title: 'Поиск по ФИО клиента',
+  },
+  {
+    id: 3,
+    title: 'Поиск по адресу',
+  },
+];
+
 export const DAY_STATUS = [
   { id: 10, title: 'Свободный' },
   { id: 11, title: 'Выходной' },

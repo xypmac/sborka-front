@@ -24,6 +24,7 @@ export default function Orders({
     <Error error={error} />
   ) : (
     <div className={styles.orders}>
+      {isWait && <Loader />}
       <p className={styles.caption}>Список заказов</p>
       <Flex direction='column' gap={32}>
         <Filter onSearch={onSearch} />

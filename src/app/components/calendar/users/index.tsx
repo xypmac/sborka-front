@@ -21,6 +21,7 @@ export default function Users({
     <Error error={error} />
   ) : (
     <div className={styles.users}>
+      {isWait && <Loader />}
       <p className={styles.caption}>Список пользователей</p>
       <Flex direction='column' gap={32}>
         <Filter onSearch={onSearch} />

@@ -1,6 +1,7 @@
 export type CalendarUser = {
   id: number;
   name: string;
+  group: string;
   day: string;
 };
 
@@ -15,6 +16,10 @@ export type CalendarType = {
   currentPageOrders: number;
   error: string | null;
   errorOrder: string | null;
+  sort: {
+    name: string;
+    dir: 'DESC' | 'ASC';
+  };
   filter: {
     date: string;
     name?: string;

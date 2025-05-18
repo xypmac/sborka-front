@@ -6,11 +6,12 @@ import Flex from '@/app/components/elements/flex';
 import UserInformation from '@/app/containers/elements/user-information';
 import { FaArrowAltCircleRight } from 'react-icons/fa';
 import getDayStatusText from '@/app/utils/get-day-status-text';
+import getUserGroupText from '@/app/utils/get-user-group-text';
 
 import { ItemProps } from './types';
 import styles from './styles.module.scss';
 
-export default function Item({ name, id, day }: ItemProps) {
+export default function Item({ name, id, group, day }: ItemProps) {
   const [isShowInfo, setIsShowInfo] = useState(false);
 
   return (
@@ -24,7 +25,7 @@ export default function Item({ name, id, day }: ItemProps) {
             <FaArrowAltCircleRight />
             {name}
           </div>
-          <p className={styles.type}>Сборщик</p>
+          <p className={styles.type}>{getUserGroupText(group)}</p>
         </Flex>
         <div>На выбранную дату: {getDayStatusText(day) || 'Нет статуса'} </div>
       </div>

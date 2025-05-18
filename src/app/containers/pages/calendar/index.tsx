@@ -11,7 +11,12 @@ import {
   getCalendarUsers,
   getCalendarOrders,
 } from '@/app/store/calendar/thunks';
-import { setFilter, setOrderFilter, clearState } from '@/app/store/calendar';
+import {
+  setFilter,
+  setOrderFilter,
+  setOrderSort,
+  clearState,
+} from '@/app/store/calendar';
 
 export default function Calendar() {
   const {
@@ -70,10 +75,14 @@ export default function Calendar() {
   const onSearchOrdersHandler = ({
     search,
     status,
+    sort,
+    dir,
     dateFrom,
     dateTo,
     searchType,
   }: {
+    sort?: string;
+    dir?: string;
     search?: string;
     status?: string;
     dateTo?: string;
@@ -81,6 +90,12 @@ export default function Calendar() {
     searchType?: string;
   }) => {
     dispatch(setOrderFilter({ search, status, dateFrom, dateTo, searchType }));
+    dispatch(
+      setOrderSort({
+        name: sort,
+        dir,
+      })
+    );
     dispatch(getCalendarOrders({ currentPage: 0 }));
   };
 

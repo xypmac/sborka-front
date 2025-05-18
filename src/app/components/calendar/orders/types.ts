@@ -9,10 +9,14 @@ export type OrdersProps = {
   onSearch: ({
     search,
     status,
+    sort,
+    dir,
     dateFrom,
     dateTo,
     searchType,
   }: {
+    sort?: string;
+    dir?: string;
     search?: string;
     status?: string;
     dateTo?: string;

@@ -14,6 +14,10 @@ export const initialState: CalendarType = {
   currentPageOrders: 0,
   usersTotal: 0,
   ordersTotal: 0,
+  sort: {
+    name: 'date',
+    dir: 'DESC',
+  },
   filter: {
     date: '',
   },
@@ -52,6 +56,10 @@ const usersSlice = createSlice({
         ...state.filterOrders,
         ...action.payload,
       };
+    },
+    setOrderSort(state, action) {
+      console.log(action.payload);
+      state.sort = { ...state.sort, ...action.payload };
     },
     updateUsers(state, action) {
       const copyState = JSON.parse(JSON.stringify(state));
@@ -127,6 +135,7 @@ export const {
   clearError,
   setFilter,
   setOrderFilter,
+  setOrderSort,
   clearState,
   updateUsers,
 } = usersSlice.actions;

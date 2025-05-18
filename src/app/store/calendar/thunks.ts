@@ -59,11 +59,13 @@ export const getCalendarUsers = createAsyncThunk(
             (user: {
               ID: number;
               NAME: string;
+              GROUP_ID: string;
               days: { STATUS_ID: string };
             }) => {
               return {
                 id: user.ID,
                 name: user.NAME,
+                group: user.GROUP_ID,
                 day: user.days.STATUS_ID,
               };
             }
@@ -130,6 +132,14 @@ export const getCalendarOrders = createAsyncThunk(
           'filter[DATE_WORK][FROM]',
           calendar.filterOrders.dateFrom
         );
+
+      if (calendar.sort.name === 'date') {
+        formData.append('order[DATE_WORK]', calendar.sort.dir);
+      }
+
+      if (calendar.sort.name === 'status') {
+        formData.append('order[STATUS]', calendar.sort.dir);
+      }
 
       const response = await fetch(`${API}/orders/getList`, {
         method: 'post',

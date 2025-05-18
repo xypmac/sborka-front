@@ -4,10 +4,14 @@ import { useState, ReactElement, forwardRef } from 'react';
 import DatePicker from 'react-datepicker';
 import { ru } from 'date-fns/locale';
 import { format } from 'date-fns';
+import cn from 'classnames';
+import { BiSortUp } from 'react-icons/bi';
+import { BiSortDown } from 'react-icons/bi';
+
+import { CgSortZa } from 'react-icons/cg';
 
 import Select from '@/app/components/elements/select';
 import Button from '@/app/components/elements/button';
-import Error from '@/app/components/elements/error';
 import Flex from '@/app/components/elements/flex';
 import getOrderStatusText from '@/app/utils/get-order-status-text';
 import {
@@ -24,11 +28,15 @@ export default function FilterOrders({ onSearch }: FilterProps): ReactElement {
   const [dateFrom, setDateFrom] = useState<Date | null>(null);
   const [dateTo, setDateTo] = useState<Date | null>(null);
   const [searchType, setSearchType] = useState('');
+  const [sort, setSort] = useState('date');
+  const [dir, setDir] = useState('DESC');
 
   const onSearchHandler = () => {
     onSearch({
       search,
       status,
+      sort,
+      dir,
       dateFrom: dateFrom ? format(new Date(dateFrom), 'dd.MM.yyyy') : '',
       dateTo: dateTo ? format(new Date(dateTo), 'dd.MM.yyyy') : '',
       searchType,
@@ -38,11 +46,15 @@ export default function FilterOrders({ onSearch }: FilterProps): ReactElement {
   const onResetHandler = () => {
     setSearch('');
     setStatus('');
+    setSort('date');
+    setDir('DESC');
     setDateFrom(null);
     setDateTo(null);
     setSearchType('');
     onSearch({
       search: '',
+      sort: 'date',
+      dir: 'DESC',
       status: '',
       dateFrom: '',
       dateTo: '',
@@ -89,7 +101,7 @@ export default function FilterOrders({ onSearch }: FilterProps): ReactElement {
 
   return (
     <Flex direction='column' gap={12} align='flex-start' justify='flex-start'>
-      <Flex gap={12} align='flex-start' justify='flex-start' flexWrap='wrap'>
+      <Flex gap={12} align='center' justify='flex-start' flexWrap='wrap'>
         <div className={styles.select}>
           <Select
             defaultOption='Тип поиска'
@@ -133,6 +145,33 @@ export default function FilterOrders({ onSearch }: FilterProps): ReactElement {
             error={null}
             value={getOrderStatusText(status)}
           />
+        </div>
+        <div className={styles.sort}>
+          <p>Сортировать: </p>
+          <span
+            className={cn(styles.sortItem, sort === 'date' && styles.active)}
+            onClick={() => {
+              setSort('date');
+              if (dir === 'DESC') setDir('ASC');
+              else setDir('DESC');
+            }}
+          >
+            по дате
+            {sort === 'date' && dir === 'DESC' && <BiSortDown />}
+            {sort === 'date' && dir === 'ASC' && <BiSortUp />}
+          </span>
+          <span
+            className={cn(styles.sortItem, sort === 'status' && styles.active)}
+            onClick={() => {
+              setSort('status');
+              if (dir === 'DESC') setDir('ASC');
+              else setDir('DESC');
+            }}
+          >
+            по статусу
+            {sort === 'status' && dir === 'DESC' && <BiSortDown />}
+            {sort === 'status' && dir === 'ASC' && <BiSortUp />}
+          </span>
         </div>
       </Flex>
       <Flex gap={12} align='flex-start' justify='flex-start'>

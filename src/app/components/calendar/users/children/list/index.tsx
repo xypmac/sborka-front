@@ -14,7 +14,13 @@ export default function List({ users }: ListProps) {
     <div className={styles.list}>
       {users.map((user: CalendarUser) => {
         return (
-          <Item key={user.id} name={user.name} id={user.id} day={user.day} />
+          <Item
+            key={user.id}
+            name={user.name}
+            id={user.id}
+            day={user.day}
+            group={user.group}
+          />
         );
       })}
     </div>

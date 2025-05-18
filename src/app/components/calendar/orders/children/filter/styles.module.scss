@@ -42,3 +42,28 @@
 .error {
   margin-top: 4px;
 }
+
+.sort {
+  display: flex;
+  gap: 8px;
+
+  p {
+    color: #adaabc;
+  }
+}
+
+.sortItem {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+  color: #140c40;
+
+  &.active {
+    color: #514fe4;
+  }
+}
+
+.dir {
+  transition: all 200ms ease;
+}

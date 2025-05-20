@@ -1,5 +1,5 @@
-import { Order } from '@/app/store/orders/type';
-import { User } from '@/app/store/users/type';
+import { Order } from '@/app/store/orders/types';
+import { User } from '@/app/store/users/types';
 
 export type OrderProps = {
   order: Pick<

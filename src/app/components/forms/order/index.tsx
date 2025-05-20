@@ -15,7 +15,7 @@ import Button from '@/app/components/elements/button';
 import Input from '@/app/components/elements/input';
 import { ORDER_STATUS_GROUP } from '@/app/utils/constants';
 import getOrderStatusText from '@/app/utils/get-order-status-text';
-import { User } from '@/app/store/users/type';
+import { User } from '@/app/store/users/types';
 
 import schema from './schema';
 import { OrderProps, Fields } from './types';

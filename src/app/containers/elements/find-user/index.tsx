@@ -4,7 +4,7 @@ import { useState } from 'react';
 
 import FindUserComponent from '@/app/components/elements/find-user';
 
-import { User } from '@/app/store/users/type';
+import { User } from '@/app/store/users/types';
 
 import { FindUserProps } from './types';
 

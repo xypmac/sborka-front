@@ -1,19 +1,20 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import nookies from 'nookies';
-import { format } from 'date-fns';
 
 import { API, SERVER_ERRORS } from '@/app/utils/constants';
 
 export const getUsers = createAsyncThunk(
   '/users/getList',
   async (
-    data: {
-      group?: string;
-      active?: string;
-      name?: string;
-      currentPage?: number;
-      isAll?: boolean;
-    } | null,
+    data:
+      | {
+          group?: string;
+          active?: string;
+          name?: string;
+          currentPage?: number;
+          isAll?: boolean;
+        }
+      | undefined,
     { getState, rejectWithValue }
   ) => {
     try {

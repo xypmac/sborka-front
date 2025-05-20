@@ -6,7 +6,7 @@ import { useDispatch } from 'react-redux';
 
 import UserInformationComponent from '@/app/components/elements/user-information';
 import { API, SERVER_OK } from '@/app/utils/constants';
-import { User as UserType } from '@/app/store/users/type';
+import { User as UserType } from '@/app/store/users/types';
 import { AppDispatch } from '@/app/store';
 import { updateUsers } from '@/app/store/users';
 import getStringNumber from '@/app/utils/get-string-number';

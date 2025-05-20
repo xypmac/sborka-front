@@ -1,12 +1,6 @@
+import { Filter } from '@/app/store/users/types';
+
 export type FilterProps = {
   isAllowCreateUser: boolean;
-  onSearch: ({
-    name,
-    group,
-    active,
-  }: {
-    name: string;
-    group: string;
-    active: string;
-  }) => void;
+  onSearch: (params: Filter) => void;
 };

@@ -5,7 +5,7 @@ export type FlexProps = {
   margin?: string;
   height?: number;
   flexWrap?: 'wrap' | 'nowrap';
-  align?: 'center' | 'flex-start' | 'flex-end';
+  align?: 'center' | 'flex-start' | 'flex-end' | 'stretch';
   justify?:
     | 'space-between'
     | 'center'

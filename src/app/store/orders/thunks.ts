@@ -155,9 +155,11 @@ export const addComment = createAsyncThunk(
 export const getOrders = createAsyncThunk(
   '/orders/getOrders',
   async (
-    data: {
-      currentPage?: number;
-    } | null,
+    data:
+      | {
+          currentPage?: number;
+        }
+      | undefined,
     { getState, rejectWithValue }
   ) => {
     try {

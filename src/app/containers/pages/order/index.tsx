@@ -39,7 +39,7 @@ export default function Order() {
   } = useSelector((state: RootState) => ({
     currentOrder: state.orders.currentOrder,
     users: state.users.users,
-    isUsersWait: state.users.wait,
+    isUsersWait: state.users.isWait,
     isWait: state.orders.isWait,
     isWaitUpdate: state.orders.isWaitUpdate,
     isWaitFile: state.orders.isWaitFile,

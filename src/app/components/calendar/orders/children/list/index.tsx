@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { FaArrowAltCircleRight } from 'react-icons/fa';
 
 import Empty from '@/app/components/elements/empty';
-import { Order } from '@/app/store/orders/type';
+import { Order } from '@/app/store/orders/types';
 import Flex from '@/app/components/elements/flex';
 import getOrderStatusText from '@/app/utils/get-order-status-text';
 

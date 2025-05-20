@@ -1,6 +1,6 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 
-import { OrdersType } from './type';
+import { OrdersType } from './types';
 import {
   addComment,
   getOrderById,

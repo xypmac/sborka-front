@@ -11,23 +11,24 @@ import Flex from '@/app/components/elements/flex';
 import { Filter, List } from '@/app/components/orders';
 import { AppDispatch, RootState } from '@/app/store';
 import { getOrders } from '@/app/store/orders/thunks';
+import { Filter as FilterType } from '@/app/store/orders/types';
 import { setFilter, clearState } from '@/app/store/orders';
 
 export default function OrdersPage() {
   const {
     orders,
-    currentPage,
-    isWait,
     error,
     total,
+    currentPage,
+    isWait,
     isAdmin,
     isTaskmaster,
     isSalon,
   } = useSelector((state: RootState) => ({
     orders: state.orders.list,
-    currentPage: state.orders.currentPage,
     error: state.orders.error,
     total: state.orders.total,
+    currentPage: state.orders.currentPage,
     isWait: state.orders.isWait,
     isAdmin: state.session.isAdmin,
     isTaskmaster: state.session.isTaskmaster,
@@ -37,25 +38,15 @@ export default function OrdersPage() {
   const dispatch: AppDispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getOrders(null));
+    dispatch(getOrders());
 
     return () => {
       dispatch(clearState());
     };
   }, []);
 
-  const onSearchHandler = ({
-    id,
-    name,
-    status,
-    date,
-  }: {
-    id: string;
-    name: string;
-    status: string;
-    date: string;
-  }) => {
-    dispatch(setFilter({ id, name, status, date }));
+  const onSearchHandler = (params: FilterType) => {
+    dispatch(setFilter(params));
     dispatch(getOrders({ currentPage: 0 }));
   };
 
@@ -71,14 +62,16 @@ export default function OrdersPage() {
             isAllowCreateOrder={isAdmin || isTaskmaster || isSalon}
             onSearch={onSearchHandler}
           />
-          <List orders={orders} />
-          {orders.length > 0 && orders.length < total && (
-            <Button
-              text='Показать еще'
-              type='button'
-              onClick={() => dispatch(getOrders(null))}
-            />
-          )}
+          <Flex direction='column' gap={16} align='stretch'>
+            <List orders={orders} />
+            {orders.length > 0 && orders.length < total && (
+              <Button
+                text='Показать еще'
+                type='button'
+                onClick={() => dispatch(getOrders())}
+              />
+            )}
+          </Flex>
         </Flex>
       )}
     </MainLayout>

@@ -1,5 +1,8 @@
 .list {
   width: 100%;
+  height: max-content;
+  max-height: 366px;
+  overflow: auto;
 }
 
 .elem {
@@ -10,8 +13,13 @@
   width: 100%;
   padding: 12px 0;
 
+  &:first-child {
+    padding: 0 0 12px 0;
+  }
+
   &:last-child {
     border-bottom: none;
+    padding: 12px 0 0 0;
   }
 
   & > p {

@@ -16,6 +16,7 @@ export default function Select({
   onSelect,
   error,
   isDisable,
+  width,
 }: SelectProps) {
   const [isShow, setIsShow] = useState(false);
   const [activeElem, setActiveElem] = useState(value);
@@ -37,7 +38,10 @@ export default function Select({
   };
 
   return (
-    <div className={cn(styles.select, isDisable && styles.disable)}>
+    <div
+      className={cn(styles.select, isDisable && styles.disable)}
+      style={{ width: width ? `${width}px` : '100%' }}
+    >
       <div
         className={cn(
           styles.active,

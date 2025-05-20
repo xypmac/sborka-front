@@ -12,4 +12,5 @@ export type SelectProps = {
   options: Option[];
   value?: string;
   isDisable?: boolean;
+  width?: number;
 };

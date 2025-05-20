@@ -32,6 +32,13 @@ export type Order = {
   DATE_CANCEL_WORK?: string;
 };
 
+export type Filter = {
+  id: string;
+  name: string;
+  status: string;
+  date: string | null;
+};
+
 export type OrdersType = {
   list: Order[] | [];
   total: number;
@@ -41,10 +48,5 @@ export type OrdersType = {
   isWait: boolean;
   isWaitFile: boolean;
   isWaitUpdate: boolean;
-  filter: {
-    id: string;
-    name: string;
-    status: string;
-    date: string;
-  };
+  filter: Filter;
 };

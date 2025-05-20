@@ -5,7 +5,7 @@ import { FaRegTimesCircle } from 'react-icons/fa';
 import User from '@/app/components/forms/user';
 import Loader from '@/app/components/elements/loader';
 import Error from '@/app/components/elements/error';
-import { User as UserType } from '@/app/store/users/type';
+import { User as UserType } from '@/app/store/users/types';
 
 import { UserComponentProps } from './types';
 import styles from './styles.module.scss';

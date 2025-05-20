@@ -1,4 +1,4 @@
-import { Order } from '@/app/store/orders/type';
+import { Order } from '@/app/store/orders/types';
 
 export type OrdersProps = {
   isWait: boolean;

@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { FaArrowAltCircleRight } from 'react-icons/fa';
 
 import Empty from '@/app/components/elements/empty';
-import { Order } from '@/app/store/orders/type';
+import { Order } from '@/app/store/orders/types';
 import getOrderStatusText from '@/app/utils/get-order-status-text';
 
 import { ListProps } from './types';
@@ -14,7 +14,7 @@ export default function List({ orders }: ListProps) {
   return orders.length === 0 ? (
     <Empty text='Ничего нет' />
   ) : (
-    <div className={styles.list}>
+    <div>
       <div className={styles.header}>
         <p>Номер заказа</p>
         <p>ФИО клиента</p>
@@ -22,7 +22,7 @@ export default function List({ orders }: ListProps) {
         <p>Адрес</p>
         <p>Статус</p>
       </div>
-      <div className={styles.elems}>
+      <div>
         {orders.map((order: Order) => {
           return (
             <div className={styles.elem} key={order.ORDER_ID}>

@@ -10,7 +10,7 @@ import useClickOutside from '@/app/hooks/use-click-outside';
 
 import { FindUserProps } from './types';
 import styles from './styles.module.scss';
-import { User } from '@/app/store/users/type';
+import { User } from '@/app/store/users/types';
 
 export default function FindUser({
   user,

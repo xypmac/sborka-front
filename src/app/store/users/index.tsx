@@ -1,10 +1,10 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
-import { UsersType } from './type';
+import { UsersType } from './types';
 import { getUsers } from './thunks';
 
 export const initialState: UsersType = {
-  wait: false,
+  isWait: false,
   error: null,
   users: [],
   currentPage: 0,
@@ -24,7 +24,7 @@ const usersSlice = createSlice({
       state.error = null;
     },
     clearState(state) {
-      state.wait = initialState.wait;
+      state.isWait = initialState.isWait;
       state.error = initialState.error;
       state.users = initialState.users;
       state.currentPage = initialState.currentPage;
@@ -64,10 +64,10 @@ const usersSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(getUsers.pending, (state) => {
-      state.wait = true;
+      state.isWait = true;
     });
     builder.addCase(getUsers.fulfilled, (state, action) => {
-      state.wait = false;
+      state.isWait = false;
       state.error = null;
 
       if (action.payload?.isFirstLoad) {
@@ -84,7 +84,7 @@ const usersSlice = createSlice({
       state.usersTotal = action.payload?.total || 0;
     });
     builder.addCase(getUsers.rejected, (state, action) => {
-      state.wait = false;
+      state.isWait = false;
       state.error = action.payload as string;
     });
   },

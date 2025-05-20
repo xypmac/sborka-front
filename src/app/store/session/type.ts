@@ -1,4 +1,4 @@
-import { User } from '@/app/store/users/type';
+import { User } from '@/app/store/users/types';
 
 export type SessionType = {
   user: User | null;

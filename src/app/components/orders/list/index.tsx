@@ -27,7 +27,6 @@ export default function List({ orders }: ListProps) {
         {orders.map((order: Order) => {
           return (
             <div className={styles.elem} key={order.ORDER_ID}>
-              {order.STATUS}
               <p className={styles.action}>
                 <Link href={`/orders/${order.ORDER_ID}`} target='_blank'>
                   <FaArrowAltCircleRight />

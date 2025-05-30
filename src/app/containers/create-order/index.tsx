@@ -32,6 +32,8 @@ export default function CreateOrder() {
       sketchPhotos,
       sizePhotos,
     } = data;
+    setIsWait(true);
+
     let formData = new FormData();
     formData.append(`PROPS[ADDRESS]`, address);
     formData.append(`PROPS[FIO]`, name);
@@ -54,8 +56,6 @@ export default function CreateOrder() {
       });
 
     comment && formData.append(`PROPS[COMMENT_SALON]`, comment);
-
-    setIsWait(true);
 
     fetch(`${API}/orders/add`, {
       method: 'post',

@@ -11,7 +11,8 @@ export default function OrderComments({
   COMMENT_SALON,
   COMMENT_WORKER,
   isSalon,
-  isBuilder,
+  isTaskmaster,
+  isAdmin,
 }: OrderCommentsProps) {
   const getCommentsByType = (comments: string[]) => {
     if (comments.length > 0) {
@@ -33,11 +34,15 @@ export default function OrderComments({
         {isSalon && COMMENT_SALON.length <= 14 && <AddComment />}
       </Flex>
 
-      <Flex gap={4} direction='column'>
-        <Label>Комментарий сборщика</Label>
-        {getCommentsByType(COMMENT_WORKER)}
-        {isBuilder && COMMENT_WORKER.length <= 14 && <AddComment />}
-      </Flex>
+      {!isSalon && (
+        <Flex gap={4} direction='column'>
+          <Label>Комментарий бригадира</Label>
+          {getCommentsByType(COMMENT_WORKER)}
+          {(isTaskmaster || isAdmin) && COMMENT_WORKER.length <= 14 && (
+            <AddComment />
+          )}
+        </Flex>
+      )}
     </Flex>
   );
 }

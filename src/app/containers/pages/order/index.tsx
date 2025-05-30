@@ -136,7 +136,8 @@ export default function Order() {
               COMMENT_SALON={currentOrder.COMMENT_SALON || []}
               COMMENT_WORKER={currentOrder.COMMENT_WORKER || []}
               isSalon={isSalon}
-              isBuilder={isBuilder}
+              isAdmin={isAdmin}
+              isTaskmaster={isTaskmaster}
             />
           )}
           {tab === 3 && currentOrder && (

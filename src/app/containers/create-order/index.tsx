@@ -8,7 +8,7 @@ import { useRouter } from 'next/navigation';
 import MainLayout from '@/app/layouts/main-layout';
 import Form from '@/app/components/forms/create-order';
 import { RootState } from '@/app/store';
-import { API, SERVER_OK } from '@/app/utils/constants';
+import { API, SERVER_OK, SERVER_ERRORS_TEXT } from '@/app/utils/constants';
 
 export default function CreateOrder() {
   const { isSalon } = useSelector((state: RootState) => ({
@@ -27,6 +27,7 @@ export default function CreateOrder() {
       address,
       price,
       comment,
+      id,
       roomPhotos,
       sketchPhotos,
       sizePhotos,
@@ -36,6 +37,7 @@ export default function CreateOrder() {
     formData.append(`PROPS[FIO]`, name);
     formData.append(`PROPS[PHONE_CLIENT]`, phone);
     formData.append(`PROPS[PRICE_APP]`, price);
+    formData.append(`PROPS[ORDER_ID]`, id);
 
     sketchPhotos.forEach((element: File, index: number) => {
       formData.append(`SKETCH[${index}]`, element);
@@ -67,9 +69,13 @@ export default function CreateOrder() {
         if (SERVER_OK.includes(response.code)) {
           router.push(`/orders/${response.message.ORDER_ID}`);
         } else {
-          setError(
-            'Не удалось создать заказ! Попробуйте еще раз или перезагрузите страницу'
-          );
+          if (response.message === SERVER_ERRORS_TEXT.ORDER_EXIST) {
+            setError(response.message);
+          } else {
+            setError(
+              'Не удалось создать заказ! Попробуйте еще раз или перезагрузите страницу'
+            );
+          }
         }
       })
       .catch(() =>

@@ -5,6 +5,7 @@ const photos = yup
   .required('Необходимо добавить один или несколько файлов');
 
 export default yup.object({
+  id: yup.string().required('Это обязательное поле'),
   address: yup.string().required('Это обязательное поле'),
   price: yup.string().required('Это обязательное поле'),
   name: yup.string().required('Это обязательное поле'),

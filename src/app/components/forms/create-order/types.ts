@@ -6,6 +6,7 @@ export type CreateOrderProps = {
 };
 
 export type Fields = {
+  id: string;
   address: string;
   price: string;
   name: string;
@@ -17,6 +18,7 @@ export type Fields = {
 };
 
 export type FieldsName =
+  | 'id'
   | 'price'
   | 'name'
   | 'phone'

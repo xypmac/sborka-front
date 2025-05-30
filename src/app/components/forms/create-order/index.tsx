@@ -37,6 +37,7 @@ export default function CreateOrder({
       price: '',
       name: '',
       phone: '',
+      id: '',
     },
     resolver: yupResolver(schema),
   });
@@ -61,7 +62,7 @@ export default function CreateOrder({
     let result = value;
 
     if (field === 'phone') result = getPhoneFormat(value);
-    if (field === 'price') result = value.replace(/\D/, '');
+    if (field === 'price' || field === 'id') result = value.replace(/\D/, '');
 
     setValue(field, result, {
       shouldValidate: true,
@@ -75,6 +76,16 @@ export default function CreateOrder({
     >
       <p className={styles.caption}>Создать заказ</p>
       <Flex gap={20} margin='20px 0' direction='column'>
+        <Flex gap={4} direction='column'>
+          <Label>ID заказа</Label>
+          <Input
+            name='id'
+            placeholder='ID заказа'
+            register={register}
+            error={errors.id?.message || null}
+            onChange={onChangeHandler}
+          />
+        </Flex>
         <Flex gap={4} direction='column'>
           <Label>Стоимость</Label>
           <Input

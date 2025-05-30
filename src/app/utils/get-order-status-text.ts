@@ -9,6 +9,8 @@ export default function getOrderStatusText(status: string) {
     return 'Приостановлено';
   } else if (status === '9') {
     return 'Отменненая сборка';
+  } else if (status === '12') {
+    return 'Рекламация';
   } else if (status === '10') {
     return 'Все';
   } else {

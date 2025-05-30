@@ -90,6 +90,7 @@ export const ORDER_STATUS_GROUP = [
   { id: 7, title: 'Выполнено' },
   { id: 8, title: 'Приостановлено' },
   { id: 9, title: 'Отменненая сборка' },
+  { id: 12, title: 'Рекламация' },
 ];
 
 export const ORDER_STATUS_GROUP_FILTER = [

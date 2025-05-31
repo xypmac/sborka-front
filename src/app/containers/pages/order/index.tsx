@@ -115,7 +115,11 @@ export default function Order() {
           )}
           <OrderTabs onSetTab={(tab: number) => setTab(tab)} active={tab} />
           {userId !== '' && (
-            <UserInformation id={userId} onHide={() => setUserId('')} />
+            <UserInformation
+              isAdmin={isAdmin}
+              id={userId}
+              onHide={() => setUserId('')}
+            />
           )}
           {tab === 1 && currentOrder && (
             <OrderForm

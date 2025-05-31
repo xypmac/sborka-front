@@ -10,6 +10,7 @@ import styles from './styles.module.scss';
 
 export default function Users({
   isWait,
+  isAdmin,
   currentPage,
   error,
   onSearch,
@@ -25,7 +26,7 @@ export default function Users({
       <p className={styles.caption}>Список пользователей</p>
       <Flex direction='column' gap={32}>
         <Filter onSearch={onSearch} />
-        <List users={users} />
+        <List isAdmin={isAdmin} users={users} />
       </Flex>
     </div>
   );

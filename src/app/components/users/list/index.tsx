@@ -7,7 +7,7 @@ import { User } from '@/app/store/users/types';
 import { ListProps } from './types';
 import styles from './styles.module.scss';
 
-export default function List({ users }: ListProps) {
+export default function List({ isAdmin, users }: ListProps) {
   return users.length === 0 ? (
     <Empty text='Ничего нет' />
   ) : (
@@ -23,6 +23,7 @@ export default function List({ users }: ListProps) {
       {users.map((user: User) => {
         return (
           <UserLine
+            isAdmin={isAdmin}
             key={user.ID}
             id={user.ID}
             company={user.WORK_COMPANY || '-'}

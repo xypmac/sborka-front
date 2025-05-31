@@ -2,6 +2,7 @@ import { CalendarUser } from '@/app/store/calendar/type';
 
 export type UserProps = {
   isWait: boolean;
+  isAdmin: boolean;
   currentPage: number;
   error: null | string;
   users: CalendarUser[];

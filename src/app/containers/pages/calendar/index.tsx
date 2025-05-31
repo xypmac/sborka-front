@@ -29,6 +29,7 @@ export default function Calendar() {
     currentPage,
     currentPageOrders,
     total,
+    isAdmin,
   } = useSelector((state: RootState) => ({
     users: state.calendar.users,
     orders: state.calendar.orders,
@@ -39,6 +40,7 @@ export default function Calendar() {
     currentPage: state.calendar.currentPage,
     currentPageOrders: state.calendar.currentPageOrders,
     total: state.calendar.ordersTotal,
+    isAdmin: state.session.isAdmin,
   }));
 
   const dispatch: AppDispatch = useDispatch();
@@ -104,6 +106,7 @@ export default function Calendar() {
       <Flex gap={24}>
         <Users
           error={error}
+          isAdmin={isAdmin}
           isWait={isWait}
           currentPage={currentPage}
           users={users}

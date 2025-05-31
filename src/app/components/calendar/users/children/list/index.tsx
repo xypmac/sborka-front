@@ -7,7 +7,7 @@ import Item from './children/item';
 import { ListProps } from './types';
 import styles from './styles.module.scss';
 
-export default function List({ users }: ListProps) {
+export default function List({ users, isAdmin }: ListProps) {
   return users.length === 0 ? (
     <Empty text='Ничего нет' />
   ) : (
@@ -15,6 +15,7 @@ export default function List({ users }: ListProps) {
       {users.map((user: CalendarUser) => {
         return (
           <Item
+            isAdmin={isAdmin}
             key={user.id}
             name={user.name}
             id={user.id}

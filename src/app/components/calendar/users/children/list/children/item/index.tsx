@@ -11,13 +11,17 @@ import getUserGroupText from '@/app/utils/get-user-group-text';
 import { ItemProps } from './types';
 import styles from './styles.module.scss';
 
-export default function Item({ name, id, group, day }: ItemProps) {
+export default function Item({ name, id, group, day, isAdmin }: ItemProps) {
   const [isShowInfo, setIsShowInfo] = useState(false);
 
   return (
     <>
       {isShowInfo && (
-        <UserInformation id={String(id)} onHide={() => setIsShowInfo(false)} />
+        <UserInformation
+          isAdmin={isAdmin}
+          id={String(id)}
+          onHide={() => setIsShowInfo(false)}
+        />
       )}
       <div className={styles.elem}>
         <Flex align='center' justify='flex-start' gap={8}>

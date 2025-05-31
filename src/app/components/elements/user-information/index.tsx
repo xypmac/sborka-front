@@ -14,6 +14,7 @@ export default function UserInformation({
   isLoading,
   isWaitUpdating,
   error,
+  isAdmin,
   user,
   onHide,
   onActiveUser,
@@ -36,7 +37,7 @@ export default function UserInformation({
               serverError={error}
               isWait={isWaitUpdating}
               isWide
-              isShowCalendar={false}
+              isAdmin={isAdmin}
               user={user as UserType}
               isAllowEdit
               onActiveUser={onActiveUser}

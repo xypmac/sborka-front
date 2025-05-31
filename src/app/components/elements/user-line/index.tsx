@@ -16,6 +16,7 @@ export default function UserLine({
   street,
   name,
   id,
+  isAdmin,
   active,
 }: UserLineProps) {
   const [isShowInfo, setIsShowInfo] = useState(false);
@@ -23,7 +24,11 @@ export default function UserLine({
   return (
     <div className={styles.elem} key={id}>
       {isShowInfo && (
-        <UserInformation id={id} onHide={() => setIsShowInfo(false)} />
+        <UserInformation
+          isAdmin={isAdmin}
+          id={id}
+          onHide={() => setIsShowInfo(false)}
+        />
       )}
       <p className={styles.action} onClick={() => setIsShowInfo(true)}>
         <FaArrowAltCircleRight />

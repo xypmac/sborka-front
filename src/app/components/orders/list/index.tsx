@@ -38,8 +38,7 @@ export default function List({ orders }: ListProps) {
               <p>{order.ADDRESS}</p>
               <p
                 className={cn(
-                  order.STATUS === '6' && styles.work,
-                  order.STATUS === '7' && styles.done,
+                  order.STATUS === '5' && styles.new,
                   order.STATUS === '8' && styles.stoped
                 )}
               >

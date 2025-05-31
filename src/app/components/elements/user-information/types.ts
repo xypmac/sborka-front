@@ -4,6 +4,7 @@ export type UserComponentProps = {
   isLoading: boolean;
   isWaitUpdating: boolean;
   error: string;
+  isAdmin: boolean;
   user: User | null;
   onHide: () => void;
   onActiveUser: () => void;

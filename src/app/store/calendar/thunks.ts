@@ -122,6 +122,7 @@ export const getCalendarOrders = createAsyncThunk(
       }
 
       calendar.filterOrders.status &&
+        calendar.filterOrders.status !== '10' &&
         formData.append('filter[STATUS]', calendar.filterOrders.status);
 
       calendar.filterOrders.dateTo &&

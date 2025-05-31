@@ -31,7 +31,7 @@ export default function ProfilePage() {
           serverError={error}
           isWait={isWait}
           user={user as UserType}
-          isShowCalendar={isBuilder || isMasurer}
+          isAdmin={isBuilder || isMasurer}
         />
       )}
     </MainLayout>

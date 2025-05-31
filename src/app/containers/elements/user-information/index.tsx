@@ -13,7 +13,11 @@ import getStringNumber from '@/app/utils/get-string-number';
 
 import { UserInformationProps } from './types';
 
-export default function UserInformation({ id, onHide }: UserInformationProps) {
+export default function UserInformation({
+  id,
+  onHide,
+  isAdmin,
+}: UserInformationProps) {
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(true);
   const [isWaitUpdating, setIsWaitUpdating] = useState(false);
@@ -103,6 +107,7 @@ export default function UserInformation({ id, onHide }: UserInformationProps) {
     <UserInformationComponent
       isLoading={isLoading}
       isWaitUpdating={isWaitUpdating}
+      isAdmin={isAdmin}
       onActiveUser={onActiveUserHandler}
       onUpdateUser={onUpdateUserHandler}
       error={error}

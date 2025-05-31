@@ -3,4 +3,5 @@ export type ItemProps = {
   name: string;
   day: string;
   group: string;
+  isAdmin: boolean;
 };

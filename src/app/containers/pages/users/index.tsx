@@ -54,7 +54,7 @@ export default function UsersPage() {
             onSearch={onSearchHandler}
           />
           <Flex direction='column' gap={16} align='stretch'>
-            <List users={users} />
+            <List isAdmin={isAdmin} users={users} />
             {users.length > 0 && users.length < total && (
               <Button
                 text='Показать еще'

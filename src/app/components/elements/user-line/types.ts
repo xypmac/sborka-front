@@ -6,4 +6,5 @@ export type UserLineProps = {
   name: string;
   id: string;
   active: string;
+  isAdmin: boolean;
 };

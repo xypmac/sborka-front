@@ -176,7 +176,7 @@ export default function User({
           />
         </form>
       ) : (
-        <Calendar />
+        <Calendar userId={user.ID} />
       )}
     </div>
   );

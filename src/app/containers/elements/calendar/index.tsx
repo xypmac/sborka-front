@@ -7,7 +7,7 @@ import Loader from '@/app/components/elements/loader';
 import CalendarComponent from '@/app/components/elements/calendar';
 import { API, SERVER_OK } from '@/app/utils/constants';
 
-export default function Calendar() {
+export default function Calendar({ userId }: { userId?: string }) {
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(true);
   const [isSetDayStatusLoading, setIsSetDayStatusLoading] = useState(false);
@@ -22,8 +22,9 @@ export default function Calendar() {
 
     formData.append(`filter[YEARS]`, year);
     formData.append(`filter[MOUNTH]`, month);
+    if (userId) formData.append(`filter[USER_ID]`, userId);
 
-    fetch(`${API}/calendar/getForCurrent`, {
+    fetch(`${API}/calendar/${userId ? 'getById' : 'getForCurrent'}`, {
       method: 'post',
       body: formData,
       headers: {
@@ -67,10 +68,11 @@ export default function Calendar() {
 
     formData.append(`PROPS[DATE]`, date);
     formData.append(`PROPS[STATUS]`, status);
+    if (userId) formData.append(`PROPS[USER_ID]`, userId);
 
     setIsSetDayStatusLoading(true);
 
-    fetch(`${API}/calendar/setDayForCurrent`, {
+    fetch(`${API}/calendar/${userId ? 'setDayUser' : 'setDayForCurrent'}`, {
       method: 'post',
       body: formData,
       headers: {

@@ -114,7 +114,7 @@ export const getCalendarOrders = createAsyncThunk(
           formData.append('filter[ORDER_ID]', calendar.filterOrders.search);
         }
         if (calendar.filterOrders.searchType === '2') {
-          formData.append('filter[NAME]', calendar.filterOrders.search);
+          formData.append('filter[FIO]', calendar.filterOrders.search);
         }
         if (calendar.filterOrders.searchType === '3') {
           formData.append('filter[ADDRESS]', calendar.filterOrders.search);

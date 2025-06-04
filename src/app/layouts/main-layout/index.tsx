@@ -1,5 +1,3 @@
-'use client';
-
 import Menu from '@/app/containers/elements/menu';
 
 import { MainLayoutProps } from './types';

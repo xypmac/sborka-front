@@ -1,3 +1,3 @@
 export type EmptyProps = {
-  text: string;
+  children: string;
 };

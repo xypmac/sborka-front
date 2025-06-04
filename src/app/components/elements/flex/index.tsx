@@ -1,5 +1,3 @@
-'use client';
-
 import { FlexProps } from './types';
 
 export default function Flex({

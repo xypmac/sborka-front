@@ -46,7 +46,7 @@ export default function UsersPage() {
       {isWait && currentPage === 0 ? (
         <Loader />
       ) : error ? (
-        <Error error={error} />
+        <Error>{error}</Error>
       ) : (
         <Flex direction='column' gap={32}>
           <Filter
@@ -56,11 +56,7 @@ export default function UsersPage() {
           <Flex direction='column' gap={16} align='stretch'>
             <List isAdmin={isAdmin} users={users} />
             {users.length > 0 && users.length < total && (
-              <Button
-                text='Показать еще'
-                type='button'
-                onClick={() => dispatch(getUsers())}
-              />
+              <Button onClick={() => dispatch(getUsers())}>Показать еще</Button>
             )}
           </Flex>
         </Flex>

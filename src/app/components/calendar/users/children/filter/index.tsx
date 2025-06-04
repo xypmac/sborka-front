@@ -89,7 +89,7 @@ export default function Filter({ onSearch }: FilterProps): ReactElement {
           />
           {dateError && (
             <div className={styles.error}>
-              <Error error={dateError} />
+              <Error>{dateError}</Error>
             </div>
           )}
         </div>
@@ -104,8 +104,8 @@ export default function Filter({ onSearch }: FilterProps): ReactElement {
         </div>
       </Flex>
       <Flex gap={12} align='flex-start' justify='flex-start'>
-        <Button onClick={onSearchHandler} text='Искать' type='button' />
-        <Button onClick={onResetHandler} text='Сбросить' type='button' />
+        <Button onClick={onSearchHandler}>Искать</Button>
+        <Button onClick={onResetHandler}>Сбросить</Button>
       </Flex>
     </Flex>
   );

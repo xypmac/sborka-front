@@ -21,7 +21,7 @@ export default function Orders({
   return isWait && currentPage === 0 ? (
     <Loader />
   ) : error ? (
-    <Error error={error} />
+    <Error>{error}</Error>
   ) : (
     <div className={styles.orders}>
       {isWait && <Loader />}
@@ -30,7 +30,7 @@ export default function Orders({
         <Filter onSearch={onSearch} />
         <List orders={orders} />
         {orders.length > 0 && orders.length < total && (
-          <Button text='Показать еще' type='button' onClick={onLoad} />
+          <Button onClick={onLoad}>Показать еще</Button>
         )}
       </Flex>
     </div>

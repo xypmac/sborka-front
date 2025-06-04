@@ -72,7 +72,7 @@ export default function Select({
           })}
         </ul>
       )}
-      {error && <Error error={error} />}
+      {error && <Error>{error}</Error>}
     </div>
   );
 }

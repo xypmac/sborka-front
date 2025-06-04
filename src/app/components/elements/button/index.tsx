@@ -1,14 +1,12 @@
-'use client';
-
 import cn from 'classnames';
 
 import { ButtonProps } from './types';
 import styles from './styles.module.scss';
 
 export default function Button({
-  text,
-  type,
+  children,
   isDisabled = false,
+  type = 'button',
   onClick,
 }: ButtonProps) {
   const onClickHandler = () => onClick && onClick();
@@ -20,7 +18,7 @@ export default function Button({
       onClick={onClickHandler}
       disabled={isDisabled}
     >
-      {text}
+      {children}
     </button>
   );
 }

@@ -9,7 +9,7 @@ import styles from './styles.module.scss';
 
 export default function List({ users, isAdmin }: ListProps) {
   return users.length === 0 ? (
-    <Empty text='Ничего нет' />
+    <Empty>Ничего нет</Empty>
   ) : (
     <div className={styles.list}>
       {users.map((user: CalendarUser) => {

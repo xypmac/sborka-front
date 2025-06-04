@@ -55,7 +55,7 @@ export default function OrdersPage() {
       {isWait && currentPage === 0 ? (
         <Loader />
       ) : error ? (
-        <Error error={error} />
+        <Error>{error}</Error>
       ) : (
         <Flex direction='column' gap={32}>
           <Filter
@@ -65,11 +65,9 @@ export default function OrdersPage() {
           <Flex direction='column' gap={16} align='stretch'>
             <List orders={orders} />
             {orders.length > 0 && orders.length < total && (
-              <Button
-                text='Показать еще'
-                type='button'
-                onClick={() => dispatch(getOrders())}
-              />
+              <Button onClick={() => dispatch(getOrders())}>
+                Показать ещe
+              </Button>
             )}
           </Flex>
         </Flex>

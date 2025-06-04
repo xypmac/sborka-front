@@ -72,15 +72,13 @@ export default function Login({ error }: LoginProps) {
           onChange={onChangeHandler}
         />
         {error && (
-          <Error
-            error={error === 'Expired token' ? EXPIRED_TOKEN_ERROR : error}
-          />
+          <Error>
+            {error === 'Expired token' ? EXPIRED_TOKEN_ERROR : error}
+          </Error>
         )}
-        <Button
-          text='Войти'
-          type='submit'
-          isDisabled={Object.keys(errors).length !== 0}
-        />
+        <Button type='submit' isDisabled={Object.keys(errors).length !== 0}>
+          Войти
+        </Button>
       </form>
     </>
   );

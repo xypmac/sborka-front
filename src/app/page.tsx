@@ -1,6 +1,10 @@
-import General from '@/app/containers/general';
+import AuthLayout from '@/app/layouts/auth-layout';
 import OrdersPage from '@/app/containers/pages/orders';
 
 export default function Home() {
-  return <General component={<OrdersPage />} />;
+  return (
+    <AuthLayout>
+      <OrdersPage />
+    </AuthLayout>
+  );
 }

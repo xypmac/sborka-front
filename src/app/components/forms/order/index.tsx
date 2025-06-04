@@ -294,11 +294,9 @@ export default function Order({
         </div>
       )}
 
-      <Button
-        text='Сохранить'
-        type='submit'
-        isDisabled={Object.keys(errors).length !== 0}
-      />
+      <Button type='submit' isDisabled={Object.keys(errors).length !== 0}>
+        Сохранить
+      </Button>
     </form>
   );
 }

@@ -146,12 +146,10 @@ export default function CreateUser({
         )}
       </Flex>
       <Flex direction='column' gap={10}>
-        <Button
-          text='Создать'
-          type='submit'
-          isDisabled={Object.keys(errors).length !== 0}
-        />
-        {error && <Error error={error} />}
+        <Button type='submit' isDisabled={Object.keys(errors).length !== 0}>
+          Создать
+        </Button>
+        {error && <Error>{error}</Error>}
       </Flex>
     </form>
   );

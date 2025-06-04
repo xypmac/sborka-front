@@ -34,6 +34,19 @@ export default function Filter({ isAllowCreateOrder, onSearch }: FilterProps) {
     )
   );
 
+  const onSearchHandler = () => {
+    onSearch({
+      ...params,
+      date: date ? format(new Date(date), 'dd.MM.yyyy') : '',
+    });
+  };
+
+  const onClearHandler = () => {
+    setParams(initialParams);
+    setDate(null);
+    onSearch(initialParams);
+  };
+
   return (
     <Flex gap={12} align='center' justify='flex-start'>
       <Select
@@ -67,25 +80,8 @@ export default function Filter({ isAllowCreateOrder, onSearch }: FilterProps) {
         value={params.id}
         placeholder='Поиск по номеру заказа'
       />
-      <Button
-        onClick={() =>
-          onSearch({
-            ...params,
-            date: date ? format(new Date(date), 'dd.MM.yyyy') : '',
-          })
-        }
-        text='Искать'
-        type='button'
-      />
-      <Button
-        onClick={() => {
-          setParams(initialParams);
-          setDate(null);
-          onSearch(initialParams);
-        }}
-        text='Сбросить'
-        type='button'
-      />
+      <Button onClick={onSearchHandler}>Искать</Button>
+      <Button onClick={onClearHandler}>Сбросить</Button>
       {isAllowCreateOrder && (
         <Link href='/orders/create' className='link'>
           Создать заказ

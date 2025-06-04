@@ -145,7 +145,7 @@ export default function CreateOrder({
             onAdd={() => sketchRef.current && sketchRef.current.click()}
           />
           {errors.sketchPhotos && (
-            <Error error={errors.sketchPhotos.message || ''} />
+            <Error>{errors.sketchPhotos.message || ''}</Error>
           )}
           <input
             accept='image/png, image/jpeg'
@@ -182,7 +182,7 @@ export default function CreateOrder({
             onAdd={() => roomRef.current && roomRef.current.click()}
           />
           {errors.roomPhotos && (
-            <Error error={errors.roomPhotos.message || ''} />
+            <Error>{errors.roomPhotos.message || ''}</Error>
           )}
           <input
             accept='image/png, image/jpeg'
@@ -219,7 +219,7 @@ export default function CreateOrder({
             onAdd={() => sizeRef.current && sizeRef.current.click()}
           />
           {errors.sizePhotos && (
-            <Error error={errors.sizePhotos.message || ''} />
+            <Error>{errors.sizePhotos.message || ''}</Error>
           )}
           <input
             accept='image/png, image/jpeg'
@@ -251,12 +251,10 @@ export default function CreateOrder({
         </Flex>
       </Flex>
       <Flex direction='column' gap={10}>
-        <Button
-          text='Создать'
-          type='submit'
-          isDisabled={Object.keys(errors).length !== 0}
-        />
-        {error && <Error error={error} />}
+        <Button type='submit' isDisabled={Object.keys(errors).length !== 0}>
+          Создать
+        </Button>
+        {error && <Error>{error}</Error>}
       </Flex>
     </form>
   );

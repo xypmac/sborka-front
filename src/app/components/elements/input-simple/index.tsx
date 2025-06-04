@@ -1,5 +1,3 @@
-'use client';
-
 import { InputSimpleProps } from './types';
 import styles from './styles.module.scss';
 

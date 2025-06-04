@@ -135,11 +135,9 @@ export default function Registration({ serverError }: RegistrationProps) {
             dangerouslySetInnerHTML={{ __html: serverError }}
           />
         )}
-        <Button
-          text='Зарегистрироваться'
-          type='submit'
-          isDisabled={Object.keys(errors).length !== 0}
-        />
+        <Button type='submit' isDisabled={Object.keys(errors).length !== 0}>
+          Зарегистрироваться
+        </Button>
       </form>
     </>
   );

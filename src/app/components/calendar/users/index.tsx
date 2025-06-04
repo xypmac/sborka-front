@@ -19,7 +19,7 @@ export default function Users({
   return isWait && currentPage === 0 ? (
     <Loader />
   ) : error ? (
-    <Error error={error} />
+    <Error>{error}</Error>
   ) : (
     <div className={styles.users}>
       {isWait && <Loader />}

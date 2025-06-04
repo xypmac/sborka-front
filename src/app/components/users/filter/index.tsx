@@ -23,6 +23,11 @@ const initialParams: FilterType = {
 export default function Filter({ isAllowCreateUser, onSearch }: FilterProps) {
   const [params, setParams] = useState<FilterType>(initialParams);
 
+  const onClearHandler = () => {
+    setParams(initialParams);
+    onSearch(initialParams);
+  };
+
   return (
     <Flex gap={12} align='center' justify='flex-start'>
       <Select
@@ -49,15 +54,8 @@ export default function Filter({ isAllowCreateUser, onSearch }: FilterProps) {
         value={params.name}
         placeholder='Поиск по имени'
       />
-      <Button onClick={() => onSearch(params)} text='Искать' type='button' />
-      <Button
-        onClick={() => {
-          setParams(initialParams);
-          onSearch(initialParams);
-        }}
-        text='Сбросить'
-        type='button'
-      />
+      <Button onClick={() => onSearch(params)}>Искать</Button>
+      <Button onClick={onClearHandler}>Сбросить</Button>
       {isAllowCreateUser && (
         <Link href='/users/create' className='link'>
           Создать пользователя

@@ -175,8 +175,8 @@ export default function FilterOrders({ onSearch }: FilterProps): ReactElement {
         </div>
       </Flex>
       <Flex gap={12} align='flex-start' justify='flex-start'>
-        <Button onClick={onSearchHandler} text='Искать' type='button' />
-        <Button onClick={onResetHandler} text='Сбросить' type='button' />
+        <Button onClick={onSearchHandler}>Искать</Button>
+        <Button onClick={onResetHandler}>Сбросить</Button>
       </Flex>
     </Flex>
   );

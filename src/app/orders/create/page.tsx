@@ -1,6 +1,10 @@
-import General from '@/app/containers/general';
+import AuthLayout from '@/app/layouts/auth-layout';
 import CreateOrderContainers from '@/app/containers/create-order';
 
 export default function CreateOrder() {
-  return <General component={<CreateOrderContainers />} />;
+  return (
+    <AuthLayout>
+      <CreateOrderContainers />
+    </AuthLayout>
+  );
 }

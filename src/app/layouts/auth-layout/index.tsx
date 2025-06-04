@@ -8,10 +8,9 @@ import Loader from '@/app/components/elements/loader';
 import Wellcome from '@/app/pages/wellcome';
 import { AppDispatch, RootState } from '@/app/store';
 import { remind } from '@/app/store/session/thunks';
+import { AuthLayoutProps } from './types';
 
-import { GeneralProps } from './types';
-
-export default function General({ component }: GeneralProps) {
+export default function AuthLayout({ children }: AuthLayoutProps) {
   const { token, user, wait } = useSelector((state: RootState) => ({
     token: state.session.token,
     user: state.session.user,
@@ -23,15 +22,13 @@ export default function General({ component }: GeneralProps) {
   const dispatch: AppDispatch = useDispatch();
 
   useEffect(() => {
-    if (!token && !user) {
-      dispatch(remind());
-    }
+    if (!token && !user) dispatch(remind());
 
     setIsCheck(true);
   }, []);
 
   if (isCheck && !wait) {
-    return token ? component : <Wellcome />;
+    return token ? children : <Wellcome />;
   }
 
   return <Loader />;

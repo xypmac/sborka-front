@@ -1,6 +1,10 @@
-import General from '@/app/containers/general';
+import AuthLayout from '@/app/layouts/auth-layout';
 import ProfilePage from '@/app/containers/pages/profile';
 
 export default function Profile() {
-  return <General component={<ProfilePage />} />;
+  return (
+    <AuthLayout>
+      <ProfilePage />
+    </AuthLayout>
+  );
 }

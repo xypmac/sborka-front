@@ -1,6 +1,10 @@
-import General from '@/app/containers/general';
+import AuthLayout from '@/app/layouts/auth-layout';
 import UsersPage from '@/app/containers/pages/users';
 
 export default function Users() {
-  return <General component={<UsersPage />} />;
+  return (
+    <AuthLayout>
+      <UsersPage />
+    </AuthLayout>
+  );
 }

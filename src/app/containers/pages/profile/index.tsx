@@ -25,7 +25,7 @@ export default function ProfilePage() {
       {isWait ? (
         <Loader />
       ) : error ? (
-        <Error error={error} />
+        <Error>{error}</Error>
       ) : (
         <User
           serverError={error}

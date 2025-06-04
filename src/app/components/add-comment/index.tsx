@@ -23,13 +23,13 @@ export default function AddComment({ onAddComment, ID }: AddCommentProps) {
       />
       <Button
         isDisabled={comment === ''}
-        type='button'
         onClick={() => {
           onAddComment({ ID, comment });
           setComment('');
         }}
-        text='Добавить комментарий'
-      />
+      >
+        Добавить комментарий
+      </Button>
     </div>
   );
 }

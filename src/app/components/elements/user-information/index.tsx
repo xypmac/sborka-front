@@ -27,7 +27,7 @@ export default function UserInformation({
         {isLoading ? (
           <Loader />
         ) : error ? (
-          <Error error={error} />
+          <Error>{error}</Error>
         ) : (
           <>
             <div className={styles.icon} onClick={onHide}>

@@ -23,8 +23,12 @@ export default function DayStatus({
         </span>
       </p>
       <Flex align='center' direction='row' gap={12} justify='flex-start'>
-        <Button text='Свободный' type='submit' onClick={() => onSave('10')} />
-        <Button text='Выходной' type='submit' onClick={() => onSave('11')} />
+        <Button type='submit' onClick={() => onSave('10')}>
+          Свободный
+        </Button>
+        <Button type='submit' onClick={() => onSave('11')}>
+          Выходной
+        </Button>
         <p onClick={onHide} className={styles.cancel}>
           Отмена
         </p>

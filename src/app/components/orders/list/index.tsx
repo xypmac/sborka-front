@@ -1,5 +1,3 @@
-'use client';
-
 import Link from 'next/link';
 import { FaArrowAltCircleRight } from 'react-icons/fa';
 import cn from 'classnames';
@@ -13,7 +11,7 @@ import styles from './styles.module.scss';
 
 export default function List({ orders }: ListProps) {
   return orders.length === 0 ? (
-    <Empty text='Ничего нет' />
+    <Empty>Ничего нет</Empty>
   ) : (
     <div>
       <div className={styles.header}>

@@ -1,6 +1,6 @@
 export type ButtonProps = {
-  text: string;
-  type: 'button' | 'reset' | 'submit';
+  children: string;
+  type?: 'button' | 'reset' | 'submit';
   isDisabled?: boolean;
   onClick?: () => void;
 };

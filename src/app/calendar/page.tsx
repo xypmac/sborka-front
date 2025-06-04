@@ -1,6 +1,10 @@
-import General from '@/app/containers/general';
+import AuthLayout from '@/app/layouts/auth-layout';
 import CalendarPage from '@/app/containers/pages/calendar';
 
 export default function Calendar() {
-  return <General component={<CalendarPage />} />;
+  return (
+    <AuthLayout>
+      <CalendarPage />
+    </AuthLayout>
+  );
 }

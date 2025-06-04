@@ -1,5 +1,3 @@
-'use client';
-
 import UserLine from '@/app/components/elements/user-line';
 import Empty from '@/app/components/elements/empty';
 import { User } from '@/app/store/users/types';
@@ -9,7 +7,7 @@ import styles from './styles.module.scss';
 
 export default function List({ isAdmin, users }: ListProps) {
   return users.length === 0 ? (
-    <Empty text='Ничего нет' />
+    <Empty>Ничего нет</Empty>
   ) : (
     <div>
       <div className={styles.header}>

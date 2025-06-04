@@ -13,7 +13,7 @@ import styles from './styles.module.scss';
 
 export default function List({ orders }: ListProps) {
   return orders.length === 0 ? (
-    <Empty text='Ничего нет' />
+    <Empty>Ничего нет</Empty>
   ) : (
     <div className={styles.list}>
       <Flex direction='column'>

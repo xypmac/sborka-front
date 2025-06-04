@@ -157,7 +157,7 @@ export default function User({
             </Flex>
           )}
 
-          {serverError && <Error error={serverError} />}
+          {serverError && <Error>{serverError}</Error>}
           {isAllowEdit && user.ACTIVE === 'N' && (
             <>
               <p>
@@ -169,11 +169,9 @@ export default function User({
             </>
           )}
 
-          <Button
-            text='Сохранить'
-            type='submit'
-            isDisabled={Object.keys(errors).length !== 0}
-          />
+          <Button type='submit' isDisabled={Object.keys(errors).length !== 0}>
+            Сохранить
+          </Button>
         </form>
       ) : (
         <Calendar userId={user.ID} />

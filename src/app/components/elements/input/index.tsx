@@ -28,7 +28,7 @@ export default function Input({
         onChange={(e) => onChange(e.target.value, name)}
         disabled={isDisable}
       />
-      {error && <Error error={error} />}
+      {error && <Error>{error}</Error>}
     </div>
   );
 }

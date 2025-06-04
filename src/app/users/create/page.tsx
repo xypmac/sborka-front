@@ -1,6 +1,10 @@
-import General from '@/app/containers/general';
+import AuthLayout from '@/app/layouts/auth-layout';
 import CreateUserContainers from '@/app/containers/create-user';
 
 export default function CreateUser() {
-  return <General component={<CreateUserContainers />} />;
+  return (
+    <AuthLayout>
+      <CreateUserContainers />
+    </AuthLayout>
+  );
 }

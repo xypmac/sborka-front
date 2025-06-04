@@ -1,6 +1,10 @@
-import General from '@/app/containers/general';
+import AuthLayout from '@/app/layouts/auth-layout';
 import OrderPage from '@/app/containers/pages/order';
 
 export default function Order() {
-  return <General component={<OrderPage />} />;
+  return (
+    <AuthLayout>
+      <OrderPage />
+    </AuthLayout>
+  );
 }

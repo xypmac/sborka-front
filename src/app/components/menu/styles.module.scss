@@ -2,12 +2,23 @@
   width: 100%;
   max-width: 200px;
   border-right: 2px solid #e7e7e7;
+
+  @media screen and (max-width: 967px) {
+    max-width: 100%;
+    border-right: none;
+  }
 }
 
 .list {
   display: flex;
   flex-direction: column;
   gap: 10px;
+
+  @media screen and (max-width: 967px) {
+    flex-wrap: wrap;
+    flex-direction: row;
+    gap: 16px;
+  }
 }
 
 .elem {

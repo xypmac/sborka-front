@@ -9,6 +9,10 @@
   &.wait {
     opacity: 0.5;
   }
+
+  @media screen and (max-width: 655px) {
+    width: 100%;
+  }
 }
 
 .images {

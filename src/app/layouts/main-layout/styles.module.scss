@@ -13,6 +13,10 @@
   gap: 20px;
   background-color: #ffffff;
   box-shadow: rgba(20, 12, 64, 0.16) 0px 10px 24px;
+
+  @media screen and (max-width: 967px) {
+    flex-direction: column;
+  }
 }
 
 .content {

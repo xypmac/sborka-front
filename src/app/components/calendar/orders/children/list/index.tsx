@@ -1,5 +1,6 @@
 'use client';
 
+import cn from 'classnames';
 import Link from 'next/link';
 import { FaArrowAltCircleRight } from 'react-icons/fa';
 
@@ -29,7 +30,14 @@ export default function List({ orders }: ListProps) {
               <p>{order.FIO}</p>
               <p>{order.PHONE_CLIENT}</p>
               <p>{order.ADDRESS}</p>
-              <p>{getOrderStatusText(order.STATUS)}</p>
+              <p
+                className={cn(
+                  order.STATUS === '5' && styles.new,
+                  order.STATUS === '8' && styles.stoped
+                )}
+              >
+                {getOrderStatusText(order.STATUS)}
+              </p>
             </div>
           );
         })}

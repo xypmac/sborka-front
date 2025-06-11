@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { FaArrowAltCircleRight } from 'react-icons/fa';
 import cn from 'classnames';
 
+import Label from '@/app/components/elements/label';
 import Empty from '@/app/components/elements/empty';
 import { Order } from '@/app/store/orders/types';
 import getOrderStatusText from '@/app/utils/get-order-status-text';
@@ -25,23 +26,41 @@ export default function List({ orders }: ListProps) {
         {orders.map((order: Order) => {
           return (
             <div className={styles.elem} key={order.ORDER_ID}>
-              <p className={styles.action}>
+              <div className={styles.action}>
                 <Link href={`/orders/${order.ORDER_ID}`} target='_blank'>
                   <FaArrowAltCircleRight />
                   {order.ORDER_ID}
                 </Link>
-              </p>
-              <p>{order.FIO}</p>
-              <p>{order.PHONE_CLIENT}</p>
-              <p>{order.ADDRESS}</p>
-              <p
+              </div>
+              <div>
+                <div className={styles.mobileTitle}>
+                  <Label>ФИО клиента: </Label>
+                </div>
+                {order.FIO}
+              </div>
+              <div>
+                <div className={styles.mobileTitle}>
+                  <Label>Номер клиента: </Label>
+                </div>
+                {order.PHONE_CLIENT}
+              </div>
+              <div>
+                <div className={styles.mobileTitle}>
+                  <Label>Адрес: </Label>
+                </div>
+                {order.ADDRESS}
+              </div>
+              <div
                 className={cn(
                   order.STATUS === '5' && styles.new,
                   order.STATUS === '8' && styles.stoped
                 )}
               >
+                <div className={styles.mobileTitle}>
+                  <Label>Статус: </Label>
+                </div>
                 {getOrderStatusText(order.STATUS)}
-              </p>
+              </div>
             </div>
           );
         })}

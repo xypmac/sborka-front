@@ -4,6 +4,7 @@ import { useState } from 'react';
 import cn from 'classnames';
 import { FaArrowAltCircleRight } from 'react-icons/fa';
 
+import Label from '@/app/components/elements/label';
 import UserInformation from '@/app/containers/elements/user-information';
 
 import { UserLineProps } from './types';
@@ -30,17 +31,48 @@ export default function UserLine({
           onHide={() => setIsShowInfo(false)}
         />
       )}
-      <p className={styles.action} onClick={() => setIsShowInfo(true)}>
-        <FaArrowAltCircleRight />
-        {company}
-      </p>
-      <p>{name}</p>
-      <p className={styles.phone}>{phone || '-'}</p>
-      <p className={styles.email}>{email}</p>
-      <p>{street}</p>
-      <p className={cn(styles.status, active === 'Y' ? styles.yes : styles.no)}>
+      <div
+        className={cn(styles.action, styles.item)}
+        onClick={() => setIsShowInfo(true)}
+      >
+        <div className={styles.mobileTitle}>
+          <Label>Название контрагента: </Label>
+        </div>
+        <div className={styles.name}>
+          <FaArrowAltCircleRight />
+          {company}
+        </div>
+      </div>
+      <div className={styles.item}>
+        <div className={styles.mobileTitle}>
+          <Label>ФИО: </Label>
+        </div>
+        {name}
+      </div>
+      <div className={styles.item}>
+        <div className={styles.mobileTitle}>
+          <Label>Телефон: </Label>
+        </div>
+        {phone || '-'}
+      </div>
+      <div className={styles.item}>
+        <div className={styles.mobileTitle}>
+          <Label>E-mail: </Label>
+        </div>
+        {email}
+      </div>
+      <div className={styles.item}>
+        <div className={styles.mobileTitle}>
+          <Label>Адрес: </Label>
+        </div>
+        {street}
+      </div>
+      <div className={cn(styles.item, active === 'Y' ? styles.yes : styles.no)}>
+        <div className={styles.mobileTitle}>
+          <Label>Активен: </Label>
+        </div>
         {active === 'Y' ? 'Да' : 'Нет'}
-      </p>
+      </div>
     </div>
   );
 }

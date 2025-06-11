@@ -18,6 +18,8 @@ import {
   clearState,
 } from '@/app/store/calendar';
 
+import styles from './styles.module.scss';
+
 export default function Calendar() {
   const {
     users,
@@ -103,7 +105,7 @@ export default function Calendar() {
 
   return (
     <MainLayout>
-      <Flex gap={24}>
+      <div className={styles.block}>
         <Users
           error={error}
           isAdmin={isAdmin}
@@ -121,7 +123,7 @@ export default function Calendar() {
           total={total}
           onLoad={() => dispatch(getCalendarOrders(null))}
         />
-      </Flex>
+      </div>
     </MainLayout>
   );
 }

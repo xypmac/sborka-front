@@ -48,7 +48,7 @@ export default function Filter({ isAllowCreateOrder, onSearch }: FilterProps) {
   };
 
   return (
-    <Flex gap={12} align='center' justify='flex-start'>
+    <Flex gap={12} align='center' justify='flex-start' flexWrap='wrap'>
       <Select
         defaultOption='Статус заказа'
         onSelect={(status: string) => setParams({ ...params, status })}

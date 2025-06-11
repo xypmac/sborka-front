@@ -1,6 +1,12 @@
 .wellcome {
   width: 100vw;
-  height: 100vh;
+  height: 100%;
+  overflow: scroll;
+}
+
+.wrap {
+  min-height: 100%;
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;

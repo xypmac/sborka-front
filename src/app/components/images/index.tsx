@@ -9,7 +9,7 @@ import styles from './styles.module.scss';
 
 export default function Images({ list, onAdd }: ImagesProps) {
   return (
-    <Flex gap={10} justify='flex-start'>
+    <Flex gap={10} justify='flex-start' flexWrap='wrap'>
       {list.length > 0 &&
         list.map((photo: string, index: number) => {
           return <img className={styles.image} key={index} src={photo} />;

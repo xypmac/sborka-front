@@ -34,16 +34,18 @@ export default function Wellcome() {
 
   return (
     <div className={styles.wellcome}>
-      <div className={styles.block}>
-        {wait && <Loader />}
-        {isLoginMode ? (
-          <Login error={serverError} />
-        ) : (
-          <Registration serverError={registrationError} />
-        )}
-        <span className={styles.action} onClick={onChangeModeHandler}>
-          {isLoginMode ? 'Регистрация' : 'Есть аккаунт'}
-        </span>
+      <div className={styles.wrap}>
+        <div className={styles.block}>
+          {wait && <Loader />}
+          {isLoginMode ? (
+            <Login error={serverError} />
+          ) : (
+            <Registration serverError={registrationError} />
+          )}
+          <span className={styles.action} onClick={onChangeModeHandler}>
+            {isLoginMode ? 'Регистрация' : 'Есть аккаунт'}
+          </span>
+        </div>
       </div>
     </div>
   );

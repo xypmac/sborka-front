@@ -18,3 +18,11 @@
   flex-direction: column;
   gap: 6px;
 }
+
+.block {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+}

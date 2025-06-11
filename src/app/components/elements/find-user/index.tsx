@@ -94,33 +94,38 @@ export default function FindUser({
           onSelect={(e) => e.preventDefault()}
         />
 
-        {isShowOptions && (
-          <div className={styles.options} ref={optionsRef}>
-            {options.length > 0 ? (
-              options.map((option: User) => (
-                <div
-                  className={cn(styles.option, styles.available)}
-                  key={option.ID}
-                  onClick={(e) => onChooseHandler(e, option)}
-                >
-                  {option[isSalon ? 'WORK_COMPANY' : 'NAME'] || ''}
-                </div>
-              ))
-            ) : (
-              <div className={styles.option}>Ничего не найдено</div>
-            )}
-          </div>
-        )}
+        <div className={styles.result}>
+          {isShowOptions && (
+            <div className={styles.options} ref={optionsRef}>
+              {options.length > 0 ? (
+                options.map((option: User) => (
+                  <div
+                    className={cn(styles.option, styles.available)}
+                    key={option.ID}
+                    onClick={(e) => onChooseHandler(e, option)}
+                  >
+                    {option[isSalon ? 'WORK_COMPANY' : 'NAME'] || ''}
+                  </div>
+                ))
+              ) : (
+                <div className={styles.option}>Ничего не найдено</div>
+              )}
+            </div>
+          )}
 
-        {!isDisabled && user && (
-          <>
-            <p className={styles.action} onClick={() => onShowModal(user.ID)}>
-              <FaArrowAltCircleRight />
-              {user.LOGIN}
-            </p>
-            <FaRegTimesCircle onClick={onClear} style={{ cursor: 'pointer' }} />
-          </>
-        )}
+          {!isDisabled && user && (
+            <>
+              <p className={styles.action} onClick={() => onShowModal(user.ID)}>
+                <FaArrowAltCircleRight />
+                {user.LOGIN}
+              </p>
+              <FaRegTimesCircle
+                onClick={onClear}
+                style={{ cursor: 'pointer' }}
+              />
+            </>
+          )}
+        </div>
       </div>
     </div>
   );

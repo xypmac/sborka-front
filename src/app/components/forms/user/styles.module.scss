@@ -44,6 +44,10 @@
   display: flex;
   gap: 12px;
   margin-bottom: 20px;
+
+  @media screen and (max-width: 655px) {
+    flex-direction: column;
+  }
 }
 
 .tab {

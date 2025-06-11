@@ -21,30 +21,32 @@ export default function UserInformation({
   onUpdateUser,
 }: UserComponentProps) {
   return (
-    <div className={styles.information}>
+    <div className={styles.userInformation}>
       <div className={styles.bg} onClick={onHide} />
-      <div className={styles.content}>
-        {isLoading ? (
-          <Loader />
-        ) : error ? (
-          <Error>{error}</Error>
-        ) : (
-          <>
-            <div className={styles.icon} onClick={onHide}>
-              <FaRegTimesCircle size={20} />
-            </div>
-            <User
-              serverError={error}
-              isWait={isWaitUpdating}
-              isWide
-              isAdmin={isAdmin}
-              user={user as UserType}
-              isAllowEdit
-              onActiveUser={onActiveUser}
-              onUpdateUser={onUpdateUser}
-            />
-          </>
-        )}
+      <div className={styles.wrap}>
+        <div className={styles.content}>
+          {isLoading ? (
+            <Loader />
+          ) : error ? (
+            <Error>{error}</Error>
+          ) : (
+            <>
+              <div className={styles.icon} onClick={onHide}>
+                <FaRegTimesCircle size={20} />
+              </div>
+              <User
+                serverError={error}
+                isWait={isWaitUpdating}
+                isWide
+                isAdmin={isAdmin}
+                user={user as UserType}
+                isAllowEdit
+                onActiveUser={onActiveUser}
+                onUpdateUser={onUpdateUser}
+              />
+            </>
+          )}
+        </div>
       </div>
     </div>
   );

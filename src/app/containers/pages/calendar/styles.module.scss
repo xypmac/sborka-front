@@ -1,0 +1,8 @@
+.block {
+  display: flex;
+  gap: 24px;
+
+  @media screen and (max-width: 1278px) {
+    flex-direction: column;
+  }
+}

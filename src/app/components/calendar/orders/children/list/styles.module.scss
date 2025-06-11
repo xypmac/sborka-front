@@ -51,4 +51,34 @@
       color: #5c3bfe;
     }
   }
+
+  @media screen and (max-width: 967px) {
+    flex-direction: column;
+    align-items: flex-start;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+
+    & > p {
+      width: 100%;
+      text-align: left;
+      display: flex;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      gap: 3px;
+    }
+  }
+
+  @media screen and (max-width: 519px) {
+    & > div {
+      flex-direction: column;
+    }
+  }
+}
+
+.new {
+  color: #4caf50;
+}
+
+.stoped {
+  color: #e13b3b;
 }

@@ -22,7 +22,7 @@ export default function DayStatus({
           {date ? format(new Date(date), 'dd.MM.yyyy') : ''}
         </span>
       </p>
-      <Flex align='center' direction='row' gap={12} justify='flex-start'>
+      <div className={styles.controls}>
         <Button type='submit' onClick={() => onSave('10')}>
           Свободный
         </Button>
@@ -32,7 +32,7 @@ export default function DayStatus({
         <p onClick={onHide} className={styles.cancel}>
           Отмена
         </p>
-      </Flex>
+      </div>
     </div>
   );
 }

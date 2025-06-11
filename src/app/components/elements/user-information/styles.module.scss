@@ -1,14 +1,20 @@
-.information {
+.userInformation {
   top: 0;
   left: 0;
-  width: 100%;
+  width: 100vw;
   height: 100%;
   position: fixed;
+  overflow: scroll;
+  z-index: 90000;
+}
+
+.wrap {
+  min-height: 100%;
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 20px;
-  z-index: 90000;
 }
 
 .bg {
@@ -28,6 +34,10 @@
   min-height: 200px;
   z-index: 10;
   position: relative;
+
+  @media screen and (max-width: 519px) {
+    width: 100%;
+  }
 }
 
 .icon {

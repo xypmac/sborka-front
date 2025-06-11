@@ -106,7 +106,7 @@ export default function Order({
       </div>
 
       {isShowDates && (
-        <Flex gap={24} height={60}>
+        <div className={styles.dates}>
           <div className={cn(styles.item, styles.date)}>
             <Label>Дата сборки</Label>
             <Controller
@@ -178,7 +178,7 @@ export default function Order({
               )}
             />
           </div>
-        </Flex>
+        </div>
       )}
 
       {(isAdmin || isTaskmaster || isSalon) && (
@@ -217,7 +217,7 @@ export default function Order({
         </div>
       )}
 
-      <Flex direction='column' gap={6}>
+      <Flex direction='column' gap={20}>
         {!isMasurer && (
           <FindUser
             onSet={(id: string | null) => (worker.current = id)}

@@ -29,7 +29,7 @@ export default function Filter({ isAllowCreateUser, onSearch }: FilterProps) {
   };
 
   return (
-    <Flex gap={12} align='center' justify='flex-start'>
+    <Flex gap={12} align='center' justify='flex-start' flexWrap='wrap'>
       <Select
         defaultOption='Тип пользователя'
         onSelect={(group: string) => setParams({ ...params, group })}

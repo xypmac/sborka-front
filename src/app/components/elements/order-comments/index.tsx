@@ -27,7 +27,7 @@ export default function OrderComments({
   };
 
   return (
-    <Flex gap={20} direction='column' width={468}>
+    <div className={styles.comments}>
       <Flex gap={4} direction='column'>
         <Label>Комментарий салона</Label>
         {getCommentsByType(COMMENT_SALON)}
@@ -43,6 +43,6 @@ export default function OrderComments({
           )}
         </Flex>
       )}
-    </Flex>
+    </div>
   );
 }

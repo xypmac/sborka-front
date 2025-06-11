@@ -18,14 +18,32 @@
   color: #5c3bfe;
 }
 
+.dates {
+  display: flex;
+  gap: 12px;
+
+  @media screen and (max-width: 655px) {
+    gap: 12px;
+  }
+
+  @media screen and (max-width: 519px) {
+    flex-direction: column;
+  }
+}
+
 .item {
   display: flex;
   gap: 4px;
+  height: 60px;
   flex-direction: column;
 }
 
 .date {
   width: calc(100% / 3);
+
+  @media screen and (max-width: 519px) {
+    width: max-content;
+  }
 }
 
 .header {

@@ -24,13 +24,13 @@ export default function Item({ name, id, group, day, isAdmin }: ItemProps) {
         />
       )}
       <div className={styles.elem}>
-        <Flex align='center' justify='flex-start' gap={8}>
+        <div className={styles.block}>
           <div className={styles.name} onClick={() => setIsShowInfo(true)}>
             <FaArrowAltCircleRight />
             {name}
           </div>
           <p className={styles.type}>{getUserGroupText(group)}</p>
-        </Flex>
+        </div>
         <div>На выбранную дату: {getDayStatusText(day) || 'Нет статуса'} </div>
       </div>
     </>

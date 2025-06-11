@@ -84,9 +84,13 @@ export default function OrderFiles({
                   accept='image/png, image/jpeg'
                   ref={photoRoom}
                   type='file'
+                  multiple
                   onChange={(e: any) => {
-                    const file = e.target.files[0];
-                    onAddFile({ file, type: 'PHOTO_ROOM' });
+                    if (e.target.files) {
+                      Array.from(e.target.files).forEach((file: any) => {
+                        onAddFile({ file, type: 'PHOTO_ROOM' });
+                      });
+                    }
                   }}
                   style={{ display: 'none' }}
                 />
@@ -130,9 +134,13 @@ export default function OrderFiles({
                 accept='image/png, image/jpeg'
                 ref={measuring}
                 type='file'
+                multiple
                 onChange={(e: any) => {
-                  const file = e.target.files[0];
-                  onAddFile({ file, type: 'MEASURING' });
+                  if (e.target.files) {
+                    Array.from(e.target.files).forEach((file: any) => {
+                      onAddFile({ file, type: 'MEASURING' });
+                    });
+                  }
                 }}
                 style={{ display: 'none' }}
               />
@@ -176,9 +184,13 @@ export default function OrderFiles({
                 accept='image/png, image/jpeg'
                 ref={sketch}
                 type='file'
+                multiple
                 onChange={(e: any) => {
-                  const file = e.target.files[0];
-                  onAddFile({ file, type: 'SKETCH' });
+                  if (e.target.files) {
+                    Array.from(e.target.files).forEach((file: any) => {
+                      onAddFile({ file, type: 'SKETCH' });
+                    });
+                  }
                 }}
                 style={{ display: 'none' }}
               />
@@ -225,9 +237,13 @@ export default function OrderFiles({
                   accept='image/png, image/jpeg'
                   ref={photoReport}
                   type='file'
+                  multiple
                   onChange={(e: any) => {
-                    const file = e.target.files[0];
-                    onAddFile({ file, type: 'PHOTO_REPORT' });
+                    if (e.target.files) {
+                      Array.from(e.target.files).forEach((file: any) => {
+                        onAddFile({ file, type: 'PHOTO_REPORT' });
+                      });
+                    }
                   }}
                   style={{ display: 'none' }}
                 />

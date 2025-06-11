@@ -150,26 +150,31 @@ export default function CreateOrder({
           <input
             accept='image/png, image/jpeg'
             ref={sketchRef}
+            multiple
             type='file'
             onChange={(e: any) => {
-              const file = e.target.files[0];
-              if (file) {
-                setSketchPhotos([...sketchPhotos, file]);
-                clearErrors('sketchPhotos');
-                const reader = new FileReader();
+              if (e.target.files) {
+                let files: File[] = [];
+                Array.from(e.target.files).forEach((file: any) => {
+                  files.push(file);
+                  clearErrors('sketchPhotos');
 
-                reader.onloadend = () => {
-                  setValue('sketchPhotos', [
-                    ...getValues().sketchPhotos,
-                    reader.result as string,
-                  ]);
-                  setSketchPhotosPreview([
-                    ...sketchPhotosPreview,
-                    reader.result as string,
-                  ]);
-                };
+                  const reader = new FileReader();
+                  reader.onloadend = () => {
+                    setValue('sketchPhotos', [
+                      ...getValues().sketchPhotos,
+                      reader.result as string,
+                    ]);
+                    setSketchPhotosPreview([
+                      ...sketchPhotosPreview,
+                      reader.result as string,
+                    ]);
+                  };
 
-                reader.readAsDataURL(file);
+                  reader.readAsDataURL(file);
+                });
+
+                setSketchPhotos([...sketchPhotos, ...files]);
               }
             }}
             style={{ display: 'none' }}
@@ -187,26 +192,31 @@ export default function CreateOrder({
           <input
             accept='image/png, image/jpeg'
             ref={roomRef}
+            multiple
             type='file'
             onChange={(e: any) => {
-              const file = e.target.files[0];
-              if (file) {
-                setRoomPhotos([...roomPhotos, file]);
-                clearErrors('roomPhotos');
-                const reader = new FileReader();
+              if (e.target.files) {
+                let files: File[] = [];
+                Array.from(e.target.files).forEach((file: any) => {
+                  files.push(file);
+                  clearErrors('roomPhotos');
 
-                reader.onloadend = () => {
-                  setValue('roomPhotos', [
-                    ...(getValues().roomPhotos || []),
-                    reader.result as string,
-                  ]);
-                  setRoomPhotosPreview([
-                    ...roomPhotosPreview,
-                    reader.result as string,
-                  ]);
-                };
+                  const reader = new FileReader();
+                  reader.onloadend = () => {
+                    setValue('roomPhotos', [
+                      ...(getValues().roomPhotos || []),
+                      reader.result as string,
+                    ]);
+                    setRoomPhotosPreview([
+                      ...roomPhotosPreview,
+                      reader.result as string,
+                    ]);
+                  };
 
-                reader.readAsDataURL(file);
+                  reader.readAsDataURL(file);
+                });
+
+                setRoomPhotos([...roomPhotos, ...files]);
               }
             }}
             style={{ display: 'none' }}
@@ -224,26 +234,30 @@ export default function CreateOrder({
           <input
             accept='image/png, image/jpeg'
             ref={sizeRef}
+            multiple
             type='file'
             onChange={(e: any) => {
-              const file = e.target.files[0];
-              if (file) {
-                setSizePhotos([...sizePhotos, file]);
-                clearErrors('sizePhotos');
-                const reader = new FileReader();
+              if (e.target.files) {
+                let files: File[] = [];
+                Array.from(e.target.files).forEach((file: any) => {
+                  files.push(file);
+                  clearErrors('sizePhotos');
 
-                reader.onloadend = () => {
-                  setValue('sizePhotos', [
-                    ...(getValues().sizePhotos || []),
-                    reader.result as string,
-                  ]);
-                  setSizePhotosPreview([
-                    ...sizePhotosPreview,
-                    reader.result as string,
-                  ]);
-                };
+                  const reader = new FileReader();
+                  reader.onloadend = () => {
+                    setValue('sizePhotos', [
+                      ...(getValues().sizePhotos || []),
+                      reader.result as string,
+                    ]);
+                    setSizePhotosPreview([
+                      ...sizePhotosPreview,
+                      reader.result as string,
+                    ]);
+                  };
 
-                reader.readAsDataURL(file);
+                  reader.readAsDataURL(file);
+                });
+                setSizePhotos([...sizePhotos, ...files]);
               }
             }}
             style={{ display: 'none' }}

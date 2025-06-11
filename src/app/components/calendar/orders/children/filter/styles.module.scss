@@ -21,8 +21,7 @@
 .datepickerWrap {
   position: relative;
   display: flex;
-  flex-direction: column;
-  width: 170px;
+  align-items: center;
 }
 
 .datepicker {
@@ -66,4 +65,10 @@
 
 .dir {
   transition: all 200ms ease;
+}
+
+.icon {
+  cursor: pointer;
+  color: #5c3bfe;
+  margin-left: 6px;
 }

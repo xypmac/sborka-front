@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, ReactElement, forwardRef } from 'react';
+import { FaRegTimesCircle } from 'react-icons/fa';
 import DatePicker from 'react-datepicker';
 import { ru } from 'date-fns/locale';
 import { format } from 'date-fns';
@@ -127,6 +128,11 @@ export default function FilterOrders({ onSearch }: FilterProps): ReactElement {
               <CustomInput value={dateFrom} onClick={() => false} isFrom />
             }
           />
+          {dateFrom && (
+            <div className={styles.icon}>
+              <FaRegTimesCircle onClick={() => setDateFrom(null)} size={22} />
+            </div>
+          )}
         </div>
         <div className={styles.datepickerWrap}>
           <DatePicker
@@ -136,6 +142,11 @@ export default function FilterOrders({ onSearch }: FilterProps): ReactElement {
             onChange={(date) => setDateTo(date)}
             customInput={<CustomInput value={dateTo} onClick={() => false} />}
           />
+          {dateTo && (
+            <div className={styles.icon}>
+              <FaRegTimesCircle onClick={() => setDateTo(null)} size={22} />
+            </div>
+          )}
         </div>
         <div className={styles.select}>
           <Select

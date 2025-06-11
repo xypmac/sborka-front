@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, forwardRef } from 'react';
+import { FaRegTimesCircle } from 'react-icons/fa';
 import DatePicker from 'react-datepicker';
 import { format } from 'date-fns';
 import Link from 'next/link';
@@ -15,6 +16,7 @@ import { Filter as FilterType } from '@/app/store/orders/types';
 import { ORDER_STATUS_GROUP_FILTER } from '@/app/utils/constants';
 import getOrderStatusText from '@/app/utils/get-order-status-text';
 
+import styles from './styles.module.scss';
 import { FilterProps } from './types';
 
 const initialParams: FilterType = {
@@ -58,13 +60,20 @@ export default function Filter({ isAllowCreateOrder, onSearch }: FilterProps) {
         width={200}
       />
       <div className='datepickerWrap'>
-        <DatePicker
-          locale={ru}
-          selected={date}
-          dateFormat='dd.MM.yyyy'
-          onChange={(date) => setDate(date)}
-          customInput={<CustomInput value={date} onClick={() => false} />}
-        />
+        <Flex align='center'>
+          <DatePicker
+            locale={ru}
+            selected={date}
+            dateFormat='dd.MM.yyyy'
+            onChange={(date) => setDate(date)}
+            customInput={<CustomInput value={date} onClick={() => false} />}
+          />
+          {date && (
+            <div className={styles.icon}>
+              <FaRegTimesCircle onClick={() => setDate(null)} size={22} />
+            </div>
+          )}
+        </Flex>
       </div>
       <InputSimple
         id='name'

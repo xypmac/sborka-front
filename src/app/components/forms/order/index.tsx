@@ -42,6 +42,7 @@ export default function Order({
     handleSubmit,
     control,
     setValue,
+    getValues,
     formState: { errors },
   } = useForm<Fields>({
     defaultValues: {
@@ -77,6 +78,19 @@ export default function Order({
       {value ? value : 'Выбрать дату'}
     </button>
   );
+  console.log(getValues());
+  const getClearButton = (
+    field: 'DATE_END_WORK' | 'DATE_WORK' | 'DATE_CANCEL_WORK'
+  ) => {
+    return (
+      <p
+        className={styles.clear}
+        onClick={() => setValue(field, '', { shouldValidate: true })}
+      >
+        Очистить
+      </p>
+    );
+  };
 
   return (
     <form
@@ -108,17 +122,19 @@ export default function Order({
       {isShowDates && (
         <div className={styles.dates}>
           <div className={cn(styles.item, styles.date)}>
-            <Label>Дата сборки</Label>
+            <Label mb='4'>Дата сборки</Label>
             <Controller
               name='DATE_WORK'
               control={control}
-              render={({ field: { value, onChange } }) => (
+              render={({ field: { name, value } }) => (
                 <DatePicker
                   disabled={isBuilder || isSalon}
                   locale={ru}
                   selected={value ? new Date(value) : null}
                   dateFormat='dd.MM.yyyy'
-                  onChange={onChange}
+                  onChange={(e: Date | null) => {
+                    setValue(name, String(e || ''), { shouldValidate: true });
+                  }}
                   customInput={
                     <CustomDatepickerInput
                       value={''}
@@ -129,20 +145,23 @@ export default function Order({
                 />
               )}
             />
+            {getValues().DATE_WORK !== '' && getClearButton('DATE_WORK')}
           </div>
 
           <div className={cn(styles.item, styles.date)}>
-            <Label>Дата окончания</Label>
+            <Label mb='4'>Дата окончания</Label>
             <Controller
               name='DATE_END_WORK'
               control={control}
-              render={({ field: { value, onChange } }) => (
+              render={({ field: { name, value } }) => (
                 <DatePicker
                   disabled={isBuilder || isSalon}
                   locale={ru}
                   selected={value ? new Date(value) : null}
                   dateFormat='dd.MM.yyyy'
-                  onChange={onChange}
+                  onChange={(e: Date | null) => {
+                    setValue(name, String(e || ''), { shouldValidate: true });
+                  }}
                   customInput={
                     <CustomDatepickerInput
                       value={''}
@@ -153,20 +172,24 @@ export default function Order({
                 />
               )}
             />
+            {getValues().DATE_END_WORK !== '' &&
+              getClearButton('DATE_END_WORK')}
           </div>
 
           <div className={cn(styles.item, styles.date)}>
-            <Label>Дата отмены</Label>
+            <Label mb='4'>Дата отмены</Label>
             <Controller
               name='DATE_CANCEL_WORK'
               control={control}
-              render={({ field: { value, onChange } }) => (
+              render={({ field: { name, value } }) => (
                 <DatePicker
                   disabled={isBuilder || isSalon}
                   locale={ru}
                   selected={value ? new Date(value) : null}
                   dateFormat='dd.MM.yyyy'
-                  onChange={onChange}
+                  onChange={(e: Date | null) => {
+                    setValue(name, String(e || ''), { shouldValidate: true });
+                  }}
                   customInput={
                     <CustomDatepickerInput
                       value={''}
@@ -177,6 +200,8 @@ export default function Order({
                 />
               )}
             />
+            {getValues().DATE_CANCEL_WORK !== '' &&
+              getClearButton('DATE_CANCEL_WORK')}
           </div>
         </div>
       )}

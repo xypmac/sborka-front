@@ -34,11 +34,11 @@
 .item {
   display: flex;
   gap: 4px;
-  height: 60px;
   flex-direction: column;
 }
 
 .date {
+  gap: 0;
   width: calc(100% / 3);
 
   @media screen and (max-width: 519px) {
@@ -80,4 +80,10 @@
     color: #747281;
     cursor: default;
   }
+}
+
+.clear {
+  margin-top: 4px;
+  cursor: pointer;
+  color: #5c3bfe;
 }

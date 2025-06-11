@@ -105,6 +105,7 @@ export const getCalendarOrders = createAsyncThunk(
       formData.append('select[]', 'PHONE_CLIENT');
       formData.append('select[]', 'ADDRESS');
       formData.append('select[]', 'STATUS');
+      formData.append('select[]', 'DATE_WORK');
       formData.append('limit', '7');
       formData.append('offset', offset);
 

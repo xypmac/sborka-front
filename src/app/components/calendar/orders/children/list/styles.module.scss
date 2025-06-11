@@ -1,7 +1,7 @@
 .list {
   width: 100%;
   height: max-content;
-  max-height: 366px;
+  max-height: 420px;
   overflow: auto;
 }
 
@@ -24,7 +24,7 @@
 
   & > p {
     font-size: 15px;
-    width: calc(100% - 100px / 5);
+    width: calc(100% - 100px / 6);
     text-overflow: ellipsis;
     display: -webkit-box;
     -webkit-line-clamp: 2;

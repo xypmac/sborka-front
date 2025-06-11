@@ -30,6 +30,7 @@ export default function List({ orders }: ListProps) {
               <p>{order.FIO}</p>
               <p>{order.PHONE_CLIENT}</p>
               <p>{order.ADDRESS}</p>
+              <p>{order.DATE_WORK || '-'}</p>
               <p
                 className={cn(
                   order.STATUS === '5' && styles.new,

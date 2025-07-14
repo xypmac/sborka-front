@@ -158,20 +158,9 @@ export default function CreateOrder({
                 Array.from(e.target.files).forEach((file: any) => {
                   files.push(file);
                   clearErrors('sketchPhotos');
-
-                  const reader = new FileReader();
-                  reader.onloadend = () => {
-                    setValue('sketchPhotos', [
-                      ...getValues().sketchPhotos,
-                      reader.result as string,
-                    ]);
-                    setSketchPhotosPreview([
-                      ...sketchPhotosPreview,
-                      reader.result as string,
-                    ]);
-                  };
-
-                  reader.readAsDataURL(file);
+                  const url = URL.createObjectURL(file);
+                  setValue('sketchPhotos', [...getValues().sketchPhotos, url]);
+                  setSketchPhotosPreview([...sketchPhotosPreview, url]);
                 });
 
                 setSketchPhotos([...sketchPhotos, ...files]);
@@ -200,20 +189,12 @@ export default function CreateOrder({
                 Array.from(e.target.files).forEach((file: any) => {
                   files.push(file);
                   clearErrors('roomPhotos');
-
-                  const reader = new FileReader();
-                  reader.onloadend = () => {
-                    setValue('roomPhotos', [
-                      ...(getValues().roomPhotos || []),
-                      reader.result as string,
-                    ]);
-                    setRoomPhotosPreview([
-                      ...roomPhotosPreview,
-                      reader.result as string,
-                    ]);
-                  };
-
-                  reader.readAsDataURL(file);
+                  const url = URL.createObjectURL(file);
+                  setValue('roomPhotos', [
+                    ...(getValues().roomPhotos || []),
+                    url,
+                  ]);
+                  setRoomPhotosPreview([...roomPhotosPreview, url]);
                 });
 
                 setRoomPhotos([...roomPhotos, ...files]);
@@ -242,20 +223,12 @@ export default function CreateOrder({
                 Array.from(e.target.files).forEach((file: any) => {
                   files.push(file);
                   clearErrors('sizePhotos');
-
-                  const reader = new FileReader();
-                  reader.onloadend = () => {
-                    setValue('sizePhotos', [
-                      ...(getValues().sizePhotos || []),
-                      reader.result as string,
-                    ]);
-                    setSizePhotosPreview([
-                      ...sizePhotosPreview,
-                      reader.result as string,
-                    ]);
-                  };
-
-                  reader.readAsDataURL(file);
+                  const url = URL.createObjectURL(file);
+                  setValue('sizePhotos', [
+                    ...(getValues().sizePhotos || []),
+                    url,
+                  ]);
+                  setSizePhotosPreview([...sizePhotosPreview, url]);
                 });
                 setSizePhotos([...sizePhotos, ...files]);
               }

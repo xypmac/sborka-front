@@ -29,6 +29,18 @@ li {
   position: relative;
 }
 
+.react-datepicker-popper {
+  @media screen and (max-width: 967px) {
+    left: 60px !important;
+  }
+}
+
+.react-datepicker__triangle {
+  @media screen and (max-width: 967px) {
+    left: 50px !important;
+  }
+}
+
 .link {
   color: #514fe4;
 }

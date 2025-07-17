@@ -320,7 +320,7 @@ export default function Order({
       )}
 
       <div
-        style={{ marginBottom: '200px' }}
+        style={{ marginBottom: '200px', zIndex: '999999' }}
         onClick={() => {
           alert('click');
         }}

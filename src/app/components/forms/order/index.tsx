@@ -319,9 +319,11 @@ export default function Order({
         </div>
       )}
 
-      <Button type='submit' isDisabled={Object.keys(errors).length !== 0}>
-        Сохранить
-      </Button>
+      <div style={{ marginBottom: '200px' }}>
+        <Button type='submit' isDisabled={Object.keys(errors).length !== 0}>
+          Сохранить
+        </Button>
+      </div>
     </form>
   );
 }

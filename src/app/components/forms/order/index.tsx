@@ -319,12 +319,7 @@ export default function Order({
         </div>
       )}
 
-      <div
-        style={{ marginBottom: '200px', zIndex: '999999' }}
-        onClick={() => {
-          alert('click');
-        }}
-      >
+      <div style={{ marginBottom: '200px', zIndex: '999999' }}>
         <Button type='submit' isDisabled={Object.keys(errors).length !== 0}>
           Сохранить
         </Button>

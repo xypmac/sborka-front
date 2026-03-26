@@ -17,7 +17,7 @@ export const PAGES = {
   CALENDAR: '/calendar',
 };
 
-export const HOST = 'https://sborkatestqwety.ru/';
+export const HOST = 'https://sborkatestqwety.online/';
 export const API = `${HOST}api/v1`;
 
 export const SERVER_ERRORS = [400, 404, 500];

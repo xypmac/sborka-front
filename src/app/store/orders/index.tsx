@@ -8,6 +8,7 @@ import {
   updateOrder,
   addFile,
   removeFile,
+  deleteOrder,
 } from './thunks';
 
 export const initialState: OrdersType = {
@@ -16,7 +17,7 @@ export const initialState: OrdersType = {
   currentOrder: null,
   currentPage: 0,
   total: 0,
-  isWait: true,
+  isWait: false,
   isWaitFile: false,
   isWaitUpdate: false,
   filter: {
@@ -58,29 +59,11 @@ const ordersSlice = createSlice({
       state.error = null;
 
       if (action.payload) {
-        const dateWork = action.payload.DATE_WORK
-          ? action.payload.DATE_WORK.split('.')
-          : null;
-
-        const dateEndWord = action.payload.DATE_END_WORK
-          ? action.payload.DATE_END_WORK.split('.')
-          : null;
-
-        const dateCancelWork = action.payload.DATE_CANCEL_WORK
-          ? action.payload.DATE_CANCEL_WORK.split('.')
-          : null;
-
         state.currentOrder = {
           ...action.payload,
-          DATE_WORK: dateWork
-            ? `${dateWork[1]}.${dateWork[0]}.${dateWork[2]}`
-            : '',
-          DATE_END_WORK: dateEndWord
-            ? `${dateEndWord[1]}.${dateEndWord[0]}.${dateEndWord[2]}`
-            : '',
-          DATE_CANCEL_WORK: dateCancelWork
-            ? `${dateCancelWork[1]}.${dateCancelWork[0]}.${dateCancelWork[2]}`
-            : '',
+          DATE_WORK: action.payload.DATE_WORK || '',
+          DATE_END_WORK: action.payload.DATE_END_WORK || '',
+          DATE_CANCEL_WORK: action.payload.DATE_CANCEL_WORK || '',
           COMMENT_SALON: action.payload.COMMENT_SALON
             ? Object.values(action.payload.COMMENT_SALON)
             : [],
@@ -138,6 +121,21 @@ const ordersSlice = createSlice({
     builder.addCase(updateOrder.fulfilled, (state, action) => {
       state.isWaitUpdate = false;
       state.error = null;
+
+      if (action.payload) {
+        state.currentOrder = {
+          ...action.payload,
+          DATE_WORK: action.payload.DATE_WORK || '',
+          DATE_END_WORK: action.payload.DATE_END_WORK || '',
+          DATE_CANCEL_WORK: action.payload.DATE_CANCEL_WORK || '',
+          COMMENT_SALON: action.payload.COMMENT_SALON ? Object.values(action.payload.COMMENT_SALON) : [],
+          COMMENT_WORKER: action.payload.COMMENT_WORKER ? Object.values(action.payload.COMMENT_WORKER) : [],
+          PHOTO_ROOM: action.payload.PHOTO_ROOM ? Object.values(action.payload.PHOTO_ROOM) : [],
+          PHOTO_REPORT: action.payload.PHOTO_REPORT ? Object.values(action.payload.PHOTO_REPORT) : [],
+          SKETCH: action.payload.SKETCH ? Object.values(action.payload.SKETCH) : [],
+          MEASURING: action.payload.MEASURING ? Object.values(action.payload.MEASURING) : [],
+        };
+      }
     });
     builder.addCase(updateOrder.rejected, (state, action) => {
       state.isWaitUpdate = false;
@@ -216,6 +214,12 @@ const ordersSlice = createSlice({
     builder.addCase(removeFile.rejected, (state, action) => {
       state.isWaitFile = false;
       state.error = action.payload as string;
+    });
+
+    builder.addCase(deleteOrder.fulfilled, (state, action) => {
+      if (!action.payload) return;
+      state.list = state.list.filter((o: any) => o.ORDER_ID !== action.payload!.ID);
+      state.total = Math.max(0, state.total - 1);
     });
   },
 });

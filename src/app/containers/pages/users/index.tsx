@@ -2,6 +2,7 @@
 
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useRouter } from 'next/navigation';
 
 import MainLayout from '@/app/layouts/main-layout';
 import Loader from '@/app/components/elements/loader';
@@ -15,7 +16,7 @@ import { Filter as FilterType } from '@/app/store/users/types';
 import { clearState, setFilter } from '@/app/store/users';
 
 export default function UsersPage() {
-  const { users, error, total, currentPage, isWait, isAdmin, isTaskmaster } =
+  const { users, error, total, currentPage, isWait, isAdmin, isTaskmaster, isMasurer, isBuilder, isSalon, sessionWait } =
     useSelector((state: RootState) => ({
       users: state.users.users,
       error: state.users.error,
@@ -24,17 +25,27 @@ export default function UsersPage() {
       isWait: state.users.isWait,
       isAdmin: state.session.isAdmin,
       isTaskmaster: state.session.isTaskmaster,
+      isMasurer: state.session.isMasurer,
+      isBuilder: state.session.isBuilder,
+      isSalon: state.session.isSalon,
+      sessionWait: state.session.wait,
     }));
 
   const dispatch: AppDispatch = useDispatch();
+  const router = useRouter();
 
   useEffect(() => {
+    if (sessionWait) return;
+    if (isMasurer || isBuilder || isSalon) {
+      router.replace('/');
+      return;
+    }
     dispatch(getUsers());
 
     return () => {
       dispatch(clearState());
     };
-  }, []);
+  }, [isMasurer, sessionWait]);
 
   const onSearchHandler = (params: FilterType) => {
     dispatch(setFilter(params));

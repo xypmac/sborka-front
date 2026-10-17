@@ -1,5 +1,6 @@
 export type RegistrationProps = {
   serverError: string | null;
+  onSuccess?: (login: string, password: string) => void;
 };
 
 export type Fields = {

@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import nookies from 'nookies';
 import { useRouter } from 'next/navigation';
@@ -11,14 +11,22 @@ import { RootState } from '@/app/store';
 import { API, SERVER_OK, SERVER_ERRORS_TEXT } from '@/app/utils/constants';
 
 export default function CreateOrder() {
-  const { isSalon } = useSelector((state: RootState) => ({
+  const { isSalon, isMasurer, isBuilder, sessionWait } = useSelector((state: RootState) => ({
     isSalon: state.session.isSalon,
+    isMasurer: state.session.isMasurer,
+    isBuilder: state.session.isBuilder,
+    sessionWait: state.session.wait,
   }));
+
+  const router = useRouter();
 
   const [error, setError] = useState('');
   const [isWait, setIsWait] = useState(false);
 
-  const router = useRouter();
+  useEffect(() => {
+    if (sessionWait) return;
+    if (isMasurer || isBuilder) router.replace('/');
+  }, [isMasurer, isBuilder, sessionWait]);
 
   const onCreateOrderHandler = (data: any) => {
     const {

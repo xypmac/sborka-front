@@ -100,3 +100,19 @@
     display: block;
   }
 }
+
+.deleteBtn {
+  flex-shrink: 0;
+  padding: 4px 10px;
+  font-size: 12px;
+  cursor: pointer;
+  border: 1px solid #e13b3b;
+  border-radius: 4px;
+  background: none;
+  color: #e13b3b;
+
+  &:hover {
+    background: #e13b3b;
+    color: #fff;
+  }
+}

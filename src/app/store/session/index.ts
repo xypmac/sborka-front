@@ -32,6 +32,9 @@ const sessionSlice = createSlice({
       state.user = null;
       state.isAdmin = false;
       state.isTaskmaster = false;
+      state.isBuilder = false;
+      state.isMasurer = false;
+      state.isSalon = false;
       nookies.destroy(null, 'token', { path: '/' });
     },
     clearError(state) {
@@ -47,6 +50,12 @@ const sessionSlice = createSlice({
       state.error = null;
 
       if (action.payload) {
+        state.isAdmin = false;
+        state.isTaskmaster = false;
+        state.isBuilder = false;
+        state.isMasurer = false;
+        state.isSalon = false;
+
         const group = getUserGroupText(action.payload.user.GROUP_ID);
         if (group === 'Aдминистратор') state.isAdmin = true;
         if (group === 'Бригадир') state.isTaskmaster = true;
@@ -71,6 +80,12 @@ const sessionSlice = createSlice({
       state.error = null;
 
       if (action.payload) {
+        state.isAdmin = false;
+        state.isTaskmaster = false;
+        state.isBuilder = false;
+        state.isMasurer = false;
+        state.isSalon = false;
+
         const group = getUserGroupText(action.payload.user.GROUP_ID);
         if (group === 'Aдминистратор') state.isAdmin = true;
         if (group === 'Бригадир') state.isTaskmaster = true;

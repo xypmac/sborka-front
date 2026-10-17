@@ -18,7 +18,7 @@ import schema from './schema';
 import { RegistrationProps, Fields, FildsNames } from './types';
 import styles from './styles.module.scss';
 
-export default function Registration({ serverError }: RegistrationProps) {
+export default function Registration({ serverError, onSuccess }: RegistrationProps) {
   const dispatch: AppDispatch = useDispatch();
 
   const {
@@ -49,8 +49,11 @@ export default function Registration({ serverError }: RegistrationProps) {
     });
   };
 
-  const onSubmitHandler: SubmitHandler<Fields> = (data) => {
-    dispatch(registration({ ...data, type: [data.type] }));
+  const onSubmitHandler: SubmitHandler<Fields> = async (data) => {
+    const result = await dispatch(registration({ ...data, type: [data.type] }));
+    if (registration.fulfilled.match(result)) {
+      onSuccess?.(data.login, data.password);
+    }
   };
 
   return (

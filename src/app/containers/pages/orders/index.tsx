@@ -10,7 +10,7 @@ import Button from '@/app/components/elements/button';
 import Flex from '@/app/components/elements/flex';
 import { Filter, List } from '@/app/components/orders';
 import { AppDispatch, RootState } from '@/app/store';
-import { getOrders } from '@/app/store/orders/thunks';
+import { getOrders, deleteOrder } from '@/app/store/orders/thunks';
 import { Filter as FilterType } from '@/app/store/orders/types';
 import { setFilter, clearState } from '@/app/store/orders';
 
@@ -52,7 +52,7 @@ export default function OrdersPage() {
 
   return (
     <MainLayout>
-      {isWait && currentPage === 0 ? (
+      {isWait && orders.length === 0 ? (
         <Loader />
       ) : error ? (
         <Error>{error}</Error>
@@ -63,7 +63,11 @@ export default function OrdersPage() {
             onSearch={onSearchHandler}
           />
           <Flex direction='column' gap={16} align='stretch'>
-            <List orders={orders} />
+            <List
+              orders={orders}
+              isAdmin={isAdmin}
+              onDelete={(id) => dispatch(deleteOrder({ ID: id }))}
+            />
             {orders.length > 0 && orders.length < total && (
               <Button onClick={() => dispatch(getOrders())}>
                 Показать ещe

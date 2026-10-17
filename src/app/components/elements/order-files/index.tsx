@@ -206,7 +206,7 @@ export default function OrderFiles({
               PHOTO_REPORT.map(({ id, path }: { id: number; path: string }) => (
                 <div key={id}>
                   <img
-                    src={`${HOST}/${path}`}
+                    src={`${HOST}${path}`}
                     className={styles.image}
                     onClick={() => {
                       setImageFull(`${HOST}${path}`);

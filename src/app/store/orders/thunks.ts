@@ -1,8 +1,32 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import nookies from 'nookies';
-import { format } from 'date-fns';
 
 import { API, SERVER_ERRORS, SERVER_OK } from '@/app/utils/constants';
+
+export const deleteOrder = createAsyncThunk(
+  '/orders/delete',
+  async ({ ID }: { ID: number }, { rejectWithValue }) => {
+    try {
+      let formData = new FormData();
+      formData.append('ID', String(ID));
+
+      const response = await fetch(`${API}/orders/delete`, {
+        method: 'post',
+        body: formData,
+        headers: { Authorization: `Bearer ${nookies.get().token}` },
+      });
+
+      if (response.status === 200) return { ID };
+
+      if (SERVER_ERRORS.includes(response.status)) {
+        const data = await response.json();
+        return rejectWithValue(data.message);
+      }
+    } catch (e) {
+      return rejectWithValue('Не удалось удалить заказ');
+    }
+  }
+);
 
 export const getOrderById = createAsyncThunk(
   'orders/getOrderById',
@@ -70,21 +94,9 @@ export const updateOrder = createAsyncThunk(
       typeof props.MEASURER === 'string' &&
         formData.append(`PROPS[MEASURER]`, props.MEASURER);
       formData.append(`PROPS[STATUS]`, String(props.STATUS));
-      props.DATE_WORK !== '' &&
-        formData.append(
-          `PROPS[DATE_WORK]`,
-          format(new Date(props.DATE_WORK), 'dd.MM.yyyy')
-        );
-      props.DATE_END_WORK !== '' &&
-        formData.append(
-          `PROPS[DATE_END_WORK]`,
-          format(new Date(props.DATE_END_WORK), 'dd.MM.yyyy')
-        );
-      props.DATE_CANCEL_WORK !== '' &&
-        formData.append(
-          `PROPS[DATE_CANCEL_WORK]`,
-          format(new Date(props.DATE_CANCEL_WORK), 'dd.MM.yyyy')
-        );
+      props.DATE_WORK !== '' && formData.append(`PROPS[DATE_WORK]`, props.DATE_WORK);
+      props.DATE_END_WORK !== '' && formData.append(`PROPS[DATE_END_WORK]`, props.DATE_END_WORK);
+      props.DATE_CANCEL_WORK !== '' && formData.append(`PROPS[DATE_CANCEL_WORK]`, props.DATE_CANCEL_WORK);
 
       const response = await fetch(`${API}/orders/update`, {
         method: 'post',
@@ -164,7 +176,7 @@ export const getOrders = createAsyncThunk(
   ) => {
     try {
       const state: any = getState();
-      const { orders } = state;
+      const { orders, session } = state;
       const offset = data ? data.currentPage : orders.currentPage;
 
       let formData = new FormData();
@@ -175,6 +187,16 @@ export const getOrders = createAsyncThunk(
       formData.append('select[]', 'STATUS');
       formData.append('limit', '10');
       formData.append('offset', offset);
+
+      if (session.isMasurer && session.user?.ID) {
+        formData.append('filter[MEASURER]', session.user.ID);
+      }
+      if (session.isBuilder && session.user?.ID) {
+        formData.append('filter[WORKER]', session.user.ID);
+      }
+      if (session.isSalon && session.user?.ID) {
+        formData.append('filter[SALON]', session.user.ID);
+      }
 
       // фильтр по номеру
       const id = orders.filter.id || null;

@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 
@@ -10,6 +10,7 @@ import Registration from '@/app/components/forms/registration';
 import { AppDispatch, RootState } from '@/app/store';
 import { WELCOME_MODE } from '@/app/utils/constants';
 import { clearError } from '@/app/store/session';
+import { login } from '@/app/store/session/thunks';
 
 import styles from './styles.module.scss';
 
@@ -23,6 +24,8 @@ export default function Wellcome() {
   );
 
   const [mode, setMode] = useState(WELCOME_MODE.LOGIN);
+  const [registrationSuccess, setRegistrationSuccess] = useState(false);
+  const [pendingCredentials, setPendingCredentials] = useState<{ login: string; password: string } | null>(null);
   const dispatch: AppDispatch = useDispatch();
 
   const isLoginMode = mode === WELCOME_MODE.LOGIN;
@@ -32,19 +35,36 @@ export default function Wellcome() {
     dispatch(clearError());
   };
 
+  const onRegistrationSuccess = (userLogin: string, password: string) => {
+    setPendingCredentials({ login: userLogin, password });
+    setRegistrationSuccess(true);
+  };
+
+  useEffect(() => {
+    if (!registrationSuccess || !pendingCredentials) return;
+    const timer = setTimeout(() => {
+      dispatch(login(pendingCredentials));
+    }, 2000);
+    return () => clearTimeout(timer);
+  }, [registrationSuccess]);
+
   return (
     <div className={styles.wellcome}>
       <div className={styles.wrap}>
         <div className={styles.block}>
           {wait && <Loader />}
-          {isLoginMode ? (
+          {registrationSuccess ? (
+            <p>Регистрация прошла успешно! Выполняется вход...</p>
+          ) : isLoginMode ? (
             <Login error={serverError} />
           ) : (
-            <Registration serverError={registrationError} />
+            <Registration serverError={registrationError} onSuccess={onRegistrationSuccess} />
           )}
-          <span className={styles.action} onClick={onChangeModeHandler}>
-            {isLoginMode ? 'Регистрация' : 'Есть аккаунт'}
-          </span>
+          {!registrationSuccess && (
+            <span className={styles.action} onClick={onChangeModeHandler}>
+              {isLoginMode ? 'Регистрация' : 'Есть аккаунт'}
+            </span>
+          )}
         </div>
       </div>
     </div>

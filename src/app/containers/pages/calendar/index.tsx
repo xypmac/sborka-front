@@ -2,6 +2,7 @@
 
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useRouter } from 'next/navigation';
 
 import MainLayout from '@/app/layouts/main-layout';
 import Flex from '@/app/components/elements/flex';
@@ -32,6 +33,10 @@ export default function Calendar() {
     currentPageOrders,
     total,
     isAdmin,
+    isMasurer,
+    isBuilder,
+    isSalon,
+    sessionWait,
   } = useSelector((state: RootState) => ({
     users: state.calendar.users,
     orders: state.calendar.orders,
@@ -43,18 +48,25 @@ export default function Calendar() {
     currentPageOrders: state.calendar.currentPageOrders,
     total: state.calendar.ordersTotal,
     isAdmin: state.session.isAdmin,
+    isMasurer: state.session.isMasurer,
+    isBuilder: state.session.isBuilder,
+    isSalon: state.session.isSalon,
+    sessionWait: state.session.wait,
   }));
 
   const dispatch: AppDispatch = useDispatch();
+  const router = useRouter();
 
   useEffect(() => {
+    if (sessionWait) return;
+    if (isMasurer || isBuilder || isSalon) { router.replace('/'); return; }
     dispatch(getCalendarUsers(null));
     dispatch(getCalendarOrders(null));
 
     return () => {
       dispatch(clearState());
     };
-  }, []);
+  }, [isMasurer, isBuilder, isSalon, sessionWait]);
 
   const onSearchUsersHandler = ({
     date,

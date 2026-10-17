@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
 import { UsersType } from './types';
-import { getUsers } from './thunks';
+import { getUsers, setActive } from './thunks';
 
 export const initialState: UsersType = {
   isWait: false,
@@ -86,6 +86,13 @@ const usersSlice = createSlice({
     builder.addCase(getUsers.rejected, (state, action) => {
       state.isWait = false;
       state.error = action.payload as string;
+    });
+
+    builder.addCase(setActive.fulfilled, (state, action) => {
+      if (!action.payload) return;
+      state.users = state.users.map((u: any) =>
+        u.ID === action.payload!.id ? { ...u, ACTIVE: action.payload!.active } : u
+      );
     });
   },
 });

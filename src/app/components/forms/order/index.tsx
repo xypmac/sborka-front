@@ -1,10 +1,11 @@
 'use client';
 
-import { useRef } from 'react';
+import { useRef, useEffect } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import cn from 'classnames';
 import DatePicker from 'react-datepicker';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { format, parse, isValid } from 'date-fns';
 import { ru } from 'date-fns/locale';
 
 import Flex from '@/app/components/elements/flex';
@@ -43,6 +44,7 @@ export default function Order({
     control,
     setValue,
     getValues,
+    reset,
     formState: { errors },
   } = useForm<Fields>({
     defaultValues: {
@@ -58,6 +60,20 @@ export default function Order({
     },
     resolver: yupResolver(schema),
   });
+
+  useEffect(() => {
+    reset({
+      ADDRESS: order.ADDRESS || '',
+      PRICE_APP: order.PRICE_APP || '',
+      PRICE: order.PRICE || '',
+      FIO: order.FIO || '',
+      PHONE_CLIENT: order.PHONE_CLIENT || '',
+      STATUS: order.STATUS || '5',
+      DATE_WORK: order.DATE_WORK || '',
+      DATE_END_WORK: order.DATE_END_WORK || '',
+      DATE_CANCEL_WORK: order.DATE_CANCEL_WORK || '',
+    });
+  }, [order.PRICE_APP, order.PRICE, order.STATUS, order.DATE_WORK, order.DATE_END_WORK, order.DATE_CANCEL_WORK]);
 
   const isShowDates = isAdmin || isTaskmaster || isBuilder || isSalon;
 
@@ -78,7 +94,12 @@ export default function Order({
       {value ? value : 'Выбрать дату'}
     </button>
   );
-  console.log(getValues());
+  const parseDate = (val: string) => {
+    if (!val) return null;
+    const d = parse(val, 'dd.MM.yyyy', new Date());
+    return isValid(d) ? d : null;
+  };
+
   const getClearButton = (
     field: 'DATE_END_WORK' | 'DATE_WORK' | 'DATE_CANCEL_WORK'
   ) => {
@@ -130,10 +151,10 @@ export default function Order({
                 <DatePicker
                   disabled={isBuilder || isSalon}
                   locale={ru}
-                  selected={value ? new Date(value) : null}
+                  selected={parseDate(value)}
                   dateFormat='dd.MM.yyyy'
                   onChange={(e: Date | null) => {
-                    setValue(name, String(e || ''), { shouldValidate: true });
+                    setValue(name, e ? format(e, 'dd.MM.yyyy') : '', { shouldValidate: true });
                   }}
                   customInput={
                     <CustomDatepickerInput
@@ -145,7 +166,7 @@ export default function Order({
                 />
               )}
             />
-            {getValues().DATE_WORK !== '' && getClearButton('DATE_WORK')}
+            {isAdmin && getValues().DATE_WORK !== '' && getClearButton('DATE_WORK')}
           </div>
 
           <div className={cn(styles.item, styles.date)}>
@@ -157,10 +178,10 @@ export default function Order({
                 <DatePicker
                   disabled={isBuilder || isSalon}
                   locale={ru}
-                  selected={value ? new Date(value) : null}
+                  selected={parseDate(value)}
                   dateFormat='dd.MM.yyyy'
                   onChange={(e: Date | null) => {
-                    setValue(name, String(e || ''), { shouldValidate: true });
+                    setValue(name, e ? format(e, 'dd.MM.yyyy') : '', { shouldValidate: true });
                   }}
                   customInput={
                     <CustomDatepickerInput
@@ -172,7 +193,7 @@ export default function Order({
                 />
               )}
             />
-            {getValues().DATE_END_WORK !== '' &&
+            {isAdmin && getValues().DATE_END_WORK !== '' &&
               getClearButton('DATE_END_WORK')}
           </div>
 
@@ -185,10 +206,10 @@ export default function Order({
                 <DatePicker
                   disabled={isBuilder || isSalon}
                   locale={ru}
-                  selected={value ? new Date(value) : null}
+                  selected={parseDate(value)}
                   dateFormat='dd.MM.yyyy'
                   onChange={(e: Date | null) => {
-                    setValue(name, String(e || ''), { shouldValidate: true });
+                    setValue(name, e ? format(e, 'dd.MM.yyyy') : '', { shouldValidate: true });
                   }}
                   customInput={
                     <CustomDatepickerInput
@@ -200,7 +221,7 @@ export default function Order({
                 />
               )}
             />
-            {getValues().DATE_CANCEL_WORK !== '' &&
+            {isAdmin && getValues().DATE_CANCEL_WORK !== '' &&
               getClearButton('DATE_CANCEL_WORK')}
           </div>
         </div>
@@ -250,7 +271,7 @@ export default function Order({
             label='Сборщик'
             placeholder='Введите ФИО пользователя'
             userID={order.WORKER}
-            users={users.filter((user: User) => user.GROUP_ID === '7')}
+            users={users.filter((user: User) => user.GROUP_ID === '7' && user.ACTIVE === 'Y')}
             onShowModal={onShowModal}
           />
         )}
@@ -261,7 +282,7 @@ export default function Order({
             label='Замерщик'
             placeholder='Введите ФИО пользователя'
             userID={order.MEASURER}
-            users={users.filter((user: User) => user.GROUP_ID === '9')}
+            users={users.filter((user: User) => user.GROUP_ID === '9' && user.ACTIVE === 'Y')}
             onShowModal={onShowModal}
           />
         )}
@@ -272,7 +293,7 @@ export default function Order({
           label='Салон'
           placeholder='Введите название контрагента'
           userID={order.SALON}
-          users={users.filter((user: User) => user.GROUP_ID === '8')}
+          users={users.filter((user: User) => user.GROUP_ID === '8' && user.ACTIVE === 'Y')}
           onShowModal={onShowModal}
         />
       </Flex>

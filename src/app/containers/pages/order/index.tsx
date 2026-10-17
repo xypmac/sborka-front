@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 
 import Loader from '@/app/components/elements/loader';
 import UserInformation from '@/app/containers/elements/user-information';
@@ -36,6 +36,8 @@ export default function Order() {
     isMasurer,
     isBuilder,
     isSalon,
+    sessionUser,
+    sessionWait,
   } = useSelector((state: RootState) => ({
     currentOrder: state.orders.currentOrder,
     users: state.users.users,
@@ -48,10 +50,13 @@ export default function Order() {
     isBuilder: state.session.isBuilder,
     isMasurer: state.session.isMasurer,
     isSalon: state.session.isSalon,
+    sessionUser: state.session.user,
+    sessionWait: state.session.wait,
   }));
 
   const params = useParams();
   const dispatch: AppDispatch = useDispatch();
+  const router = useRouter();
 
   useEffect(() => {
     dispatch(getOrderById(params.id as string));
@@ -59,6 +64,19 @@ export default function Order() {
       getUsers({ name: '', group: '', active: '', currentPage: 0, isAll: true })
     );
   }, []);
+
+  useEffect(() => {
+    if (sessionWait || !currentOrder) return;
+    if (isMasurer && String(currentOrder.MEASURER) !== String(sessionUser?.ID)) {
+      router.replace('/');
+    }
+    if (isBuilder && String(currentOrder.WORKER) !== String(sessionUser?.ID)) {
+      router.replace('/');
+    }
+    if (isSalon && String(currentOrder.SALON) !== String(sessionUser?.ID)) {
+      router.replace('/');
+    }
+  }, [currentOrder, isMasurer, isBuilder, isSalon, sessionWait]);
 
   const onUpdateOrderHandler = (data: any) => {
     dispatch(

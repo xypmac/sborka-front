@@ -10,7 +10,7 @@ import getOrderStatusText from '@/app/utils/get-order-status-text';
 import { ListProps } from './types';
 import styles from './styles.module.scss';
 
-export default function List({ orders }: ListProps) {
+export default function List({ orders, isAdmin, onDelete }: ListProps) {
   return orders.length === 0 ? (
     <Empty>Ничего нет</Empty>
   ) : (
@@ -61,6 +61,18 @@ export default function List({ orders }: ListProps) {
                 </div>
                 {getOrderStatusText(order.STATUS)}
               </div>
+              {isAdmin && (
+                <button
+                  className={styles.deleteBtn}
+                  onClick={() => {
+                    if (window.confirm(`Удалить заказ #${order.ORDER_ID}?`)) {
+                      onDelete?.(order.ORDER_ID);
+                    }
+                  }}
+                >
+                  Удалить
+                </button>
+              )}
             </div>
           );
         })}

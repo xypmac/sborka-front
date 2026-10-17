@@ -3,9 +3,12 @@
 import { useState } from 'react';
 import cn from 'classnames';
 import { FaArrowAltCircleRight } from 'react-icons/fa';
+import { useDispatch } from 'react-redux';
 
 import Label from '@/app/components/elements/label';
 import UserInformation from '@/app/containers/elements/user-information';
+import { AppDispatch } from '@/app/store';
+import { setActive } from '@/app/store/users/thunks';
 
 import { UserLineProps } from './types';
 import styles from './styles.module.scss';
@@ -21,6 +24,7 @@ export default function UserLine({
   active,
 }: UserLineProps) {
   const [isShowInfo, setIsShowInfo] = useState(false);
+  const dispatch: AppDispatch = useDispatch();
 
   return (
     <div className={styles.elem} key={id}>
@@ -72,6 +76,14 @@ export default function UserLine({
           <Label>Активен: </Label>
         </div>
         {active === 'Y' ? 'Да' : 'Нет'}
+        {isAdmin && (
+          <button
+            className={styles.toggleActive}
+            onClick={() => dispatch(setActive({ id }))}
+          >
+            {active === 'Y' ? 'Деактивировать' : 'Активировать'}
+          </button>
+        )}
       </div>
     </div>
   );

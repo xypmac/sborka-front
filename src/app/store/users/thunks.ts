@@ -3,6 +3,34 @@ import nookies from 'nookies';
 
 import { API, SERVER_ERRORS } from '@/app/utils/constants';
 
+export const setActive = createAsyncThunk(
+  '/users/setActive',
+  async ({ id }: { id: string }, { rejectWithValue }) => {
+    try {
+      let formData = new FormData();
+      formData.append('ID', id);
+
+      const response = await fetch(`${API}/users/setActive`, {
+        method: 'post',
+        body: formData,
+        headers: { Authorization: `Bearer ${nookies.get().token}` },
+      });
+
+      if (response.status === 200) {
+        const data = await response.json();
+        return { id, active: data.message.ACTIVE };
+      }
+
+      if (SERVER_ERRORS.includes(response.status)) {
+        const data = await response.json();
+        return rejectWithValue(data.message);
+      }
+    } catch (e) {
+      return rejectWithValue('Не удалось изменить статус пользователя');
+    }
+  }
+);
+
 export const getUsers = createAsyncThunk(
   '/users/getList',
   async (

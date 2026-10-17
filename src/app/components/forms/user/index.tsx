@@ -46,7 +46,7 @@ export default function User({
     defaultValues: {
       phone: getPhoneFormat(user.PHONE_NUMBER),
       address: user.WORK_STREET || '',
-      type: String(Object.keys(user.GROUP_ID)[0]),
+      type: typeof user.GROUP_ID !== 'string' ? String(Object.keys(user.GROUP_ID)[0]) : user.GROUP_ID,
     },
     resolver: yupResolver(schema),
   });
@@ -86,8 +86,8 @@ export default function User({
         <p className={styles.id}>ID: {user.ID}</p>
       </div>
       {isAdmin &&
-        (Object.keys(user.GROUP_ID)[0] === '7' ||
-          Object.keys(user.GROUP_ID)[0] === '9') && (
+        (getUserGroupText(user.GROUP_ID) === 'Сборщик' ||
+          getUserGroupText(user.GROUP_ID) === 'Замерщик') && (
           <div className={styles.tabs}>
             <div
               className={cn(styles.tab, tab === 'form' && styles.active)}

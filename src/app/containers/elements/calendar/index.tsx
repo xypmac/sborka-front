@@ -34,7 +34,7 @@ export default function Calendar({ userId }: { userId?: string }) {
       .then((data) => data.json())
       .then((response) => {
         if (SERVER_OK.includes(response.code)) {
-          const finalMonth = month < '9' ? `0${month}` : `${month}`;
+          const finalMonth = parseInt(month, 10) < 10 ? `0${month}` : `${month}`;
           const days = [];
 
           for (const key in response.message[year][finalMonth]) {

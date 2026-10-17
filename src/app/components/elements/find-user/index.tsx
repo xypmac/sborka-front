@@ -81,7 +81,7 @@ export default function FindUser({
       <Label>{label}</Label>
       <div className={styles.control}>
         <input
-          autoComplete='off'
+          autoComplete='new-password'
           className={styles.input}
           onClick={() => setIsOptions(true)}
           placeholder={placeholder}

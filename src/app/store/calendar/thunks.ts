@@ -31,10 +31,7 @@ export const getCalendarUsers = createAsyncThunk(
       data && data.name && formData.append('filter[NAME]', data.name);
       data && data.group && formData.append('filter[GROUP_ID]', data.group);
 
-      if (data && data.status) {
-        if (data.status === '12') formData.append('calendar[WORK]', 'true');
-        else formData.append('calendar[STATUS]', data.status);
-      }
+      data && data.status && formData.append('calendar[STATUS]', data.status);
 
       const response = await fetch(`${API}/users/getCalendar`, {
         method: 'post',

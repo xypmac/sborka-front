@@ -28,7 +28,6 @@ export default function Calendar({
   const [isShowDaySettings, setIsShowSettings] = useState(false);
 
   const calendarRef = useRef<any>(null);
-  console.log(initialDays);
   useEffect(() => {
     setDates([
       ...initialDays.map((initialDay) => {

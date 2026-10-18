@@ -1,7 +1,7 @@
 'use client';
 
 import { useRef, useEffect } from 'react';
-import { useForm, Controller } from 'react-hook-form';
+import { useForm, Controller, Resolver } from 'react-hook-form';
 import cn from 'classnames';
 import DatePicker from 'react-datepicker';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -58,7 +58,7 @@ export default function Order({
       DATE_END_WORK: order.DATE_END_WORK || '',
       DATE_CANCEL_WORK: order.DATE_CANCEL_WORK || '',
     },
-    resolver: yupResolver(schema),
+    resolver: yupResolver(schema) as Resolver<Fields>,
   });
 
   useEffect(() => {

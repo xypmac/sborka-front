@@ -94,7 +94,7 @@ export default function Order({
       {value ? value : 'Выбрать дату'}
     </button>
   );
-  const parseDate = (val: string) => {
+  const parseDate = (val: string | undefined) => {
     if (!val) return null;
     const d = parse(val, 'dd.MM.yyyy', new Date());
     return isValid(d) ? d : null;

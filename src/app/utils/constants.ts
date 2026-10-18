@@ -17,7 +17,7 @@ export const PAGES = {
   CALENDAR: '/calendar',
 };
 
-export const HOST = 'http://localhost:4000/';
+export const HOST = 'https://mebelschik-spb.ru/';
 export const API = `${HOST}api/v1`;
 
 export const SERVER_ERRORS = [400, 404, 500];

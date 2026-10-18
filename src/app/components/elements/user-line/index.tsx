@@ -8,7 +8,7 @@ import { useDispatch } from 'react-redux';
 import Label from '@/app/components/elements/label';
 import UserInformation from '@/app/containers/elements/user-information';
 import { AppDispatch } from '@/app/store';
-import { setActive } from '@/app/store/users/thunks';
+import { setActive, deleteUser } from '@/app/store/users/thunks';
 import getUserGroupText from '@/app/utils/get-user-group-text';
 
 import { UserLineProps } from './types';
@@ -90,6 +90,18 @@ export default function UserLine({
             onClick={() => dispatch(setActive({ id }))}
           >
             {active === 'Y' ? 'Деактивировать' : 'Активировать'}
+          </button>
+        )}
+        {isAdmin && group !== '1' && (
+          <button
+            className={styles.deleteBtn}
+            onClick={() => {
+              if (window.confirm('Удалить пользователя?')) {
+                dispatch(deleteUser({ id }));
+              }
+            }}
+          >
+            Удалить
           </button>
         )}
       </div>

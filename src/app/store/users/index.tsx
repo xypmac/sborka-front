@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
 import { UsersType } from './types';
-import { getUsers, setActive } from './thunks';
+import { getUsers, setActive, deleteUser } from './thunks';
 
 export const initialState: UsersType = {
   isWait: false,
@@ -93,6 +93,12 @@ const usersSlice = createSlice({
       state.users = state.users.map((u: any) =>
         u.ID === action.payload!.id ? { ...u, ACTIVE: action.payload!.active } : u
       );
+    });
+
+    builder.addCase(deleteUser.fulfilled, (state, action) => {
+      if (!action.payload) return;
+      state.users = state.users.filter((u: any) => u.ID !== action.payload!.id);
+      state.usersTotal = state.usersTotal - 1;
     });
   },
 });

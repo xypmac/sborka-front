@@ -101,3 +101,20 @@ div.action {
     opacity: 0.7;
   }
 }
+
+.deleteBtn {
+  margin-top: 4px;
+  padding: 2px 8px;
+  font-size: 12px;
+  cursor: pointer;
+  border: 1px solid #d9534f;
+  border-radius: 4px;
+  background: none;
+  color: #d9534f;
+  display: block;
+
+  &:hover {
+    background: #d9534f;
+    color: #fff;
+  }
+}

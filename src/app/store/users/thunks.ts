@@ -31,6 +31,29 @@ export const setActive = createAsyncThunk(
   }
 );
 
+export const deleteUser = createAsyncThunk(
+  '/users/delete',
+  async ({ id }: { id: string }, { rejectWithValue }) => {
+    try {
+      const formData = new FormData();
+      formData.append('ID', id);
+
+      const response = await fetch(`${API}/users/delete`, {
+        method: 'post',
+        body: formData,
+        headers: { Authorization: `Bearer ${nookies.get().token}` },
+      });
+
+      if (response.status === 200) return { id };
+
+      const data = await response.json();
+      return rejectWithValue(data.message);
+    } catch (e) {
+      return rejectWithValue('Не удалось удалить пользователя');
+    }
+  }
+);
+
 export const getUsers = createAsyncThunk(
   '/users/getList',
   async (

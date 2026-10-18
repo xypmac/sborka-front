@@ -9,6 +9,7 @@ import Label from '@/app/components/elements/label';
 import UserInformation from '@/app/containers/elements/user-information';
 import { AppDispatch } from '@/app/store';
 import { setActive } from '@/app/store/users/thunks';
+import getUserGroupText from '@/app/utils/get-user-group-text';
 
 import { UserLineProps } from './types';
 import styles from './styles.module.scss';
@@ -22,6 +23,7 @@ export default function UserLine({
   id,
   isAdmin,
   active,
+  group,
 }: UserLineProps) {
   const [isShowInfo, setIsShowInfo] = useState(false);
   const dispatch: AppDispatch = useDispatch();
@@ -70,6 +72,12 @@ export default function UserLine({
           <Label>Адрес: </Label>
         </div>
         {street}
+      </div>
+      <div className={styles.item}>
+        <div className={styles.mobileTitle}>
+          <Label>Тип: </Label>
+        </div>
+        {getUserGroupText(group)}
       </div>
       <div className={cn(styles.item, active === 'Y' ? styles.yes : styles.no)}>
         <div className={styles.mobileTitle}>

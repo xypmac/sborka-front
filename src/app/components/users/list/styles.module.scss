@@ -9,7 +9,7 @@
 
   & > p {
     text-align: center;
-    width: calc(100% / 6);
+    width: calc(100% / 7);
 
     &:first-child {
       text-align: left;
@@ -35,7 +35,7 @@
 
   & > p {
     font-size: 15px;
-    width: calc(100% / 6);
+    width: calc(100% / 7);
     text-overflow: ellipsis;
     display: -webkit-box;
     -webkit-line-clamp: 2;

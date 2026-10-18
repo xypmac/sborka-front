@@ -16,6 +16,7 @@ export default function List({ isAdmin, users }: ListProps) {
         <p>Телефон</p>
         <p>E-mail</p>
         <p>Адрес</p>
+        <p>Тип</p>
         <p>Активен</p>
       </div>
       {users.map((user: User) => {
@@ -30,6 +31,7 @@ export default function List({ isAdmin, users }: ListProps) {
             active={user.ACTIVE}
             phone={user.PHONE_NUMBER || '-'}
             email={user.EMAIL}
+            group={user.GROUP_ID}
           />
         );
       })}

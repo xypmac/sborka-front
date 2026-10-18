@@ -7,4 +7,5 @@ export type UserLineProps = {
   id: string;
   active: string;
   isAdmin: boolean;
+  group: string;
 };
